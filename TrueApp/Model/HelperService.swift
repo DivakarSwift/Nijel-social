@@ -56,7 +56,7 @@ class HelperService{
     
     static func sendDataToDatabase(photoUrl:String, videoUrl: String? = nil, ratio:CGFloat, story:String, onSuccess: @escaping () -> Void){
         let newPostId = Api.Post.REF_POSTS.childByAutoId().key
-        let newPostReference = Api.Post.REF_POSTS.child(newPostId)
+        let newPostReference = Api.Post.REF_POSTS.child(newPostId ?? "")
         
         guard let currentUser = Auth.auth().currentUser else{
             return
@@ -77,7 +77,7 @@ class HelperService{
                 ProgressHUD.showError(error!.localizedDescription)
                 return
             }
-            Api.Feed.REF_FEED.child(Auth.auth().currentUser!.uid).child(newPostId).setValue(true)
+            Api.Feed.REF_FEED.child(Auth.auth().currentUser!.uid).child(newPostId ?? "").setValue(true)
             Api.Follow.REF_FOLLOWERS.child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {
                 snapshot in
                 let arraySnapshot = snapshot.children.allObjects as! [DataSnapshot]
@@ -85,11 +85,11 @@ class HelperService{
                     print(child.key)
                     Api.Feed.REF_FEED.child(child.key).updateChildValues(["\(newPostId)" :true])
                     let newNotificationId = Api.Notification.REF_NOTIFICATION.child(child.key).childByAutoId().key
-                    let newNotificationReference = Api.Notification.REF_NOTIFICATION.child(child.key).child(newNotificationId)
+                    let newNotificationReference = Api.Notification.REF_NOTIFICATION.child(child.key).child(newNotificationId ?? "")
                     newNotificationReference.setValue(["from" : Auth.auth().currentUser!.uid, "type": "feed", "objectId": newPostId, "timestamp": timestamp])
                 })
             })
-            let myPostRef = Api.MyPosts.REF_MYPOSTS.child(currentUserId).child(newPostId)
+            let myPostRef = Api.MyPosts.REF_MYPOSTS.child(currentUserId).child(newPostId ?? "")
             myPostRef.setValue(true, withCompletionBlock: {(error, ref) in
                 if error != nil{
                     ProgressHUD.showError(error!.localizedDescription)

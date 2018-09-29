@@ -75,7 +75,7 @@ class NewWritingPostViewController: UIViewController {
         let ref = Database.database().reference()
         let postsReference = ref.child("posts")
         let newPostId = postsReference.childByAutoId().key
-        let newPostReference = postsReference.child(newPostId)
+        let newPostReference = postsReference.child(newPostId ?? "")
         guard let currentUser = Auth.auth().currentUser else{
             return
         }
@@ -86,7 +86,7 @@ class NewWritingPostViewController: UIViewController {
 //                ProgressHUD.showError(error!.localizedDescription)
 //                return
 //            }
-            let myPostRef = Api.MyPosts.REF_MYPOSTS.child(currentUserId).child(newPostId)
+            let myPostRef = Api.MyPosts.REF_MYPOSTS.child(currentUserId).child(newPostId ?? "")
             myPostRef.setValue(true, withCompletionBlock: {(error, ref) in
                 if error != nil{
                     ProgressHUD.showError(error!.localizedDescription)

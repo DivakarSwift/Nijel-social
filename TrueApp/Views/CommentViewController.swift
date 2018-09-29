@@ -108,7 +108,7 @@ class CommentViewController: UIViewController {
     @IBAction func sendButton_TouchUpInside(_ sender: Any) {
         let commentsReference = Api.Comment.REF_COMMENTS
         let newCommentId = commentsReference.childByAutoId().key
-        let newCommentReference = commentsReference.child(newCommentId)
+        let newCommentReference = commentsReference.child(newCommentId ?? "")
         guard let currentUser = Auth.auth().currentUser else{ // should be guard let currentUser = Api.User.CURRENT_USER else
             return
         }
@@ -119,7 +119,7 @@ class CommentViewController: UIViewController {
                 ProgressHUD.showError(error!.localizedDescription)
                 return
             }
-            let postCommentRef = Api.Post_Comment.REF_POST_COMMENTS.child(self.postId).child(newCommentId)
+            let postCommentRef = Api.Post_Comment.REF_POST_COMMENTS.child(self.postId).child(newCommentId ?? "")
             postCommentRef.setValue(true, withCompletionBlock: {(error, ref) in
                 if error != nil{
                     ProgressHUD.showError(error!.localizedDescription)
