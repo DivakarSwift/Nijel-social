@@ -102,12 +102,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         //signUpButton.isUserInteractionEnabled = false
         handleTextField()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification){
-        let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
+        let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
         UIView.animate(withDuration: 0.3){
            // self.constraintToBottom.constant = (keyboardFrame!.height) //WONT WORK WITHOUT
             self.view.layoutIfNeeded()
@@ -124,11 +124,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     func handleTextField(){
-        FullNameTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControlEvents.editingChanged)
-        PhoneNumberTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControlEvents.editingChanged)
-        EmailTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControlEvents.editingChanged)
-        usernameTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControlEvents.editingChanged)
-        passwordTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControlEvents.editingChanged)
+        FullNameTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControl.Event.editingChanged)
+        PhoneNumberTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControl.Event.editingChanged)
+        EmailTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControl.Event.editingChanged)
+        usernameTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControl.Event.editingChanged)
+        passwordTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControl.Event.editingChanged)
     }
     @objc func textFieldDidChange(){
         guard let username = usernameTextField.text, !username.isEmpty, let email = EmailTextField.text, !email.isEmpty, let fullname = FullNameTextField.text, !fullname.isEmpty, let phonenumber = PhoneNumberTextField.text, !phonenumber.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
@@ -136,7 +136,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             signUpButton.isEnabled = false
             return
         }
-        signUpButton.setTitleColor(UIColor.white, for: UIControlState.normal)
+        signUpButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         signUpButton.isEnabled = true
     }
 
@@ -174,7 +174,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             }
             let uid = Auth.auth().currentUser!.uid
             let storageRef = Storage.storage().reference(forURL: "gs://first-76cc5.appspot.com").child("ppo orofile_image").child(uid)
-            if let profileImage = self.selectedImage, let imageData = UIImageJPEGRepresentation(profileImage, 0.1) { //imageData problem
+            if let profileImage = self.selectedImage, let imageData = profileImage.jpegData(compressionQuality: 0.1) { //imageData problem
                 storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
                     if error != nil {
                         ProgressHUD.dismiss()
@@ -213,7 +213,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
 }
 
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         print("did Finish Picking Media")
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage{
             selectedImage = image
@@ -224,3 +227,8 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
 }
 
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}

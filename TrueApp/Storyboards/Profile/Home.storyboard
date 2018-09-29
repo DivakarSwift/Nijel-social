@@ -758,7 +758,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhP-Yw-Wpk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-11374" y="-9021"/>
+            <point key="canvasLocation" x="-8212" y="-8579"/>
         </scene>
         <!--Home-->
         <scene sceneID="Fva-fW-wHp">
@@ -1282,12 +1282,14 @@
                                         <constraint firstItem="KV4-fF-EcU" firstAttribute="top" secondItem="eiz-TU-geP" secondAttribute="bottom" constant="20" id="zmv-Kh-dVO"/>
                                     </constraints>
                                     <connections>
+                                        <outlet property="createPost" destination="X8l-2d-Tjs" id="M0P-Yh-5mI"/>
                                         <outlet property="followButton" destination="VuZ-xV-SYy" id="jV9-IM-MDy"/>
                                         <outlet property="followersCountLabel" destination="tLF-9h-ktr" id="1Mk-HS-a2y"/>
                                         <outlet property="followingCountLabel" destination="B3L-bb-aZU" id="dWv-qJ-m85"/>
                                         <outlet property="myPostsCountLabel" destination="BWQ-nz-Tdp" id="Dwk-Nc-pQr"/>
                                         <outlet property="nameLabel" destination="Zsr-wT-WuD" id="Cj8-BI-Ydb"/>
                                         <outlet property="profileImage" destination="E82-Xm-Uxv" id="Alh-NE-dN1"/>
+                                        <outlet property="segmentControll" destination="eiz-TU-geP" id="ElH-da-um3"/>
                                         <outlet property="subTextProfileLabel" destination="ifz-YX-i9t" id="ixt-NI-Swn"/>
                                         <outlet property="userBio" destination="sNk-bf-eGW" id="ggJ-2B-4X9"/>
                                     </connections>

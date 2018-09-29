@@ -16,8 +16,6 @@ class CreateUsernameViewController: UIViewController {
     @IBAction func Next(_ sender: UIButton) {
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

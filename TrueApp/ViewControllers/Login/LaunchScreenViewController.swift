@@ -21,6 +21,10 @@ class LaunchScreenViewController: UIViewController {
         present(vc, animated: false, completion: nil)
     }
     
+    class func instantiate() -> LaunchScreenViewController {
+        return StoryboardControllerProvider<LaunchScreenViewController>.controller(storyboardName: "LoginViewController")!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

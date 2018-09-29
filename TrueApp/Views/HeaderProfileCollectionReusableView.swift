@@ -36,9 +36,8 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
     
     @IBOutlet weak var userBio: UITextField!
     
-    @IBOutlet weak var userHomeButton: UIButton!
-    
-    @IBOutlet weak var userPostsButton: UIButton!
+    @IBOutlet weak var createPost: UIButton!
+    @IBOutlet weak var segmentControll: UISegmentedControl!
     
     var delegate: HeaderProfileCollectionReusableViewDelegate?
     var delegate2: HeaderProfileCollectionReusableViewDelegateSwitchSettingVC?
@@ -60,8 +59,6 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
         profileImage.clipsToBounds = true
         userBio.delegate = self
         userBio.tag = 0
-
-
     }
     
     
@@ -79,9 +76,6 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
        // view.endEditing(true) //would make it so i could touch out of text field and keyboard will disappear
     }
-    
-    
-    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
@@ -115,11 +109,11 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
         }
         
         if user?.id == Auth.auth().currentUser!.uid{
-            followButton.setTitle("Edit Profile", for: UIControlState.normal)
-            followButton.addTarget(self, action: #selector(self.goToSettingVC), for: UIControlEvents.touchUpInside)
+            followButton.setTitle("Edit Profile", for: UIControl.State.normal)
+            followButton.addTarget(self, action: #selector(self.goToSettingVC), for: UIControl.Event.touchUpInside)
             //nameLabel.text = user?.fullName
 
-        }else{
+        } else {
             updateStateFollowButton()
         }
     }
@@ -149,25 +143,26 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
         followButton.layer.borderColor = UIColor(red: 226/255, green: 228/255, blue: 232/255, alpha: 1).cgColor
         followButton.layer.cornerRadius = 5
         followButton.clipsToBounds = true
-        followButton.setTitleColor(UIColor.white, for: UIControlState.normal)
+        followButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         followButton.backgroundColor = UIColor(red: 69/255, green: 142/255, blue: 255/255, alpha: 1)
-        followButton.setTitle("Follow", for: UIControlState.normal)
-        followButton.addTarget(self, action: #selector(self.followAction), for: UIControlEvents.touchUpInside)
+        followButton.setTitle("Follow", for: UIControl.State.normal)
+        followButton.addTarget(self, action: #selector(self.followAction), for: UIControl.Event.touchUpInside)
     }
+    
     func configureUnFollowButton(){
         followButton.layer.borderWidth = 1
         followButton.layer.borderColor = UIColor(red: 226/255, green: 228/255, blue: 232/255, alpha: 1).cgColor
         followButton.layer.cornerRadius = 5
         followButton.clipsToBounds = true
         
-        followButton.setTitleColor(UIColor.black, for: UIControlState.normal)
+        followButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
         followButton.backgroundColor = UIColor.clear
-        followButton.setTitle("Following", for: UIControlState.normal)
-        followButton.addTarget(self, action: #selector(self.unFollowAction), for: UIControlEvents.touchUpInside)
+        followButton.setTitle("Following", for: UIControl.State.normal)
+        followButton.addTarget(self, action: #selector(self.unFollowAction), for: UIControl.Event.touchUpInside)
     }
     
-    @objc func followAction(){
-        if user!.isFollowing! == false{
+    @objc func followAction() {
+        if user!.isFollowing! == false {
             Api.Follow.followAction(withUser: user!.id!)
             configureUnFollowButton()
             user!.isFollowing! = true
@@ -175,7 +170,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
         }
     }
     
-    @objc func unFollowAction(){
+    @objc func unFollowAction() {
         if user!.isFollowing == true{
             Api.Follow.unFollowAction(withUser: user!.id!)
             configureFollowButton()
@@ -184,18 +179,20 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
 
         }
     }
+    
     func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
         //DONT KNOW TRYING TO SELECT PROF IMAGE
     }
     
-    func dismiss(animated flag: Bool,
-                 completion: (() -> Void)? = nil){ //DONT KNOW IF RIGHT
-        
+    func dismiss(animated flag: Bool, completion: (() -> Void)? = nil){ //DONT KNOW IF RIGHT
     }
-
-} //EXTENSION FOR SELECTE|ING PROF IMAGE
+}
+//EXTENSION FOR SELECTE|ING PROF IMAGE
 extension HeaderProfileCollectionReusableView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        // Local variable inserted by Swift 4.2 migrator.
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+        
         print("did Finish Picking Media")
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             selectedImage = image
@@ -206,3 +203,8 @@ extension HeaderProfileCollectionReusableView: UIImagePickerControllerDelegate, 
 }
 
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}

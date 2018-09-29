@@ -43,7 +43,7 @@ class PeopleTableViewCell: UITableViewCell {
     func setUpUI() {
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: profileImage.frame.width/4, y: profileImage.frame.height/4, width: profileImage.frame.width/2, height: profileImage.frame.height/2))
         nameLabel.text = user?.username
-        activityIndicator.activityIndicatorViewStyle = .gray
+        activityIndicator.style = .gray
         activityIndicator.hidesWhenStopped = true
         profileImage.layer.cornerRadius = 8
         profileImage.addSubview(activityIndicator)
@@ -61,9 +61,9 @@ class PeopleTableViewCell: UITableViewCell {
         followButton.layer.borderColor = UIColor(red: 226/255, green: 228/255, blue: 232/255, alpha: 1).cgColor
         followButton.layer.cornerRadius = 5
         followButton.clipsToBounds = true
-        followButton.setTitleColor(UIColor.white, for: UIControlState.normal)
+        followButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         followButton.backgroundColor = UIColor(red: 69/255, green: 142/255, blue: 255/255, alpha: 1)
-        followButton.setTitle("Follow", for: UIControlState.normal)
+        followButton.setTitle("Follow", for: UIControl.State.normal)
         //followButton.addTarget(self, action: #selector(self.followAction), for: UIControlEvents.touchUpInside)
     }
     func configureUnFollowButton(){
@@ -72,9 +72,9 @@ class PeopleTableViewCell: UITableViewCell {
         followButton.layer.cornerRadius = 5
         followButton.clipsToBounds = true
         
-        followButton.setTitleColor(UIColor.black, for: UIControlState.normal)
+        followButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
         followButton.backgroundColor = UIColor.clear
-        followButton.setTitle("Following", for: UIControlState.normal)
+        followButton.setTitle("Following", for: UIControl.State.normal)
        // followButton.addTarget(self, action: #selector(self.unFollowAction), for: UIControlEvents.touchUpInside)
     }
     

@@ -131,10 +131,10 @@ class FeedTableViewCell: UITableViewCell {
     @IBAction func volumeButton_TouchUpInside(_ sender: UIButton) {
         if isMuted{
             isMuted = !isMuted
-            volumeButton.setImage(UIImage(named: "volume"), for: UIControlState.normal)
+            volumeButton.setImage(UIImage(named: "volume"), for: UIControl.State.normal)
         } else{
             isMuted = !isMuted
-            volumeButton.setImage(UIImage(named: "mute"), for: UIControlState.normal)
+            volumeButton.setImage(UIImage(named: "mute"), for: UIControl.State.normal)
         }
         player?.isMuted = isMuted
     }
@@ -147,9 +147,9 @@ class FeedTableViewCell: UITableViewCell {
             return
         }
         if count != 0{
-            likeCountButton.setTitle("\(count) likes", for: UIControlState.normal)
+            likeCountButton.setTitle("\(count) likes", for: UIControl.State.normal)
         } else{
-            likeCountButton.setTitle("Be the first to like this", for: UIControlState.normal)
+            likeCountButton.setTitle("Be the first to like this", for: UIControl.State.normal)
         }
     }
     

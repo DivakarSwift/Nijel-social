@@ -18,13 +18,11 @@ enum UserPostsViewControllerType {
 class UserPostsViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var createPostButton: UIButton!
-    @IBOutlet weak var segmentControll: UISegmentedControl!
     
     var user : User!
     var posts : [Post] = []
     var image: UIImage?
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    let activityIndicator = UIActivityIndicatorView(style: .gray)
     var type: UserPostsViewControllerType!
     
     class func instantiate(user: User,type: UserPostsViewControllerType) -> UserPostsViewController {
@@ -40,11 +38,9 @@ class UserPostsViewController: UIViewController {
         collectionView.delegate = self
         fetchUser()
         fetchMyPosts()
-        //createPostButton.layer.cornerRadius = 8
         if type == .notMyPosts {
             let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
             navigationItem.setLeftBarButton(backButton, animated: true)
-            //createPostButton.isHidden = false
         }
     }
     
@@ -90,6 +86,8 @@ class UserPostsViewController: UIViewController {
     }
     
     @IBAction func createButtonPressed(_ sender: UIButton) {
+        let vc = CreatePostViewController.instantiate()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func segmentControllValueChanged(_ sender: UISegmentedControl) {
@@ -110,12 +108,17 @@ extension UserPostsViewController: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerViewCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "HeaderProfileCollectionReusableView", for: indexPath) as! HeaderProfileCollectionReusableView
+        let headerViewCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderProfileCollectionReusableView", for: indexPath) as! HeaderProfileCollectionReusableView
         if let user = self.user {
             headerViewCell.user = user
             if let image = self.image {
                 headerViewCell.profileImage.image = image
             }
+        }
+        if type == .notMyPosts {
+            headerViewCell.segmentControll.isHidden = true
+            headerViewCell.createPost.isHidden = false
+            headerViewCell.createPost.layer.cornerRadius = 8
         }
         activityIndicator.frame = CGRect(x: headerViewCell.profileImage.frame.width/2, y: headerViewCell.profileImage.frame.height/2, width: 36, height: 36)
         activityIndicator.hidesWhenStopped = true

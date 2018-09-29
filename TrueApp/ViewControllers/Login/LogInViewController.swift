@@ -88,8 +88,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func handleTextField(){
-        emailTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControlEvents.editingChanged)
-        Password.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControlEvents.editingChanged)
+        emailTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControl.Event.editingChanged)
+        Password.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControl.Event.editingChanged)
     }
     
     
@@ -99,7 +99,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             logInButton.isEnabled = false
             return
         }
-        logInButton.setTitleColor(UIColor.white, for: UIControlState.normal)
+        logInButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         logInButton.backgroundColor = UIColor.black
         logInButton.isEnabled = true
     }

@@ -13,14 +13,8 @@ import FirebaseAuth
 class ForgotPWViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
-    
-    
     @IBOutlet weak var orTextField: UILabel!
-    
-    
     @IBOutlet weak var phoneNumberTextField: UITextField!
-    
-    
     @IBOutlet weak var sendButton: UIButton!
     
     class func instantiate() -> ForgotPWViewController {
@@ -74,16 +68,16 @@ class ForgotPWViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func submitAction(_ sender: AnyObject) {
-        let alertController = UIAlertController(title: "Check email for reset message", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "Check email for reset message", message: "", preferredStyle: UIAlertController.Style.alert)
         Auth.auth().sendPasswordReset(withEmail: "\(self.emailTextField.text!)") { error in
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
         }
-        let saveAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { alert -> Void in
+        let saveAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { alert -> Void in
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
             (action : UIAlertAction!) -> Void in })
         
         alertController.addAction(saveAction)

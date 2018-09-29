@@ -15,6 +15,10 @@ class LaunchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if Auth.auth().currentUser != nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
@@ -28,6 +32,9 @@ class LaunchViewController: UIViewController {
                 ProgressHUD.dismiss()
                 self.present(vc, animated: false, completion: nil)
             }
+        } else {
+            let vc = LaunchScreenViewController.instantiate()
+            self.present(vc, animated: false, completion: nil)
         }
     }
     

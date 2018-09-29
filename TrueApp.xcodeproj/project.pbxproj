@@ -12,6 +12,10 @@
 		114E143F215BA77C0063EB73 /* LaunchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 114E143E215BA77C0063EB73 /* LaunchViewController.storyboard */; };
 		114E1443215BA7F90063EB73 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E1442215BA7F90063EB73 /* LaunchViewController.swift */; };
 		114E1447215CAF5C0063EB73 /* PeopleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 114E1446215CAF5C0063EB73 /* PeopleTableViewCell.xib */; };
+		114E144C215CDAE70063EB73 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E144B215CDAE70063EB73 /* CreatePostViewController.swift */; };
+		114E144F215CE43E0063EB73 /* CreatePostViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 114E144E215CE43E0063EB73 /* CreatePostViewController.storyboard */; };
+		114E1451215DF71E0063EB73 /* CreatePostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 114E1450215DF71E0063EB73 /* CreatePostTableViewCell.xib */; };
+		114E1453215DF8710063EB73 /* CreatePostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E1452215DF8710063EB73 /* CreatePostTableViewCell.swift */; };
 		8793462B69B6A88022113AFB /* Pods_TrueAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B0C170B66FF4E1DE0EF1F34 /* Pods_TrueAppUITests.framework */; };
 		9202CC42C9C2CA7B006A4EEA /* Pods_TrueAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FFABEDF87F8A1EE98B7EBCF /* Pods_TrueAppTests.framework */; };
 		E48C4BE3CCC1FE904819A767 /* Pods_TrueApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CACBA3FC8114A74C4B06E55 /* Pods_TrueApp.framework */; };
@@ -113,6 +117,10 @@
 		114E143E215BA77C0063EB73 /* LaunchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchViewController.storyboard; sourceTree = "<group>"; };
 		114E1442215BA7F90063EB73 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		114E1446215CAF5C0063EB73 /* PeopleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeopleTableViewCell.xib; sourceTree = "<group>"; };
+		114E144B215CDAE70063EB73 /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
+		114E144E215CE43E0063EB73 /* CreatePostViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreatePostViewController.storyboard; sourceTree = "<group>"; };
+		114E1450215DF71E0063EB73 /* CreatePostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatePostTableViewCell.xib; sourceTree = "<group>"; };
+		114E1452215DF8710063EB73 /* CreatePostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostTableViewCell.swift; sourceTree = "<group>"; };
 		44CB1E1B4AB0CB81862F6020 /* Pods-TrueAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrueAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrueAppTests/Pods-TrueAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8FFABEDF87F8A1EE98B7EBCF /* Pods_TrueAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrueAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B48E3AE255F3853CE750C57 /* Pods-TrueAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrueAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrueAppUITests/Pods-TrueAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -230,12 +238,12 @@
 		114E1436215B6AB60063EB73 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				114E144D215CE38C0063EB73 /* Profile */,
 				EAAED4F72138F03B00968C5B /* Main.storyboard */,
 				114E1440215BA7940063EB73 /* Launch */,
 				114E1437215B6CB20063EB73 /* LoginViewControllers */,
 				EAAED53B2138F3F900968C5B /* Create.storyboard */,
 				EAAED53D2138F40000968C5B /* Feed.storyboard */,
-				EAAED53F2138F41000968C5B /* Home.storyboard */,
 				EAAED5412138F41400968C5B /* Saved.storyboard */,
 				EAAED5432138F41800968C5B /* Search.storyboard */,
 			);
@@ -302,8 +310,18 @@
 			isa = PBXGroup;
 			children = (
 				EA4E8122214040BC005D8EDF /* UserPostsViewController.swift */,
+				114E144B215CDAE70063EB73 /* CreatePostViewController.swift */,
 			);
 			path = ProfileViewController;
+			sourceTree = "<group>";
+		};
+		114E144D215CE38C0063EB73 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				EAAED53F2138F41000968C5B /* Home.storyboard */,
+				114E144E215CE43E0063EB73 /* CreatePostViewController.storyboard */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		6CFD7D52FE8756E8955A8619 /* Frameworks */ = {
@@ -367,6 +385,8 @@
 				EA01C7832141FCDC008BE5DE /* PeopleTableViewCell.swift */,
 				114E1446215CAF5C0063EB73 /* PeopleTableViewCell.xib */,
 				EA01C77D21415942008BE5DE /* UserPostsCollectionViewCell.swift */,
+				114E1450215DF71E0063EB73 /* CreatePostTableViewCell.xib */,
+				114E1452215DF8710063EB73 /* CreatePostTableViewCell.swift */,
 			);
 			path = ViewCell;
 			sourceTree = "<group>";
@@ -548,13 +568,16 @@
 				TargetAttributes = {
 					EAAED4EF2138F03B00968C5B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 					EAAED5032138F03D00968C5B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = EAAED4EF2138F03B00968C5B;
 					};
 					EAAED50E2138F03D00968C5B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = EAAED4EF2138F03B00968C5B;
 					};
 				};
@@ -587,6 +610,7 @@
 				114E143F215BA77C0063EB73 /* LaunchViewController.storyboard in Resources */,
 				EAAED53E2138F40000968C5B /* Feed.storyboard in Resources */,
 				EA01C779214072CE008BE5DE /* GoogleService-Info.plist in Resources */,
+				114E144F215CE43E0063EB73 /* CreatePostViewController.storyboard in Resources */,
 				EAAED53C2138F3F900968C5B /* Create.storyboard in Resources */,
 				EAAED4FE2138F03C00968C5B /* LaunchScreen.storyboard in Resources */,
 				EAAED5422138F41400968C5B /* Saved.storyboard in Resources */,
@@ -596,6 +620,7 @@
 				114E1439215B6CDE0063EB73 /* LoginViewController.storyboard in Resources */,
 				EAAED5442138F41800968C5B /* Search.storyboard in Resources */,
 				EAAED4F92138F03B00968C5B /* Main.storyboard in Resources */,
+				114E1451215DF71E0063EB73 /* CreatePostTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,6 +777,7 @@
 				EA4E811D213F34F3005D8EDF /* CommentApi.swift in Sources */,
 				EAAED52E2138F29200968C5B /* ForgotPWViewController.swift in Sources */,
 				EAAED5322138F31500968C5B /* LaunchScreenViewController.swift in Sources */,
+				114E144C215CDAE70063EB73 /* CreatePostViewController.swift in Sources */,
 				EA72D073214EA4D900FEEC77 /* CreateEventViewController.swift in Sources */,
 				EA4E811F213F62D9005D8EDF /* Post_CommentApi.swift in Sources */,
 				EAC61E7C213B3C9400342FA3 /* TrueCreateViewController.swift in Sources */,
@@ -761,6 +787,7 @@
 				EA4AEAA1213EC6A4009219D9 /* Comment.swift in Sources */,
 				EAAED4F42138F03B00968C5B /* AppDelegate.swift in Sources */,
 				EA23A5B5213CD50D000B1736 /* Post.swift in Sources */,
+				114E1453215DF8710063EB73 /* CreatePostTableViewCell.swift in Sources */,
 				EA9B14322139FF320054A3E2 /* AuthServiceViewController.swift in Sources */,
 				EA72D06F2149C89300FEEC77 /* Notification.swift in Sources */,
 				EA4E811B213F33FD005D8EDF /* Api.swift in Sources */,
@@ -949,13 +976,14 @@
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEVELOPMENT_TEAM = 6ZTS4C5F38;
 				INFOPLIST_FILE = TrueApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -969,13 +997,14 @@
 				DEBUG_ACTIVITY_MODE = "";
 				DEVELOPMENT_TEAM = 6ZTS4C5F38;
 				INFOPLIST_FILE = TrueApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -996,7 +1025,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrueApp.app/TrueApp";
 			};
@@ -1018,7 +1047,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrueApp.app/TrueApp";
 			};
@@ -1039,7 +1068,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TrueApp;
 			};
@@ -1060,7 +1089,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TrueApp;
 			};

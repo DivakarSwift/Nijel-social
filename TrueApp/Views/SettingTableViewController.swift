@@ -49,7 +49,7 @@ class SettingTableViewController: UITableViewController {
         }
     }
     @IBAction func saveButton_TouchUpInside(_ sender: Any) {
-        if let profileImg = self.profileImageView.image, let imageData = UIImageJPEGRepresentation(profileImg, 0.1) {
+        if let profileImg = self.profileImageView.image, let imageData = profileImg.jpegData(compressionQuality: 0.1) {
             ProgressHUD.show("Waiting...")
             AuthServiceViewController.updateUserInfo(username: usernameTextField.text!, email: emailTextField.text!, imageData: imageData, phoneNumber: phoneNumberTextField.text!, fullName: fullNameTextField.text!, onSuccess: {
                 ProgressHUD.showSuccess("Success")
@@ -83,7 +83,10 @@ class SettingTableViewController: UITableViewController {
 }
 
 extension SettingTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         print("did Finish Picking Media")
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage{
             profileImageView.image = image
@@ -98,4 +101,9 @@ extension SettingTableViewController: UITextFieldDelegate{
         textField.resignFirstResponder()
         return true
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
 }

@@ -81,7 +81,7 @@ class ReadyToPostViewController: UIViewController {
     @IBAction func shareButton_TouchUpInside(_ sender: Any) {
         view.endEditing(true)
         ProgressHUD.show("Waiting...", interaction: false)
-        if let profileImg = self.selectedImage, let imageData = UIImageJPEGRepresentation(profileImg, 1) {
+        if let profileImg = self.selectedImage, let imageData = profileImg.jpegData(compressionQuality: 1) {
             let ratio = profileImg.size.width / profileImg.size.height
             HelperService.uploadDataToServer(data: imageData, videoUrl: self.videoUrl, ratio: ratio,  story: captionTextView.text!, onSuccess: {
                 self.clean()
@@ -146,7 +146,10 @@ class ReadyToPostViewController: UIViewController {
     }
 }
 extension ReadyToPostViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         print("did Finish Picking Media")
         print(info)
         
@@ -168,7 +171,7 @@ extension ReadyToPostViewController: UIImagePickerControllerDelegate, UINavigati
         let asset = AVAsset(url: fileUrl)
         let imageGenerator = AVAssetImageGenerator(asset: asset)
         do{
-            let thumbnailCGImage = try imageGenerator.copyCGImage(at: CMTimeMake(7, 1), actualTime: nil) //ACTUAL TIME might be needed to get the time when video was taken
+            let thumbnailCGImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 7, timescale: 1), actualTime: nil) //ACTUAL TIME might be needed to get the time when video was taken
             return UIImage(cgImage: thumbnailCGImage)
         } catch let err {
             print(err)
@@ -177,3 +180,8 @@ extension ReadyToPostViewController: UIImagePickerControllerDelegate, UINavigati
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
