@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QaE-gu-Lvh">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="577"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rhl-PM-24K">
@@ -58,7 +58,7 @@
                             <constraint firstItem="hpT-Cf-SaO" firstAttribute="bottom" secondItem="Rhl-PM-24K" secondAttribute="bottom" id="DX4-Od-Ulq"/>
                             <constraint firstItem="QaE-gu-Lvh" firstAttribute="top" secondItem="hpT-Cf-SaO" secondAttribute="top" id="F5U-TQ-pAk"/>
                             <constraint firstItem="QaE-gu-Lvh" firstAttribute="leading" secondItem="hpT-Cf-SaO" secondAttribute="leading" id="JUo-qV-fNF"/>
-                            <constraint firstItem="QaE-gu-Lvh" firstAttribute="bottom" secondItem="hpT-Cf-SaO" secondAttribute="bottom" id="To0-mn-ESV"/>
+                            <constraint firstItem="QaE-gu-Lvh" firstAttribute="bottom" secondItem="hpT-Cf-SaO" secondAttribute="bottom" constant="-70" id="To0-mn-ESV"/>
                             <constraint firstItem="hpT-Cf-SaO" firstAttribute="trailing" secondItem="QaE-gu-Lvh" secondAttribute="trailing" id="a5h-1F-wyQ"/>
                             <constraint firstItem="Rhl-PM-24K" firstAttribute="trailing" secondItem="hpT-Cf-SaO" secondAttribute="trailing" id="bnI-Bd-Qsl"/>
                             <constraint firstItem="Rhl-PM-24K" firstAttribute="leading" secondItem="hpT-Cf-SaO" secondAttribute="leading" id="qL5-Xj-yGT"/>
