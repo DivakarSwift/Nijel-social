@@ -32,6 +32,16 @@ class UserPostsViewController: UIViewController {
         return vc
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
+        Api.User.observeCurrentUser{ (user) in
+            self.user = user
+            self.fetchUser()
+            self.fetchPosts()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchPosts()
@@ -42,10 +52,6 @@ class UserPostsViewController: UIViewController {
             let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
             navigationItem.setLeftBarButton(backButton, animated: true)
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     func fetchUser() {
@@ -108,6 +114,7 @@ extension UserPostsViewController: UICollectionViewDataSource{
             if let image = self.image {
                 headerViewCell.profileImage.image = image
             }
+            headerViewCell.myPostsCountLabel.text = "Posts: \(user.myPosts?.count)"
         }
         if type == .notMyPosts {
             headerViewCell.segmentControll.isHidden = true

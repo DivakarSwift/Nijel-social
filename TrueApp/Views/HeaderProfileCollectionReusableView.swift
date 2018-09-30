@@ -38,6 +38,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
     
     @IBOutlet weak var createPost: UIButton!
     @IBOutlet weak var segmentControll: UISegmentedControl!
+    @IBOutlet weak var postsCountLabel: UILabel!
     
     var delegate: HeaderProfileCollectionReusableViewDelegate?
     var delegate2: HeaderProfileCollectionReusableViewDelegateSwitchSettingVC?

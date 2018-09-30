@@ -1230,8 +1230,8 @@
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posts: 21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KV4-fF-EcU">
-                                            <rect key="frame" x="8" y="431" width="72.5" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posts:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KV4-fF-EcU">
+                                            <rect key="frame" x="8" y="431" width="50" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1301,6 +1301,7 @@
                                         <outlet property="followingCountLabel" destination="B3L-bb-aZU" id="dWv-qJ-m85"/>
                                         <outlet property="myPostsCountLabel" destination="BWQ-nz-Tdp" id="Dwk-Nc-pQr"/>
                                         <outlet property="nameLabel" destination="Zsr-wT-WuD" id="Cj8-BI-Ydb"/>
+                                        <outlet property="postsCountLabel" destination="KV4-fF-EcU" id="CeW-8I-upy"/>
                                         <outlet property="profileImage" destination="E82-Xm-Uxv" id="Alh-NE-dN1"/>
                                         <outlet property="segmentControll" destination="eiz-TU-geP" id="ElH-da-um3"/>
                                         <outlet property="subTextProfileLabel" destination="ifz-YX-i9t" id="ixt-NI-Swn"/>

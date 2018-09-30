@@ -39,6 +39,7 @@ class PostViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         tableView.separatorStyle = .none
         imageView.image = commentatorImage
+        imageView.layer.cornerRadius = 8
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -97,7 +98,7 @@ extension PostViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
 }
 
