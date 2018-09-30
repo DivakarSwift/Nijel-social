@@ -54,7 +54,6 @@ class UserApi{
         })
     }
     func queryUsers(withText text : String, completion: @escaping ([User]) -> Void) {
-        let text = text.lowercased()
         REF_USERS.queryOrdered(byChild: "username").queryStarting(atValue: text).queryEnding(atValue: text + "\u{f8ff}").queryLimited(toFirst: 10).observeSingleEvent(of: .value, with: { snapshot in
             var users = [User]()
             for child in snapshot.children {

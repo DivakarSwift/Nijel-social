@@ -84,6 +84,14 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     @objc func post() {
+        if image == nil {
+            let alertController = UIAlertController(title: "Warning", message: "Set image to your profile", preferredStyle: UIAlertController.Style.alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
         ProgressHUD.show()
         let database = Database.database().reference().child("posts").childByAutoId()
         if let uid = Auth.auth().currentUser?.uid {

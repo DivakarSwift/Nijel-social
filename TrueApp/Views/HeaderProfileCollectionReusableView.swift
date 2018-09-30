@@ -114,7 +114,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
             //nameLabel.text = user?.fullName
 
         } else {
-            updateStateFollowButton()
+            //updateStateFollowButton()
         }
     }
     

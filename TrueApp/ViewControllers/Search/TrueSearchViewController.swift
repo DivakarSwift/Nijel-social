@@ -32,6 +32,7 @@ class TrueSearchViewController: UIViewController {
         let searchItem = UIBarButtonItem(customView: searchBar)
         self.navigationItem.rightBarButtonItem = searchItem
         tableView.register(UINib(nibName: "PeopleTableViewCell", bundle: nil), forCellReuseIdentifier: "PeopleTableViewCell")
+        tableView.separatorStyle = .none
     }
     
     func search(searchText: String){

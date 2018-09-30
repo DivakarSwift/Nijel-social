@@ -160,11 +160,16 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         return false
     }
     
-    
-    
-    
     @IBAction func signUpBtn_TouchUpInside(_ sender: Any) {
         view.endEditing(true)
+        if selectedImage == nil {
+            let alertController = UIAlertController(title: "Warning", message: "Set image to your profile", preferredStyle: UIAlertController.Style.alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
         ProgressHUD.show("Waiting...", interaction: false)
         Auth.auth().createUser(withEmail: EmailTextField.text!,password: passwordTextField.text!) { (user: AuthDataResult?, error: Error?) in
             if error != nil {

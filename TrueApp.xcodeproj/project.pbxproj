@@ -21,6 +21,7 @@
 		114E1459216128210063EB73 /* CommentHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E1458216128210063EB73 /* CommentHeadCell.swift */; };
 		114E145B216128690063EB73 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 114E145A216128690063EB73 /* CommentCell.xib */; };
 		114E145D216131760063EB73 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E145C216131760063EB73 /* CommentCell.swift */; };
+		115FC3252161363D004C7DF8 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115FC3242161363D004C7DF8 /* PostViewController.swift */; };
 		8793462B69B6A88022113AFB /* Pods_TrueAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B0C170B66FF4E1DE0EF1F34 /* Pods_TrueAppUITests.framework */; };
 		9202CC42C9C2CA7B006A4EEA /* Pods_TrueAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FFABEDF87F8A1EE98B7EBCF /* Pods_TrueAppTests.framework */; };
 		E48C4BE3CCC1FE904819A767 /* Pods_TrueApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CACBA3FC8114A74C4B06E55 /* Pods_TrueApp.framework */; };
@@ -131,6 +132,7 @@
 		114E1458216128210063EB73 /* CommentHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeadCell.swift; sourceTree = "<group>"; };
 		114E145A216128690063EB73 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		114E145C216131760063EB73 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		115FC3242161363D004C7DF8 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		44CB1E1B4AB0CB81862F6020 /* Pods-TrueAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrueAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrueAppTests/Pods-TrueAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8FFABEDF87F8A1EE98B7EBCF /* Pods_TrueAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrueAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B48E3AE255F3853CE750C57 /* Pods-TrueAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrueAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrueAppUITests/Pods-TrueAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 			children = (
 				EA4E8122214040BC005D8EDF /* UserPostsViewController.swift */,
 				114E144B215CDAE70063EB73 /* CreatePostViewController.swift */,
+				115FC3242161363D004C7DF8 /* PostViewController.swift */,
 			);
 			path = ProfileViewController;
 			sourceTree = "<group>";
@@ -788,6 +791,7 @@
 				EAAED5342138F36C00968C5B /* LogInViewController.swift in Sources */,
 				EA01C7902144A60C008BE5DE /* SettingTableViewController.swift in Sources */,
 				EAA8C664213E12510006A56B /* CommentViewController.swift in Sources */,
+				115FC3252161363D004C7DF8 /* PostViewController.swift in Sources */,
 				EAA8C668213E12B10006A56B /* CommentTableViewCell.swift in Sources */,
 				EA9422B121497D3B0092B834 /* ActivityTableViewCell.swift in Sources */,
 				EA01C78021419A25008BE5DE /* HelperService.swift in Sources */,
@@ -995,7 +999,10 @@
 				DEVELOPMENT_TEAM = 6ZTS4C5F38;
 				INFOPLIST_FILE = TrueApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1013,7 +1020,10 @@
 				DEVELOPMENT_TEAM = 6ZTS4C5F38;
 				INFOPLIST_FILE = TrueApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1030,7 +1040,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6ZTS4C5F38;
 				INFOPLIST_FILE = TrueAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1048,7 +1062,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6ZTS4C5F38;
 				INFOPLIST_FILE = TrueAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1065,7 +1083,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6ZTS4C5F38;
 				INFOPLIST_FILE = TrueAppUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1082,7 +1104,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6ZTS4C5F38;
 				INFOPLIST_FILE = TrueAppUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
