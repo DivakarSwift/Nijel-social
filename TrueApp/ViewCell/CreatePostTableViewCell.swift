@@ -39,7 +39,11 @@ extension CreatePostTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let size = CGSize(width: self.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
-        textViewHeightConstraint.constant = estimatedSize.height
+        if estimatedSize.height > 20 {
+            textViewHeightConstraint.constant = estimatedSize.height
+        } else {
+            textViewHeightConstraint.constant = 20
+        }
         layoutIfNeeded()
     }
 }

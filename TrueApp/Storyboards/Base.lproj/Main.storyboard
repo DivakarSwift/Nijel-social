@@ -315,11 +315,11 @@
         <scene sceneID="cks-mp-LLK">
             <objects>
                 <viewController storyboardIdentifier="UIViewController-DUA-2B-OQS" title="Trophies/Achievements" id="OCh-O5-qxM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="gDz-li-bRu">
+                    <view key="view" contentMode="scaleToFill" id="gDz-li-bRu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jf7-6c-RGm">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jf7-6c-RGm">
                                 <rect key="frame" x="0.0" y="20" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kwk-DP-fQw">
@@ -948,7 +948,7 @@
         <scene sceneID="azx-zc-dhT">
             <objects>
                 <viewController storyboardIdentifier="SettingsViewController" title="Settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QBA-ql-ROd" customClass="SettingsViewController" customModule="TrueApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VXb-gW-hxx">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="VXb-gW-hxx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2616,11 +2616,11 @@
         <scene sceneID="j7v-05-Ldq">
             <objects>
                 <viewController storyboardIdentifier="UIViewController-RKy-GI-fI5" title="OtherUserHome" id="nBp-5h-cKJ" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="eJh-hU-Nh5">
+                    <view key="view" contentMode="scaleToFill" id="eJh-hU-Nh5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dK5-SJ-qtH">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dK5-SJ-qtH">
                                 <rect key="frame" x="0.0" y="20" width="375" height="792"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VkH-9h-UQf">

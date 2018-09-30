@@ -42,28 +42,28 @@ class TrueFeedViewController: UIViewController {
     func loadPosts(){
         
         Api.Feed.observeFeed(withId: Auth.auth().currentUser!.uid) { (post) in //switched Api.User.CURRENT_USER! to Auth.auth().currentUser!
-            guard let postUid = post.uid else{
-                return
-            }
-            self.fetchUser(uid: postUid, completed:{
-                self.posts.insert(post, at: 0)
-                self.tableView.reloadData()
-        })
+//            guard let postUid = post.uid else{
+//                return
+//            }
+//            self.fetchUser(uid: postUid, completed:{
+//                self.posts.insert(post, at: 0)
+//                self.tableView.reloadData()
+//        })
         }
-        Api.Feed.getRecentFeed(withId: Auth.auth().currentUser!.uid, start: posts.first?.timestamp, limit: 5) { (results) in
-            if results.count > 0{
-                results.forEach({ (result) in
-                    self.posts.append(result.0)
-                    self.users.append(result.1)
-                })
-            }
-            self.tableView.reloadData()
-        }
+//        Api.Feed.getRecentFeed(withId: Auth.auth().currentUser!.uid, start: posts.first?.timestamp, limit: 5) { (results) in
+//            if results.count > 0{
+//                results.forEach({ (result) in
+//                    self.posts.append(result.0)
+//                    self.users.append(result.1)
+//                })
+//            }
+//            self.tableView.reloadData()
+//        }
         
         Api.Feed.observeFeedRemoved(withId: Auth.auth().currentUser!.uid) { (post) in
-            self.posts = self.posts.filter{ $0.id != post.id }
-            self.users = self.users.filter{ $0.id != post.uid }
-            self.tableView.reloadData()
+//            self.posts = self.posts.filter{ $0.id != post.id }
+//            self.users = self.users.filter{ $0.id != post.uid }
+//            self.tableView.reloadData()
         }
     }
         

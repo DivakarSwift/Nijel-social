@@ -21,28 +21,28 @@ class FeedApi{
         })
     }
     
-    func getRecentFeed(withId id: String, start timestamp: Int? = nil, limit: UInt, completion: @escaping ([(Post, User)]) -> Void){
-        let feedQuery = REF_FEED.child(id).queryOrdered(byChild: "timestamp").queryLimited(toLast: limit)
-        var  results: [(post: Post, user: User)] = []
-        feedQuery.observeSingleEvent(of: DataEventType.value) {
-            snapshot in
-            let items = snapshot.children.allObjects as! [DataSnapshot]
-            let myGroup = DispatchGroup()
-            for(index, item) in items.enumerated(){
-                myGroup.enter()
-                Api.Post.observePost(withId: item.key, completion: { (post) in
-                    Api.User.observeUser(withId: post.uid!, completion: { (user) in
-                        results.insert((post, user), at: index)
-                        myGroup.leave()
-                    })
-                })
-            }
-            myGroup.notify(queue: DispatchQueue.main, execute: {
-                results.sort(by: {$0.0.timestamp! > $1.0.timestamp!})
-                completion(results)
-            })
-        }
-    }
+//    func getRecentFeed(withId id: String, start timestamp: Int? = nil, limit: UInt, completion: @escaping ([(Post, User)]) -> Void){
+//        let feedQuery = REF_FEED.child(id).queryOrdered(byChild: "timestamp").queryLimited(toLast: limit)
+//        var  results: [(post: Post, user: User)] = []
+//        feedQuery.observeSingleEvent(of: DataEventType.value) {
+//            snapshot in
+//            let items = snapshot.children.allObjects as! [DataSnapshot]
+//            let myGroup = DispatchGroup()
+//            for(index, item) in items.enumerated(){
+//                myGroup.enter()
+//                Api.Post.observePost(withId: item.key, completion: { (post) in
+//                    Api.User.observeUser(withId: post.uid!, completion: { (user) in
+//                        results.insert((post, user), at: index)
+//                        myGroup.leave()
+//                    })
+//                })
+//            }
+//            myGroup.notify(queue: DispatchQueue.main, execute: {
+//                results.sort(by: {$0.0.timestamp! > $1.0.timestamp!})
+//                completion(results)
+//            })
+//        }
+//    }
     func observeFeedRemoved(withId id: String, completion: @escaping (Post) -> Void){
         REF_FEED.child(id).observe(.childRemoved, with: {
             snapshot in

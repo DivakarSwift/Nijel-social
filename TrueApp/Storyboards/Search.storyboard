@@ -219,35 +219,7 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BrowseCollectionViewCell" id="NFV-hr-TRZ" customClass="UserPostsCollectionViewCell" customModule="TrueApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="81" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="81" height="80"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uUz-Mp-JBp">
-                                                    <rect key="frame" x="0.0" y="0.0" width="81" height="80"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="10"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </imageView>
-                                            </subviews>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="uUz-Mp-JBp" firstAttribute="top" secondItem="NFV-hr-TRZ" secondAttribute="top" id="MAt-Xe-5YZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="uUz-Mp-JBp" secondAttribute="trailing" id="Tw0-3R-wqB"/>
-                                            <constraint firstAttribute="bottom" secondItem="uUz-Mp-JBp" secondAttribute="bottom" id="s8g-2F-lbc"/>
-                                            <constraint firstItem="uUz-Mp-JBp" firstAttribute="leading" secondItem="NFV-hr-TRZ" secondAttribute="leading" id="tg0-Uk-lYB"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="photo" destination="uUz-Mp-JBp" id="is0-yG-ljh"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

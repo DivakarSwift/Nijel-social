@@ -196,7 +196,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     let newUserReference = usersReference.child(uid)
                     newUserReference.setValue(["fullName": self.FullNameTextField.text!, "phoneNumber": self.PhoneNumberTextField.text!, "username": self.usernameTextField.text!, "email": self.EmailTextField.text!, "profileImageUrl": metadata!.path!])
                     ProgressHUD.dismiss()
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "LogInViewController")
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
                     self.present(vc!, animated: true, completion: nil)
                     print("description: \(newUserReference.description())")
                 })

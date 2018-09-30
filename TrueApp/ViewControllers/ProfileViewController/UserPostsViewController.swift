@@ -20,10 +20,10 @@ class UserPostsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var user : User!
-    var posts : [Post] = []
     var image: UIImage?
     let activityIndicator = UIActivityIndicatorView(style: .gray)
     var type: UserPostsViewControllerType!
+    var posts = [Post]()
     
     class func instantiate(user: User,type: UserPostsViewControllerType) -> UserPostsViewController {
         let vc = StoryboardControllerProvider<UserPostsViewController>.controller(storyboardName: "Home")!
@@ -34,10 +34,10 @@ class UserPostsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchPosts()
         collectionView.dataSource = self
         collectionView.delegate = self
         fetchUser()
-        fetchMyPosts()
         if type == .notMyPosts {
             let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
             navigationItem.setLeftBarButton(backButton, animated: true)
@@ -65,20 +65,14 @@ class UserPostsViewController: UIViewController {
             }
     }
     
-    func fetchMyPosts(){
-        guard let currentUser = Auth.auth().currentUser else{  
-            return
+    func fetchPosts() {
+        if let dict = user?.myPosts{
+            for i in dict {
+                let post = Post.transformPostPhoto(dict: i.value, key: i.key)
+                posts.append(post)
+            }
+            posts.sort(by: { $0.date ?? 0 > $1.date ?? 0 })
         }
-        Api.MyPosts.REF_MYPOSTS.child(currentUser.uid).observe(.childAdded, with: {
-            snapshot in
-            print(snapshot)
-            Api.Post.observePost(withId: snapshot.key, completion: {
-                post in
-                print(post.id!)
-                self.posts.append(post)
-                self.collectionView.reloadData()
-            })
-        })
     }
     
     @objc func back() {
@@ -86,7 +80,7 @@ class UserPostsViewController: UIViewController {
     }
     
     @IBAction func createButtonPressed(_ sender: UIButton) {
-        let vc = CreatePostViewController.instantiate()
+        let vc = CreatePostViewController.instantiate(user: user)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -136,5 +130,10 @@ extension UserPostsViewController: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width / 2 - 2, height: collectionView.frame.size.width / 2 - 2)
+    }
+}
+extension UserPostsViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        <#code#>
     }
 }

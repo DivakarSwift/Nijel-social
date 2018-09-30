@@ -15,6 +15,8 @@ class User{
     var id: String?
     var isFollowing: Bool?
     var phoneNumber:String? //shortBio, Birthday
+    var IPosted: [String:[String: Any]]?
+    var myPosts: [String:[String: Any]]?
 }
 
 
@@ -27,6 +29,8 @@ extension User{
         user.id = key
         user.fullName = dict["fullName"] as? String
         user.phoneNumber = dict["phoneNumber"] as? String
+        user.IPosted = dict["IPosted"] as? [String:[String: Any]]
+        user.myPosts = dict["myPosts"] as? [String:[String: Any]]
         return user
     }
 }

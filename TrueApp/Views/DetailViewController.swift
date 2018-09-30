@@ -24,15 +24,15 @@ class DetailViewController: UIViewController {
     }
     
     func loadPost(){
-        Api.Post.observePost(withId: postId) { (post) in
-            guard let postUid = post.uid else{
-                return
-            }
-            self.fetchUser(uid: postUid, completed:{
-                self.post = post
-                self.tableView.reloadData()
-            })
-        }
+//        Api.Post.observePost(withId: postId) { (post) in
+//            guard let postUid = post.uid else{
+//                return
+//            }
+//            self.fetchUser(uid: postUid, completed:{
+//                self.post = post
+//                self.tableView.reloadData()
+//            })
+//        }
     }
     
     func fetchUser(uid:String, completed: @escaping () -> Void){

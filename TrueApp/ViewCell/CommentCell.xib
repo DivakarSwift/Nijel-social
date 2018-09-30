@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="115" id="tzk-Uv-r5a">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tzk-Uv-r5a" id="YoJ-W2-zJt">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="114.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGG-yh-Bgt">
+                        <rect key="frame" x="100" y="10" width="265" height="94.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AZf-LE-AGW">
+                        <rect key="frame" x="10" y="10" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="265-uN-g5I"/>
+                            <constraint firstAttribute="width" constant="80" id="Fih-Cr-FSM"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="AZf-LE-AGW" firstAttribute="top" secondItem="YoJ-W2-zJt" secondAttribute="top" constant="10" id="2Ce-0p-TKw"/>
+                    <constraint firstItem="AZf-LE-AGW" firstAttribute="leading" secondItem="YoJ-W2-zJt" secondAttribute="leading" constant="10" id="Q4g-p7-BUW"/>
+                    <constraint firstAttribute="bottom" secondItem="cGG-yh-Bgt" secondAttribute="bottom" constant="10" id="eeJ-lW-Ycv"/>
+                    <constraint firstItem="cGG-yh-Bgt" firstAttribute="leading" secondItem="AZf-LE-AGW" secondAttribute="trailing" constant="10" id="g7p-1f-i4h"/>
+                    <constraint firstAttribute="trailing" secondItem="cGG-yh-Bgt" secondAttribute="trailing" constant="10" id="p5w-wa-oVN"/>
+                    <constraint firstItem="cGG-yh-Bgt" firstAttribute="top" secondItem="AZf-LE-AGW" secondAttribute="top" id="thH-Sc-TbD"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="24.800000000000001" y="63.418290854572717"/>
+        </tableViewCell>
+    </objects>
+</document>

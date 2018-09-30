@@ -1042,7 +1042,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cte-ch-uoQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="81" height="80"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="81" height="60"/>
                                                     <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1050,16 +1050,29 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="okL-sm-qSn">
+                                                    <rect key="frame" x="0.0" y="60" width="81" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="gpr-et-Uud"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="okL-sm-qSn" secondAttribute="bottom" id="77t-n5-7gk"/>
+                                            <constraint firstItem="okL-sm-qSn" firstAttribute="leading" secondItem="UV6-g3-w6a" secondAttribute="leading" id="BD8-pA-6Tb"/>
+                                            <constraint firstAttribute="trailing" secondItem="okL-sm-qSn" secondAttribute="trailing" id="WKt-Hm-c7d"/>
                                             <constraint firstItem="cte-ch-uoQ" firstAttribute="top" secondItem="UV6-g3-w6a" secondAttribute="top" id="Wzy-3n-Vgi"/>
+                                            <constraint firstItem="okL-sm-qSn" firstAttribute="top" secondItem="cte-ch-uoQ" secondAttribute="bottom" id="aLy-Iy-VYF"/>
                                             <constraint firstItem="cte-ch-uoQ" firstAttribute="leading" secondItem="UV6-g3-w6a" secondAttribute="leading" id="ddf-0U-6Jo"/>
-                                            <constraint firstAttribute="bottom" secondItem="cte-ch-uoQ" secondAttribute="bottom" id="hrZ-jF-ME2"/>
                                             <constraint firstAttribute="trailing" secondItem="cte-ch-uoQ" secondAttribute="trailing" id="tnd-VX-diE"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="photo" destination="cte-ch-uoQ" id="aYe-LO-ahg"/>
+                                            <outlet property="text" destination="okL-sm-qSn" id="8q5-mE-p6q"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1314,7 +1327,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBH-3S-6c3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6415" y="-7621"/>
+            <point key="canvasLocation" x="-6415.1999999999998" y="-7621.4392803598203"/>
         </scene>
         <!--Followers-->
         <scene sceneID="cvA-i4-CuL">

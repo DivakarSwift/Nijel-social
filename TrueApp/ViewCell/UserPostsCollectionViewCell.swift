@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 protocol UserPostsCollectionViewCellDelegate {
     func goToDetailVC(postId: String)
@@ -15,6 +16,7 @@ protocol UserPostsCollectionViewCellDelegate {
 class UserPostsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var photo: UIImageView!
+    @IBOutlet weak var text: UILabel!
     
     var delegate: UserPostsCollectionViewCellDelegate?
     
@@ -24,13 +26,20 @@ class UserPostsCollectionViewCell: UICollectionViewCell {
         }
     }
     func updateView(){
-        if let photoUrlString = post?.photoUrl{
-            let photoUrl = URL(string: photoUrlString)
-            photo.sd_setImage(with: photoUrl)
+        let storage = Storage.storage()
+        let spaceRef = storage.reference(forURL: "gs://first-76cc5.appspot.com/\(post!.imgURL!)")
+        spaceRef.getData(maxSize: Int64.max) { [weak self] data, error in
+            if error != nil {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let data = data else { return }
+            self?.photo.image = UIImage(data: data)
         }
-        let tapGestureForPhoto = UITapGestureRecognizer(target: self, action: #selector(self.photo_TouchUpInside))
-        photo.addGestureRecognizer(tapGestureForPhoto) //WAS NAMELABEL
-        photo.isUserInteractionEnabled = true //WAS NAMELABEL
+        text.text = post?.text
+//        let tapGestureForPhoto = UITapGestureRecognizer(target: self, action: #selector(self.photo_TouchUpInside))
+//        photo.addGestureRecognizer(tapGestureForPhoto) //WAS NAMELABEL
+//        photo.isUserInteractionEnabled = true //WAS NAMELABEL
 
     }
     

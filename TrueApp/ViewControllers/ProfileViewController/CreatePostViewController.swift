@@ -8,14 +8,22 @@
 
 import Foundation
 import UIKit
+import FirebaseDatabase
+import FirebaseStorage
+import FirebaseAuth
+import ProgressHUD
 
 class CreatePostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var imagePicker = UIImagePickerController()
+    var user: User!
+    var image: UIImage?
     
-    class func instantiate() -> CreatePostViewController {
-        return StoryboardControllerProvider<CreatePostViewController>.controller(storyboardName: "CreatePostViewController")!
+    class func instantiate(user: User) -> CreatePostViewController {
+        let vc = StoryboardControllerProvider<CreatePostViewController>.controller(storyboardName: "CreatePostViewController")!
+        vc.user = user
+        return vc
     }
     
     override func viewDidLoad() {
@@ -51,6 +59,7 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
             if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CreatePostTableViewCell {
                 cell.postImageView.contentMode = .scaleAspectFit
                 cell.postImageView.image = chosenImage
+                image = chosenImage
             }
         }
         dismiss(animated: true, completion: nil)
@@ -75,7 +84,29 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     @objc func post() {
-        
+        ProgressHUD.show()
+        let database = Database.database().reference().child("posts").childByAutoId()
+        if let uid = Auth.auth().currentUser?.uid {
+            if let key = database.key {
+                let storageRef = Storage.storage().reference(forURL: "gs://first-76cc5.appspot.com").child("postImages").child(key)
+                if let profileImage = self.image, let imageData = profileImage.jpegData(compressionQuality: 0.1) {
+                    storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
+                        if error != nil {
+                            ProgressHUD.dismiss()
+                            return
+                        }
+                        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CreatePostTableViewCell {
+                            let db = Database.database().reference().child("users")
+                            db.child(self.user.id!).child("myPosts").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(cell.textView.text ?? "")", "imgURL" : metadata!.path!, "date" : (Date().timeIntervalSince1970)])
+                            db.child(self.user.id!).child("IPosted").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(cell.textView.text ?? "")", "imgURL" : metadata!.path!, "date" : (Date().timeIntervalSince1970)])
+                            //database.setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(cell.textView.text ?? "")", "imgURL" : metadata!.path!, "date" : (Date().timeIntervalSince1970)])
+                        }
+                        ProgressHUD.dismiss()
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                }
+            }
+        }
     }
 }
 

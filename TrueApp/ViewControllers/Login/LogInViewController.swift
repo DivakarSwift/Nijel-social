@@ -92,7 +92,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         Password.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControl.Event.editingChanged)
     }
     
-    
     @objc func textFieldDidChange(){
         guard let email = emailTextField.text, !email.isEmpty, let password = Password.text, !password.isEmpty else {
            // logInButton.setTitleColor(UIColor.gray, for: UIControlState.normal)
@@ -126,9 +125,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
                 if error == nil {
                     print("You have successfully logged in")
-                    
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "NavigationHome")
-                    self.present(vc!, animated: true, completion: nil)
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
+                    ProgressHUD.show()
+                    Api.User.observeCurrentUser{ (user) in
+                        let user = user
+                        let profileVC = UserPostsViewController.instantiate(user: user, type: .myPosts)
+                        let navigationVC = UINavigationController(rootViewController: profileVC)
+                        navigationVC.view.backgroundColor = UIColor.white
+                        vc.viewControllers?[0] = navigationVC
+                        ProgressHUD.dismiss()
+                        self.present(vc, animated: false, completion: nil)
+                    }
                     
                 } else {
                     
@@ -143,7 +151,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
     @IBAction func signInButton_TouchUpInside(_ sender: Any) {
         view.endEditing(true)
         ProgressHUD.show("Waiting...", interaction: false)
@@ -152,11 +159,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.performSegue(withIdentifier: "SignInToTabBarVC", sender: nil)}, onError: { error in
             ProgressHUD.showError(error!)
        })
-        
-        
-
-    
     }
- 
-
 }

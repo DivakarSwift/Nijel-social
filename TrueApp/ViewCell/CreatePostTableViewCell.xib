@@ -37,11 +37,10 @@
                     </button>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K50-MR-rSQ">
                         <rect key="frame" x="20" y="460" width="335" height="50"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="DbA-qc-YtF"/>
                         </constraints>
-                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
@@ -51,6 +50,7 @@
                     <constraint firstAttribute="trailing" secondItem="K50-MR-rSQ" secondAttribute="trailing" constant="20" id="JII-wb-qkr"/>
                     <constraint firstItem="K50-MR-rSQ" firstAttribute="top" secondItem="1tJ-ck-cYO" secondAttribute="bottom" constant="10" id="WE9-ZS-C2u"/>
                     <constraint firstItem="CFA-IO-y6l" firstAttribute="top" secondItem="hPM-0t-tYW" secondAttribute="top" id="gia-aX-Qok"/>
+                    <constraint firstItem="K50-MR-rSQ" firstAttribute="width" secondItem="hPM-0t-tYW" secondAttribute="width" constant="-40" id="joz-0G-EoP"/>
                     <constraint firstItem="CFA-IO-y6l" firstAttribute="leading" secondItem="hPM-0t-tYW" secondAttribute="leading" id="qMa-Ff-Rnh"/>
                     <constraint firstItem="1tJ-ck-cYO" firstAttribute="top" secondItem="CFA-IO-y6l" secondAttribute="bottom" constant="20" id="qlA-S5-4gr"/>
                     <constraint firstAttribute="trailing" secondItem="CFA-IO-y6l" secondAttribute="trailing" id="r12-qW-xQu"/>
