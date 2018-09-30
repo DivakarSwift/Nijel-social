@@ -134,6 +134,9 @@ extension UserPostsViewController: UICollectionViewDelegateFlowLayout {
 }
 extension UserPostsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if let cell = collectionView.cellForItem(at: indexPath) as? UserPostsCollectionViewCell{
+            let vc = PostViewController.instantiate(post: posts[indexPath.row], commentatorImage: image ?? UIImage(), postImage: cell.photo.image ?? UIImage())
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

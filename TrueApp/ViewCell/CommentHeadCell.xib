@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="528" id="0QU-Do-luo" customClass="CommentHeadCell" customModule="TrueApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="528"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentHeadCell" rowHeight="453" id="0QU-Do-luo" customClass="CommentHeadCell" customModule="TrueApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="453"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0QU-Do-luo" id="svJ-SB-AyF">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="527.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="452.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pzw-9y-1D7">
@@ -35,21 +35,32 @@
                             <action selector="likeButtonPressed:" destination="0QU-Do-luo" eventType="touchUpInside" id="Kk5-4Q-XU6"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEw-Ax-61g">
+                        <rect key="frame" x="90" y="385" width="275" height="35"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="i3B-Mu-DDQ" secondAttribute="bottom" constant="10" id="1WW-WW-dgO"/>
                     <constraint firstItem="i3B-Mu-DDQ" firstAttribute="top" secondItem="pzw-9y-1D7" secondAttribute="bottom" constant="10" id="2Y9-QW-MBX"/>
+                    <constraint firstItem="fEw-Ax-61g" firstAttribute="leading" secondItem="i3B-Mu-DDQ" secondAttribute="trailing" constant="10" id="3JI-gl-UIU"/>
+                    <constraint firstAttribute="bottom" secondItem="fEw-Ax-61g" secondAttribute="bottom" constant="10" id="5BQ-fM-EOf"/>
                     <constraint firstItem="i3B-Mu-DDQ" firstAttribute="leading" secondItem="svJ-SB-AyF" secondAttribute="leading" constant="10" id="E1F-6Q-2d6"/>
+                    <constraint firstItem="fEw-Ax-61g" firstAttribute="top" secondItem="pzw-9y-1D7" secondAttribute="bottom" constant="10" id="Hhq-LR-Dw1"/>
                     <constraint firstAttribute="trailing" secondItem="pzw-9y-1D7" secondAttribute="trailing" id="P6u-KV-7bp"/>
                     <constraint firstItem="pzw-9y-1D7" firstAttribute="leading" secondItem="svJ-SB-AyF" secondAttribute="leading" id="cPg-rq-QpO"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="i3B-Mu-DDQ" secondAttribute="bottom" id="j44-EU-EeU"/>
                     <constraint firstItem="pzw-9y-1D7" firstAttribute="top" secondItem="svJ-SB-AyF" secondAttribute="top" id="k0m-tq-DDE"/>
+                    <constraint firstAttribute="trailing" secondItem="fEw-Ax-61g" secondAttribute="trailing" constant="10" id="my8-1Z-LWg"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="likeButton" destination="i3B-Mu-DDQ" id="tu6-E8-P7A"/>
                 <outlet property="postImage" destination="pzw-9y-1D7" id="xk7-n7-iRg"/>
+                <outlet property="subscriptionLabel" destination="fEw-Ax-61g" id="bUb-Cg-0GT"/>
             </connections>
-            <point key="canvasLocation" x="221.59999999999999" y="62.068965517241381"/>
+            <point key="canvasLocation" x="220" y="58.920539730134934"/>
         </tableViewCell>
     </objects>
     <resources>

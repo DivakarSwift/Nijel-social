@@ -2,7 +2,7 @@
 //  CommentCell.swift
 //  TrueApp
 //
-//  Created by Nikita Kazakov on 9/30/18.
+//  Created by Stanislau Sakharchuk on 9/30/18.
 //  Copyright © 2018 Nijel Hunt. All rights reserved.
 //
 

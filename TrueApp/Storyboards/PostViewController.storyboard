@@ -69,6 +69,7 @@
                         <outlet property="imageView" destination="X9q-GV-wjT" id="SOm-WU-fga"/>
                         <outlet property="tableView" destination="QaE-gu-Lvh" id="vO7-jp-4KM"/>
                         <outlet property="textView" destination="REv-Ai-eh0" id="zy8-FT-uri"/>
+                        <outlet property="textViewHeightConstraint" destination="Pam-53-gyr" id="bMN-GX-fjg"/>
                         <outlet property="viewBottomConstraint" destination="DX4-Od-Ulq" id="q7h-S7-mQK"/>
                     </connections>
                 </viewController>

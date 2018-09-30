@@ -2,7 +2,7 @@
 //  LaunchViewController.swift
 //  TrueApp
 //
-//  Created by Nikita Kazakov on 9/26/18.
+//  Created by Stanislau Sakharchuk on 9/26/18.
 //  Copyright © 2018 Nijel Hunt. All rights reserved.
 //
 
