@@ -114,7 +114,7 @@ extension UserPostsViewController: UICollectionViewDataSource{
             if let image = self.image {
                 headerViewCell.profileImage.image = image
             }
-            headerViewCell.myPostsCountLabel.text = "Posts: \(user.myPosts?.count)"
+            headerViewCell.myPostsCountLabel.text = "\(posts.count)"
         }
         if type == .notMyPosts {
             headerViewCell.segmentControll.isHidden = true

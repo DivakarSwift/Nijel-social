@@ -25,6 +25,13 @@ class UserPostsCollectionViewCell: UICollectionViewCell {
             updateView()
         }
     }
+    
+    override func prepareForReuse() {
+        photo.image = nil
+        
+        super.prepareForReuse()
+    }
+    
     func updateView(){
         let storage = Storage.storage()
         let spaceRef = storage.reference(forURL: "gs://first-76cc5.appspot.com/\(post!.imgURL!)")

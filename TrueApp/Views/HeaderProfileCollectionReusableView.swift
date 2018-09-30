@@ -100,6 +100,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
         }
         Api.MyPosts.fetchCountMyPosts(userId: user!.id!) { (count) in
             self.myPostsCountLabel.text = "\(count)"
+            print(self.user?.myPosts?.count)
         }
         Api.Follow.fetchCountFollowing(userId: user!.id!) { (count) in
             self.followingCountLabel.text = "\(count)"
