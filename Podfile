@@ -13,7 +13,6 @@ target 'TrueApp' do
   pod 'ProgressHUD'
   pod 'SDWebImage'
   pod 'KILabel'
-  pod 'ImagePicker'
   
   target 'TrueAppTests' do
     inherit! :search_paths

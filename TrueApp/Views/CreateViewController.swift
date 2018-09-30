@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import ImagePicker
 import ProgressHUD
 import AVFoundation
 
-class CreateViewController: UIViewController, ImagePickerDelegate {
+class CreateViewController: UIViewController {
     
     
     @IBOutlet weak var photoImageView: UIImageView!
@@ -35,10 +34,10 @@ class CreateViewController: UIViewController, ImagePickerDelegate {
     }
     
     @IBAction func cameraButton_TouchUpInside(_ sender: Any) {
-        let imagePickerController = ImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.imageLimit = 10
-        present(imagePickerController, animated: true, completion: nil)
+//        let imagePickerController = ImagePickerController()
+//        imagePickerController.delegate = self
+//        imagePickerController.imageLimit = 10
+//        present(imagePickerController, animated: true, completion: nil)
     }
     
     var selectedImage : UIImage?
@@ -48,20 +47,20 @@ class CreateViewController: UIViewController, ImagePickerDelegate {
         super.viewDidLoad()
     }
     
-    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]){
-        print("wrapper")
-    }
-    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]){
-        guard let image = images.first else{
-            dismiss(animated: true, completion: nil)
-            return
-        }
-        selectedImage = image
-        photoImageView.image = image
-        dismiss(animated: true, completion: {
-            self.performSegue(withIdentifier: "readyToPost_Segue", sender: nil)
-        })
-    }
+//    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]){
+//        print("wrapper")
+//    }
+//    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]){
+//        guard let image = images.first else{
+//            dismiss(animated: true, completion: nil)
+//            return
+//        }
+//        selectedImage = image
+//        photoImageView.image = image
+//        dismiss(animated: true, completion: {
+//            self.performSegue(withIdentifier: "readyToPost_Segue", sender: nil)
+//        })
+//    }
 //        ProgressHUD.show("Waiting...", interaction: false)
 //        if let imageData = UIImageJPEGRepresentation(profileImageView, 0.1){
 //            let ratio = profileImageView.size.width / profileImageView.size.height
@@ -70,11 +69,11 @@ class CreateViewController: UIViewController, ImagePickerDelegate {
 //                self.loadPosts()
      //want to select photos and then go to ready to post
 
-    func cancelButtonDidPress(_ imagePicker: ImagePickerController){
-        print("cancel")
-        dismiss(animated: true, completion: {
-        })
-    }
+//    func cancelButtonDidPress(_ imagePicker: ImagePickerController){
+//        print("cancel")
+//        dismiss(animated: true, completion: {
+//        })
+//    }
     
  
     

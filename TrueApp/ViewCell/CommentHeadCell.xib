@@ -31,6 +31,9 @@
                             <constraint firstAttribute="height" constant="70" id="qVU-Z4-Qu8"/>
                         </constraints>
                         <state key="normal" title="Button" image="Heart"/>
+                        <connections>
+                            <action selector="likeButtonPressed:" destination="0QU-Do-luo" eventType="touchUpInside" id="Kk5-4Q-XU6"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -42,6 +45,10 @@
                     <constraint firstItem="pzw-9y-1D7" firstAttribute="top" secondItem="svJ-SB-AyF" secondAttribute="top" id="k0m-tq-DDE"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="likeButton" destination="i3B-Mu-DDQ" id="tu6-E8-P7A"/>
+                <outlet property="postImage" destination="pzw-9y-1D7" id="xk7-n7-iRg"/>
+            </connections>
             <point key="canvasLocation" x="221.59999999999999" y="62.068965517241381"/>
         </tableViewCell>
     </objects>

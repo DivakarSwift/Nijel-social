@@ -10,5 +10,9 @@ import Foundation
 import UIKit
 
 class CommentHeadCell: UITableViewCell {
+    @IBOutlet weak var postImage: UIImageView!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBAction func likeButtonPressed(_ sender: UIButton) {
+    }
     
 }
