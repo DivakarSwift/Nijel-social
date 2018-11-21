@@ -16,7 +16,7 @@ class TrueSearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         setSettings()
     }
     
@@ -91,7 +91,16 @@ extension TrueSearchViewController: UITableViewDelegate {
 }
 
 extension TrueSearchViewController: HeaderProfileCollectionReusableViewDelegate {
+    func showDateFilter() {
+        
+    }
+    
+    func goToSettingVC() {
+        
+    }
+    
     func updateFollowButton(forUser user: User) {
+        // TODO: Check is it work
         for u in self.users{
             if u.id == user.id{
                 u.followingSet = user.followingSet

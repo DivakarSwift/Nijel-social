@@ -20,7 +20,6 @@ class PeopleViewController: UIViewController {
     func loadUsers(){
         Api.User.observeUsers { (user) in
             self.isFollowing(userId: user.id!, completed: { (value) in
-              //  user.isFollowing = value
                 self.users.append(user)
                 self.tableView.reloadData()
             })
@@ -53,7 +52,15 @@ extension PeopleViewController: UITableViewDataSource{
     }
 }
 
-extension PeopleViewController: HeaderProfileCollectionReusableViewDelegate{
+extension PeopleViewController: HeaderProfileCollectionReusableViewDelegate {
+    func showDateFilter() {
+        
+    }
+    
+    func goToSettingVC() {
+        
+    }
+    // TODO: check is it works
     func updateFollowButton(forUser user: User) {
         for u in self.users{
             if u.id == user.id{

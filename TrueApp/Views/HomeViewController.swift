@@ -43,8 +43,6 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var storyUpToNowLabel: UILabel!
     
-    var delegate: HeaderProfileCollectionReusableViewDelegate?
-    var delegate2: HeaderProfileCollectionReusableViewDelegateSwitchSettingVC?
     var user:User?{
         didSet{
             updateView()
@@ -90,13 +88,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
             self.followersCountLabel.text = "\(count)"
         }
         
-        if user?.id == Auth.auth().currentUser!.uid{
-            followButton.setTitle("Edit Profile", for: UIControl.State.normal)
-            followButton.addTarget(self, action: #selector(self.goToSettingVC), for: UIControl.Event.touchUpInside)
-            
-        }else{
-            updateStateFollowButton()
-        }
+        updateStateFollowButton()
+        
     }
     
     func clear(){
@@ -104,10 +97,6 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         self.myPostsCountLabel.text = ""
         self.followingCountLabel.text = ""
         self.followersCountLabel.text = ""
-    }
-    
-    @objc func goToSettingVC(){
-        delegate2?.goToSettingVC()
     }
     
     func updateStateFollowButton(){
@@ -145,16 +134,13 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         if user?.followerSet == false {
             Api.Follow.followAction(withUser: user!.id!)
             configureUnFollowButton()
-            delegate?.updateFollowButton(forUser: user!)
         }
     }
     
     @objc func unFollowAction(){
         if user?.followerSet == true {
             Api.Follow.unFollowAction(withUser: user!.id!)
-            configureFollowButton()
-            delegate?.updateFollowButton(forUser: user!)
-            
+            configureFollowButton()            
         }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

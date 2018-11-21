@@ -68,7 +68,6 @@ class PeopleTableViewCell: UITableViewCell {
                 self.configureFollowButton()
             }
         }
-
     }
     
     func configureFollowButton(){

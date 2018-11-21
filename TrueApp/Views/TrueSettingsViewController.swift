@@ -15,7 +15,6 @@ class TrueSettingsViewController: UIViewController {
         super.viewDidLoad()
 
     }
-
     
     @IBAction func logOutAction(sender: AnyObject) {
         if Auth.auth().currentUser != nil {

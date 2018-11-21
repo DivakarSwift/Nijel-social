@@ -42,6 +42,9 @@
 		5CC0188B21925733001AB719 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC0188A21925733001AB719 /* UIViewController.swift */; };
 		5CC0188D21934A95001AB719 /* FooterProfileCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC0188C21934A95001AB719 /* FooterProfileCollectionReusableView.swift */; };
 		5CE84323216FF8820095B41E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE84322216FF8820095B41E /* String.swift */; };
+		69F19B3921A5FFD100F6B7EC /* DatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F19B3821A5FFD100F6B7EC /* DatePickerView.xib */; };
+		69F19B3B21A600B300F6B7EC /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F19B3A21A600B300F6B7EC /* DatePickerView.swift */; };
+		69F19B3D21A601A800F6B7EC /* UIView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F19B3C21A601A800F6B7EC /* UIView+Nib.swift */; };
 		8793462B69B6A88022113AFB /* Pods_TrueAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B0C170B66FF4E1DE0EF1F34 /* Pods_TrueAppUITests.framework */; };
 		9202CC42C9C2CA7B006A4EEA /* Pods_TrueAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FFABEDF87F8A1EE98B7EBCF /* Pods_TrueAppTests.framework */; };
 		E48C4BE3CCC1FE904819A767 /* Pods_TrueApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CACBA3FC8114A74C4B06E55 /* Pods_TrueApp.framework */; };
@@ -174,6 +177,9 @@
 		5CC0188A21925733001AB719 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		5CC0188C21934A95001AB719 /* FooterProfileCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterProfileCollectionReusableView.swift; sourceTree = "<group>"; };
 		5CE84322216FF8820095B41E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		69F19B3821A5FFD100F6B7EC /* DatePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerView.xib; sourceTree = "<group>"; };
+		69F19B3A21A600B300F6B7EC /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		69F19B3C21A601A800F6B7EC /* UIView+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Nib.swift"; sourceTree = "<group>"; };
 		8FFABEDF87F8A1EE98B7EBCF /* Pods_TrueAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrueAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B48E3AE255F3853CE750C57 /* Pods-TrueAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrueAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrueAppUITests/Pods-TrueAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B4BEDBCDAA24A1E4D4C065E3 /* Pods-TrueApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrueApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrueApp/Pods-TrueApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -389,6 +395,7 @@
 				5CE84322216FF8820095B41E /* String.swift */,
 				5C263B5121737D87000FD325 /* Array.swift */,
 				5CC0188A21925733001AB719 /* UIViewController.swift */,
+				69F19B3C21A601A800F6B7EC /* UIView+Nib.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -513,6 +520,8 @@
 				EA01C78F2144A60C008BE5DE /* SettingTableViewController.swift */,
 				EAC61E7D213B46F300342FA3 /* TrueCameraViewController.swift */,
 				EAC61E79213B345800342FA3 /* TrueSettingsViewController.swift */,
+				69F19B3821A5FFD100F6B7EC /* DatePickerView.xib */,
+				69F19B3A21A600B300F6B7EC /* DatePickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -706,6 +715,7 @@
 				119E3807216A43320045364E /* CreateByographyPostViewController.storyboard in Resources */,
 				EAAED5422138F41400968C5B /* Saved.storyboard in Resources */,
 				114E1455216124230063EB73 /* PostViewController.storyboard in Resources */,
+				69F19B3921A5FFD100F6B7EC /* DatePickerView.xib in Resources */,
 				114E145B216128690063EB73 /* CommentCell.xib in Resources */,
 				EAAED5402138F41000968C5B /* Home.storyboard in Resources */,
 				114E1457216126C50063EB73 /* CommentHeadCell.xib in Resources */,
@@ -851,6 +861,7 @@
 				EAA8C662213DD7850006A56B /* User.swift in Sources */,
 				114E1459216128210063EB73 /* CommentHeadCell.swift in Sources */,
 				EAAED5302138F2EF00968C5B /* HomeViewController.swift in Sources */,
+				69F19B3B21A600B300F6B7EC /* DatePickerView.swift in Sources */,
 				119B3D402163E21200AE7C61 /* HomePageBigPostCollectionViewCell.swift in Sources */,
 				EA01C78C2144152E008BE5DE /* BrowseViewController.swift in Sources */,
 				5C263B5221737D87000FD325 /* Array.swift in Sources */,
@@ -883,6 +894,7 @@
 				EA01C78021419A25008BE5DE /* HelperService.swift in Sources */,
 				EA4E811D213F34F3005D8EDF /* CommentApi.swift in Sources */,
 				5C6601B9217CDE5500C25B1D /* SavedTableViewCell.swift in Sources */,
+				69F19B3D21A601A800F6B7EC /* UIView+Nib.swift in Sources */,
 				EAAED52E2138F29200968C5B /* ForgotPWViewController.swift in Sources */,
 				EAAED5322138F31500968C5B /* LaunchScreenViewController.swift in Sources */,
 				114E144C215CDAE70063EB73 /* CreatePostViewController.swift in Sources */,
@@ -1094,7 +1106,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp1213123;
+				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -1117,7 +1129,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp1213123;
+				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;

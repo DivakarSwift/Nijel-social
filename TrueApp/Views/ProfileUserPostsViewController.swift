@@ -82,17 +82,20 @@ extension ProfileUserPostsViewController: UICollectionViewDataSource{
         if let user = self.user {
             headerViewCell.user = user
             headerViewCell.delegate = self.delegate
-            headerViewCell.delegate2 = self
+            // TODO: check is it needed
+            //headerViewCell.delegate = self.delegate?
         }
         return headerViewCell
     }
 }
 
-extension ProfileUserPostsViewController: HeaderProfileCollectionReusableViewDelegateSwitchSettingVC{
-    func goToSettingVC() {
-        performSegue(withIdentifier: "ProfileUser_SettingSegue", sender: nil)
-    }
-}
+// TODO: check is it needed
+
+//extension ProfileUserPostsViewController: HeaderProfileCollectionReusableViewDelegateSwitchSettingVC{
+//    func goToSettingVC() {
+//        performSegue(withIdentifier: "ProfileUser_SettingSegue", sender: nil)
+//    }
+//}
 
 extension ProfileUserPostsViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

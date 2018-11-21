@@ -19,6 +19,7 @@ enum UserPostsViewControllerType {
 class UserPostsViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     // MARK: - Outles
+    
     @IBOutlet weak var lifeStoryButton: UIButton!
     @IBOutlet weak var lifeStoryTextView: UITextView!
     @IBOutlet weak var activationButton: UIButton!
@@ -36,6 +37,10 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     var lifeStoryText = ""
     var last24hoursPosts = [Post]()
     var byographyPosts = [Post]()
+    var filteredPosts = [Post]()
+    var isFilteredByDate = false
+    lazy var datePicker = DatePickerView.fromNib(name: "DatePickerView") as! DatePickerView
+    
     let date = Date().timeIntervalSince1970 - 24*60*60.0
     
     
@@ -133,20 +138,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     
 
     override func viewWillAppear(_ animated: Bool) {
-        
-        
-        
-//        Api.User.observeCurrentUser{ (user) in
-//            //self.user = user
-//            self.fetchUser()
-//            self.fetchPosts()
-//        }
-        //print(user.id)
-//        Api.User.observeUser(withId: user.id!, completion: { (user) in
-//            self.user = user
-//            self.fetchPosts()
-//            self.fetchUser()
-//            })
+        super.viewWillAppear(animated)
     }
     
     override func viewDidLoad() {
@@ -279,6 +271,42 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
         collectionView.reloadData()
     }
     
+    func showDatePickerFilter() {
+        datePicker.frame = view.frame
+        datePicker.alpha = 0
+        datePicker.center = view.center
+        datePicker.datePicker.maximumDate = Date()
+        view.addSubview(datePicker)
+        datePicker.applyButton.addTarget(self, action: #selector(removeDatePicker), for: .touchUpInside)
+        UIView.animate(withDuration: 0.3) {
+            self.datePicker.alpha = 1
+        }
+    }
+    
+    @objc func removeDatePicker() {
+        filterWith(date: datePicker.datePicker.date)
+        UIView.animate(withDuration: 0.3,
+                       animations: { self.datePicker.alpha = 0 },
+                       completion: { completed in
+                        if completed == true {
+                            self.datePicker.removeFromSuperview()
+                        }
+        })
+    }
+    
+    func filterWith(date: Date) {
+        filteredPosts = posts.filter { post in
+            let postDate = Date(timeIntervalSince1970: post.contentDate!)
+            let calendar = Calendar.current
+            let components: Set<Calendar.Component> = [.day, .month, .year]
+            print(calendar.dateComponents(components, from: postDate), calendar.dateComponents(components, from: date))
+            return calendar.dateComponents(components, from: postDate).day == calendar.dateComponents(components, from: date).day &&
+                calendar.dateComponents(components, from: postDate).month == calendar.dateComponents(components, from: date).month &&
+                calendar.dateComponents(components, from: postDate).year == calendar.dateComponents(components, from: date).year
+        }
+        collectionView.reloadData()
+    }
+    
     private func time(from timeInterval: Double) -> String {
         let time = Int(timeInterval)
         let minutes = (time / 60) % 60
@@ -310,6 +338,9 @@ extension UserPostsViewController: UICollectionViewDataSource {
                 return last24hoursPosts.count + 1 + byographyPosts.count
             }
         } else {
+            if isFilteredByDate {
+                return filteredPosts.count
+            }
             return posts.count
         }
     }
@@ -387,8 +418,13 @@ extension UserPostsViewController: UICollectionViewDataSource {
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserPostsCollectionViewCell", for: indexPath) as!
             UserPostsCollectionViewCell
-            let post = posts[indexPath.row]
-            cell.post = post
+            if isFilteredByDate {
+                let post = filteredPosts[indexPath.row]
+                cell.post = post
+            } else {
+                let post = posts[indexPath.row]
+                cell.post = post
+            }
             return cell
         }
     }
@@ -411,7 +447,11 @@ extension UserPostsViewController: UICollectionViewDataSource {
                         print(postCount)
                     }
                 }
+                headerViewCell.isFilteredByDate = isFilteredByDate
                 headerViewCell.myPostsCountLabel.text = "\(postCount)"
+                headerViewCell.dateFilterButton.setTitle(isFilteredByDate ?  "Clear" : "Filter by Date", for: .normal)
+
+                headerViewCell.delegate = self
             }
             
             if type == .notMyPosts {
@@ -444,6 +484,8 @@ extension UserPostsViewController: UICollectionViewDataSource {
         
     }
 }
+
+// MARK: CollectionViewFlowLayout
 
 extension UserPostsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -481,6 +523,9 @@ extension UserPostsViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
+// MARK: - CollectionViewDelegate
+
 extension UserPostsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var post: Post
@@ -518,21 +563,26 @@ extension UserPostsViewController: UICollectionViewDelegate {
     }
 }
 
-extension String {
-    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        
-        return ceil(boundingBox.height)
+extension UserPostsViewController: HeaderProfileCollectionReusableViewDelegate {
+    // TODO: remove this
+    func updateFollowButton(forUser user: User) {
+    
     }
     
-    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        
-        return ceil(boundingBox.width)
+    func goToSettingVC() {
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingTableViewController")
+        navigationController?.pushViewController(settingsVC, animated: true)
+    }
+    
+    func showDateFilter() {
+        isFilteredByDate = !isFilteredByDate
+        if isFilteredByDate {
+            showDatePickerFilter()
+        } else {
+            collectionView.reloadData()
+        }
     }
 }
-
 
 
