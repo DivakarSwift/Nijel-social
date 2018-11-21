@@ -13,6 +13,7 @@ import Firebase
 protocol HeaderProfileCollectionReusableViewDelegate {
     func updateFollowButton(forUser user: User)
     func goToSettingVC()
+    func showDateFilter()
 }
 
 class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextFieldDelegate, UITextViewDelegate {
@@ -44,7 +45,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
 
     var selectedImage: UIImage?
     var editProfile = false
-
+    var isFilteredByDate = false
     var editableState = false {
         didSet {
             if editableState {
@@ -107,7 +108,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
     }
     
     @IBAction func filterByDateButtonTouched(_ sender: Any) {
-        
+        delegate?.showDateFilter()
     }
     
 
@@ -303,7 +304,6 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
             updateStateFollowButton()
         }
 
-        
         if user?.IPosted == nil{
             filterSwitch.isHidden = true
         }

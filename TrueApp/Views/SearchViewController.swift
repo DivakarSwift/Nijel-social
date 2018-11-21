@@ -84,7 +84,12 @@ extension SearchViewController: UITableViewDataSource{
     }
 }
 
-extension SearchViewController: HeaderProfileCollectionReusableViewDelegate{
+extension SearchViewController: HeaderProfileCollectionReusableViewDelegate {
+    
+    func showDateFilter() {
+        
+    }
+    
     func goToSettingVC() {
         
     }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DatePickerView" customModule="TrueApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="278"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EW4-Lx-LlP">
+                    <rect key="frame" x="0.0" y="58" width="375" height="162"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="63f-va-CqB">
+                    <rect key="frame" x="0.0" y="58" width="375" height="162"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <date key="date" timeIntervalSinceReferenceDate="564527109.21958494">
+                        <!--2018-11-21 21:05:09 +0000-->
+                    </date>
+                    <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
+                        <!--2037-12-31 11:00:00 +0000-->
+                    </date>
+                </datePicker>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0uJ-yE-Yv8">
+                    <rect key="frame" x="167.5" y="240" width="40" height="30"/>
+                    <state key="normal" title="Apply">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="EW4-Lx-LlP" firstAttribute="centerY" secondItem="63f-va-CqB" secondAttribute="centerY" id="3NW-oD-QZF"/>
+                <constraint firstAttribute="trailing" secondItem="63f-va-CqB" secondAttribute="trailing" id="BMe-jx-2GW"/>
+                <constraint firstItem="63f-va-CqB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="OoZ-tg-MuY"/>
+                <constraint firstItem="EW4-Lx-LlP" firstAttribute="height" secondItem="63f-va-CqB" secondAttribute="height" id="SGa-6o-bEr"/>
+                <constraint firstItem="0uJ-yE-Yv8" firstAttribute="top" secondItem="63f-va-CqB" secondAttribute="bottom" constant="20" id="aky-f1-5MX"/>
+                <constraint firstItem="EW4-Lx-LlP" firstAttribute="width" secondItem="63f-va-CqB" secondAttribute="width" id="bFM-Pj-e7w"/>
+                <constraint firstItem="63f-va-CqB" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="eQs-co-Bwd"/>
+                <constraint firstItem="EW4-Lx-LlP" firstAttribute="centerX" secondItem="63f-va-CqB" secondAttribute="centerX" id="khP-2A-2aR"/>
+                <constraint firstItem="0uJ-yE-Yv8" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="mHf-Um-iib"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="applyButton" destination="0uJ-yE-Yv8" id="RXT-aS-3pe"/>
+                <outlet property="datePicker" destination="63f-va-CqB" id="fiQ-Bc-dFI"/>
+            </connections>
+            <point key="canvasLocation" x="180" y="-42.278860569715143"/>
+        </view>
+    </objects>
+</document>

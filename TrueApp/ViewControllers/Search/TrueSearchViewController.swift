@@ -91,6 +91,10 @@ extension TrueSearchViewController: UITableViewDelegate {
 }
 
 extension TrueSearchViewController: HeaderProfileCollectionReusableViewDelegate {
+    func showDateFilter() {
+        
+    }
+    
     func goToSettingVC() {
         
     }

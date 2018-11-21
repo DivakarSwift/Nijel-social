@@ -52,7 +52,10 @@ extension PeopleViewController: UITableViewDataSource{
     }
 }
 
-extension PeopleViewController: HeaderProfileCollectionReusableViewDelegate{
+extension PeopleViewController: HeaderProfileCollectionReusableViewDelegate {
+    func showDateFilter() {
+        
+    }
     
     func goToSettingVC() {
         
