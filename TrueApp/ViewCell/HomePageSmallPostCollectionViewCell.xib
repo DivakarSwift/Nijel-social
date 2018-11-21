@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="qGb-9n-tAz">
+            <rect key="frame" x="0.0" y="0.0" width="503" height="169"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="503" height="169"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYC-m2-G52">
+                        <rect key="frame" x="0.0" y="0.0" width="503" height="169"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video" translatesAutoresizingMaskIntoConstraints="NO" id="Mf7-hN-mb8">
+                                <rect key="frame" x="344" y="10" width="149" height="149"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSY-Yq-hp0">
+                                <rect key="frame" x="318" y="68.5" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="kpq-A3-sLp"/>
+                                    <constraint firstAttribute="height" constant="32" id="qFj-fz-S3c"/>
+                                </constraints>
+                                <state key="normal" image="Heart"/>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FAM" translatesAutoresizingMaskIntoConstraints="NO" id="tPK-3X-0PJ">
+                                <rect key="frame" x="10" y="10" width="149" height="149"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="tPK-3X-0PJ" secondAttribute="height" multiplier="1:1" id="Sdj-qJ-mAM"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="| XaeWan | 12:54 |" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQx-74-igA">
+                                <rect key="frame" x="169" y="74" width="139" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9P-k7-rS2">
+                                <rect key="frame" x="360" y="74" width="5.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Mf7-hN-mb8" secondAttribute="trailing" constant="10" id="9c8-Rc-4VZ"/>
+                            <constraint firstItem="Mf7-hN-mb8" firstAttribute="width" secondItem="tPK-3X-0PJ" secondAttribute="width" id="DHz-G6-ypC"/>
+                            <constraint firstItem="tPK-3X-0PJ" firstAttribute="top" secondItem="VYC-m2-G52" secondAttribute="top" constant="10" id="GJN-Uq-chc"/>
+                            <constraint firstItem="d9P-k7-rS2" firstAttribute="centerY" secondItem="pSY-Yq-hp0" secondAttribute="centerY" id="VlU-pF-smW"/>
+                            <constraint firstItem="Mf7-hN-mb8" firstAttribute="height" secondItem="tPK-3X-0PJ" secondAttribute="height" id="ZM3-ZI-RrT"/>
+                            <constraint firstItem="qQx-74-igA" firstAttribute="leading" secondItem="tPK-3X-0PJ" secondAttribute="trailing" constant="10" id="azp-MQ-dbn"/>
+                            <constraint firstItem="pSY-Yq-hp0" firstAttribute="leading" secondItem="qQx-74-igA" secondAttribute="trailing" constant="10" id="biU-yC-YYR"/>
+                            <constraint firstItem="qQx-74-igA" firstAttribute="centerY" secondItem="tPK-3X-0PJ" secondAttribute="centerY" id="fyB-XA-hKG"/>
+                            <constraint firstAttribute="bottom" secondItem="Mf7-hN-mb8" secondAttribute="bottom" constant="10" id="n4j-UI-n2M"/>
+                            <constraint firstItem="pSY-Yq-hp0" firstAttribute="centerY" secondItem="qQx-74-igA" secondAttribute="centerY" id="nSP-ii-4ko"/>
+                            <constraint firstItem="Mf7-hN-mb8" firstAttribute="top" secondItem="VYC-m2-G52" secondAttribute="top" constant="10" id="o9E-oT-Z3Q"/>
+                            <constraint firstItem="tPK-3X-0PJ" firstAttribute="leading" secondItem="VYC-m2-G52" secondAttribute="leading" constant="10" id="qcr-4K-h3U"/>
+                            <constraint firstItem="Mf7-hN-mb8" firstAttribute="leading" secondItem="d9P-k7-rS2" secondAttribute="trailing" constant="10" id="wuh-4G-S0c"/>
+                            <constraint firstItem="d9P-k7-rS2" firstAttribute="leading" secondItem="pSY-Yq-hp0" secondAttribute="trailing" constant="10" id="yCb-8G-sMH"/>
+                            <constraint firstAttribute="bottom" secondItem="tPK-3X-0PJ" secondAttribute="bottom" constant="10" id="znW-B8-mRF"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="VYC-m2-G52" secondAttribute="trailing" id="UqC-zs-BNf"/>
+                <constraint firstItem="VYC-m2-G52" firstAttribute="leading" secondItem="qGb-9n-tAz" secondAttribute="leading" id="eSI-ux-3gH"/>
+                <constraint firstItem="VYC-m2-G52" firstAttribute="top" secondItem="qGb-9n-tAz" secondAttribute="top" id="jUM-vo-dIX"/>
+                <constraint firstAttribute="bottom" secondItem="VYC-m2-G52" secondAttribute="bottom" id="lOi-55-ufS"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="M03-nd-LNG"/>
+            <size key="customSize" width="503" height="169"/>
+            <point key="canvasLocation" x="34.399999999999999" y="-127.28635682158921"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="FAM" width="1428" height="803"/>
+        <image name="Heart" width="1600" height="1600"/>
+        <image name="video" width="512" height="512"/>
+    </resources>
+</document>

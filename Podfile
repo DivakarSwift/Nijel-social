@@ -13,6 +13,7 @@ target 'TrueApp' do
   pod 'ProgressHUD'
   pod 'SDWebImage'
   pod 'KILabel'
+  pod 'Reveal-SDK', '~> 20'
   
   target 'TrueAppTests' do
     inherit! :search_paths

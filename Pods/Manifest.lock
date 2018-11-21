@@ -74,6 +74,7 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - ProgressHUD (2.60)
+  - Reveal-SDK (20)
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
@@ -85,10 +86,11 @@ DEPENDENCIES:
   - Firebase/Storage
   - KILabel
   - ProgressHUD
+  - Reveal-SDK (~> 20)
   - SDWebImage
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -104,6 +106,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - ProgressHUD
+    - Reveal-SDK
     - SDWebImage
 
 SPEC CHECKSUMS:
@@ -122,8 +125,9 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   ProgressHUD: 4e4efbaf4f5de8bd32e0c4c3b6644a90ea1a8c3e
+  Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
 
-PODFILE CHECKSUM: 3ae7d6416a4c124f934dd9a7dafa145c3521f05a
+PODFILE CHECKSUM: b4060e630b908f4ec64a24e6c56d4ac62ea4346f
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
