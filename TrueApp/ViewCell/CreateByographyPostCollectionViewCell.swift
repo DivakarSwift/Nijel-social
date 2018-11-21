@@ -7,3 +7,13 @@
 //
 
 import Foundation
+import UIKit
+
+class CreateByographyPostCollectionViewCell: UICollectionViewCell {
+    var closure: (()->())?
+    @IBAction func createByographyPost(_ sender: UIButton) {
+        guard let cl = closure else { return }
+        cl()
+    }
+    
+}

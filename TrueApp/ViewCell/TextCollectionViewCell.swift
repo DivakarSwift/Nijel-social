@@ -7,3 +7,9 @@
 //
 
 import Foundation
+import UIKit
+
+class TextCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var label: UILabel!
+    
+}

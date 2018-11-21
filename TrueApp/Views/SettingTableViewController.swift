@@ -64,16 +64,10 @@ class SettingTableViewController: UITableViewController {
         
     
     @IBAction func LogOutButton_TouchUpInside(_ sender: Any) {
-        do{
-            try Auth.auth().signOut()
-        } catch let logoutError{
-            print(logoutError)
-        }
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let logInVC = storyboard.instantiateViewController(withIdentifier: "LogInViewController")
-        self.present(logInVC, animated: true, completion: nil)
-        
-        }
+        try! Auth.auth().signOut()
+        let vc = LaunchScreenViewController.instantiate()
+        self.present(vc, animated: false, completion: nil)
+    }
     
     @IBAction func changeProfileButton_TouchUpInside(_ sender: Any) {
         let pickerController = UIImagePickerController()

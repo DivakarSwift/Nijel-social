@@ -42,7 +42,7 @@ class CommentTableViewCell: UITableViewCell {
     func setupUserInfo(){
         accountLabel.text = user?.username
         if let photoUrlString = user?.profileImageUrl{
-            let photoUrl = URL(string: photoUrlString)
+            _ = URL(string: photoUrlString)
             // profileImageView.sd_setImage(with: photoUrl, placeholderImage: UIImage(named: "placeholderImage")  )
         }
     }

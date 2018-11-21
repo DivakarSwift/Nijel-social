@@ -17,7 +17,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self as? UISearchBarDelegate //ERROR for some reason
+        searchBar.delegate = self as UISearchBarDelegate //ERROR for some reason
         searchBar.searchBarStyle = .minimal //or .prominent
         searchBar.placeholder = "Real Name or Username"
         searchBar.frame.size.width = view.frame.size.width - 60
@@ -29,7 +29,7 @@ class SearchViewController: UIViewController {
     }
     
     func doSearch(){
-        if let searchText = searchBar.text?.lowercased(){
+        if (searchBar.text?.lowercased()) != nil{
             self.users.removeAll()
             self.tableView.reloadData()
 //            Api.User.queryUsers(withText: searchText) { (user) in
@@ -78,7 +78,7 @@ extension SearchViewController: UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PeopleTableViewCell", for: indexPath) as! PeopleTableViewCell
-        let user = users[indexPath.row]
+        _ = users[indexPath.row]
         //cell.user = user
         return cell
     }
@@ -88,7 +88,7 @@ extension SearchViewController: HeaderProfileCollectionReusableViewDelegate{
     func updateFollowButton(forUser user: User) {
         for u in self.users{
             if u.id == user.id{
-                u.isFollowing = user.isFollowing
+                u.followingSet = user.followingSet
                 self.tableView.reloadData()
             }
         }

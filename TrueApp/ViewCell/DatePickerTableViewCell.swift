@@ -7,3 +7,9 @@
 //
 
 import Foundation
+import UIKit
+
+class DatePickerTableViewCell: UITableViewCell{
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
+}

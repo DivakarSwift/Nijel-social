@@ -13,7 +13,12 @@ class CommentHeadCell: UITableViewCell {
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var subscriptionLabel: UILabel!
+    
+    
+    weak var cellDelegate: YourCellDelegate?
+    
     @IBAction func likeButtonPressed(_ sender: UIButton) {
+        cellDelegate?.didPressButton()
     }
     
 }

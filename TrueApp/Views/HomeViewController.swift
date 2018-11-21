@@ -111,7 +111,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func updateStateFollowButton(){
-        if user!.isFollowing! {
+        if user?.followerSet == true {
             configureUnFollowButton()
         }else{
             configureFollowButton()
@@ -142,19 +142,17 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func followAction(){
-        if user!.isFollowing! == false{
+        if user?.followerSet == false {
             Api.Follow.followAction(withUser: user!.id!)
             configureUnFollowButton()
-            user!.isFollowing! = true
             delegate?.updateFollowButton(forUser: user!)
         }
     }
     
     @objc func unFollowAction(){
-        if user!.isFollowing == true{
+        if user?.followerSet == true {
             Api.Follow.unFollowAction(withUser: user!.id!)
             configureFollowButton()
-            user!.isFollowing! = false
             delegate?.updateFollowButton(forUser: user!)
             
         }

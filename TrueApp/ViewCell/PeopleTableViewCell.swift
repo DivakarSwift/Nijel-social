@@ -8,12 +8,14 @@
 
 import UIKit
 import FirebaseStorage
+import FirebaseAuth
 
 class PeopleTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
+    @IBOutlet weak var lifeStoryLabel: UILabel!
     var user: User?
     var activityIndicator: UIActivityIndicatorView!
     
@@ -42,18 +44,31 @@ class PeopleTableViewCell: UITableViewCell {
     
     func setUpUI() {
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: profileImage.frame.width/4, y: profileImage.frame.height/4, width: profileImage.frame.width/2, height: profileImage.frame.height/2))
-        nameLabel.text = user?.username
+        guard let name = user?.fullName else { return }
+        print(name)
+        guard let login = user?.username else {
+            nameLabel.text = name
+            return
+        }
+        print(login)
+        nameLabel.text = name + " (" + login + ")"
+        lifeStoryLabel.text = (user?.bio)// "    " + (user?.bio)! to add indent
         activityIndicator.style = .gray
         activityIndicator.hidesWhenStopped = true
         profileImage.layer.cornerRadius = 8
         profileImage.addSubview(activityIndicator)
         activityIndicator.startAnimating()
-        //        if user!.isFollowing! {
-        //            configureUnFollowButton()
-        //        }else{
-        //            configureFollowButton()
-        //
-        //        }
+        
+        let foll = FollowApi()
+        foll.isFollowing(userId: user!.id!) { (completed) in
+            print(completed)
+            if completed {
+                self.configureUnFollowButton()
+            } else {
+                self.configureFollowButton()
+            }
+        }
+
     }
     
     func configureFollowButton(){
@@ -64,9 +79,9 @@ class PeopleTableViewCell: UITableViewCell {
         followButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         followButton.backgroundColor = UIColor(red: 69/255, green: 142/255, blue: 255/255, alpha: 1)
         followButton.setTitle("Follow", for: UIControl.State.normal)
-        //followButton.addTarget(self, action: #selector(self.followAction), for: UIControlEvents.touchUpInside)
+        followButton.addTarget(self, action: #selector(self.followAction), for: UIControl.Event.touchUpInside)
     }
-    func configureUnFollowButton(){
+    func configureUnFollowButton() {
         followButton.layer.borderWidth = 1
         followButton.layer.borderColor = UIColor(red: 226/255, green: 228/255, blue: 232/255, alpha: 1).cgColor
         followButton.layer.cornerRadius = 5
@@ -75,24 +90,40 @@ class PeopleTableViewCell: UITableViewCell {
         followButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
         followButton.backgroundColor = UIColor.clear
         followButton.setTitle("Following", for: UIControl.State.normal)
-       // followButton.addTarget(self, action: #selector(self.unFollowAction), for: UIControlEvents.touchUpInside)
+        followButton.addTarget(self, action: #selector(self.unFollowAction), for: UIControl.Event.touchUpInside)
     }
     
-//    @objc func followAction(){
-//        if user!.isFollowing! == false{
+    @objc func followAction() {
+//        if user?.followerSet == true {
 //            Api.Follow.followAction(withUser: user!.id!)
-//            configureUnFollowButton()
-//            user!.isFollowing! = true
-//        }
-//    }
-//
-//    @objc func unFollowAction(){
-//        if user!.isFollowing == true{
-//            Api.Follow.unFollowAction(withUser: user!.id!)
 //            configureFollowButton()
-//            user!.isFollowing = false
 //        }
-//    }
+    
+        let foll = FollowApi()
+        foll.isFollowing(userId: user!.id!) { (completed) in
+            if completed {
+                Api.Follow.unFollowAction(withUser: self.user!.id!)
+                self.user?.followingSet = false
+            } else {
+                Api.Follow.followAction(withUser: self.user!.id!)
+                self.user?.followerSet = true
+            }
+    
+            print(self.user?.followingSet as Any)
+
+            if self.user?.followerSet == false {
+            Api.Follow.followAction(withUser: self.user!.id!)
+            self.configureUnFollowButton()
+        }
+    }
+    }
+
+    @objc func unFollowAction() {
+        if user?.followingSet == true {
+            Api.Follow.unFollowAction(withUser: user!.id!)
+            configureFollowButton()
+        }
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

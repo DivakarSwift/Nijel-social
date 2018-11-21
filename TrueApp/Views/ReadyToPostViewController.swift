@@ -153,13 +153,13 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         print("did Finish Picking Media")
         print(info)
         
-        if let videoUrl = ["UIImagePickerControllerMediaUrl"] as? URL {
-            if let thumbnailImage = self.thumbnailImageForFileUrl(videoUrl){
-                selectedImage = thumbnailImage
-                photo.image = thumbnailImage
-                self.videoUrl = videoUrl
-            }
-        }
+//        if let videoUrl = ["UIImagePickerControllerMediaUrl"] as? URL {
+//            if let thumbnailImage = self.thumbnailImageForFileUrl(videoUrl){
+//                selectedImage = thumbnailImage
+//                photo.image = thumbnailImage
+//                self.videoUrl = videoUrl
+//            }
+        //}
         
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage{
             selectedImage = image

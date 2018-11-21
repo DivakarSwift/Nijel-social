@@ -13,16 +13,21 @@ import FirebaseStorage
 import FirebaseAuth
 import ProgressHUD
 
+enum CreatePostViewControllerType {
+    case byographyPost, notByographyPost
+}
 class CreatePostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var imagePicker = UIImagePickerController()
     var user: User!
     var image: UIImage?
-    
-    class func instantiate(user: User) -> CreatePostViewController {
+    var type: CreatePostViewControllerType!
+    class func instantiate(user: User, type: CreatePostViewControllerType) -> CreatePostViewController {
         let vc = StoryboardControllerProvider<CreatePostViewController>.controller(storyboardName: "CreatePostViewController")!
         vc.user = user
+        print(vc.user.username as Any)
+        vc.type = type
         return vc
     }
     
@@ -31,6 +36,7 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "CreatePostTableViewCell", bundle: nil), forCellReuseIdentifier: "CreatePostTableViewCell")
+        tableView.register(UINib(nibName: "DatePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "DatePickerTableViewCell")
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
@@ -39,7 +45,12 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
         
         let backButton = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(post))
         navigationItem.setRightBarButton(backButton, animated: true)
+        print(Auth.auth().currentUser?.uid as Any)
+
+        print(user.username as Any)
     }
+    
+    
     
     func btnClicked() {
         
@@ -47,7 +58,7 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
             print("Button capture")
             
             imagePicker.delegate = self
-            imagePicker.sourceType = .savedPhotosAlbum;
+            imagePicker.sourceType = .photoLibrary;
             imagePicker.allowsEditing = false
             
             self.present(imagePicker, animated: true, completion: nil)
@@ -57,7 +68,7 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CreatePostTableViewCell {
-                cell.postImageView.contentMode = .scaleAspectFit
+                cell.postImageView.contentMode = .scaleAspectFill
                 cell.postImageView.image = chosenImage
                 image = chosenImage
             }
@@ -68,11 +79,7 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgSizeValue  {
             var contentInsets: UIEdgeInsets
-            if UIDevice.current.orientation == .portrait {
-                contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: (keyboardSize.height), right: 0.0);
-            } else {
-                contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: (keyboardSize.width), right: 0.0);
-            }
+            contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: (keyboardSize.height), right: 0.0)
             self.tableView.contentInset = contentInsets
             self.tableView.scrollIndicatorInsets = contentInsets
         }
@@ -84,12 +91,44 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     @objc func post() {
-        if image == nil {
-            let alertController = UIAlertController(title: "Warning", message: "Set image to your profile", preferredStyle: UIAlertController.Style.alert)
+        guard let textViewCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CreatePostTableViewCell else {
+            return
+        }
+        let postTitle = textViewCell.textView.text.trimmingCharacters(in: .whitespaces)
+        if  type == .notByographyPost && (image == nil || postTitle == "Story Behind Post:") {
+            let alertController = UIAlertController(title: "Warning", message: "Add image and story to your post", preferredStyle: UIAlertController.Style.alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             
             self.present(alertController, animated: true, completion: nil)
+            return
+        } else if type == .byographyPost && postTitle == "" {
+            let alertController = UIAlertController(title: "Warning", message: "Tell the Story", preferredStyle: UIAlertController.Style.alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            return
+        } else if type == .byographyPost { //|| .notByographyPost
+            ProgressHUD.show()
+            let database = Database.database().reference().child("posts").childByAutoId()
+            if let uid = Auth.auth().currentUser?.uid {
+                if let key = database.key {
+                    if (self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CreatePostTableViewCell) != nil {
+                                let db = Database.database().reference().child("users")
+                                
+                                let cellq = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? DatePickerTableViewCell
+                                let date  = cellq?.datePicker.date.timeIntervalSince1970 ?? Date().timeIntervalSince1970
+                                db.child(self.user.id!).child("myPosts").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(postTitle)", "date" : (Date().timeIntervalSince1970), "whoPosted" : App.shared.currentUser.fullName!, "isWatchedByUser" : true, "contentDate" : date])
+                                db.child(self.user.id!).child("IPosted").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(postTitle)", "date" : (Date().timeIntervalSince1970), "whoPosted" : App.shared.currentUser.fullName!, "isWatchedByUser" : true, "contentDate" : date])
+                                print(uid)
+                                print(self.user.id!)
+                                db.child(uid).child("IPosted").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(postTitle)", "date" : (Date().timeIntervalSince1970), "whoPosted" : App.shared.currentUser.fullName!, "isWatchedByUser" : true, "contentDate" : date])
+                            }
+                            ProgressHUD.dismiss()
+                            self.navigationController?.popViewController(animated: true)
+                    }
+                }
             return
         }
         ProgressHUD.show()
@@ -105,8 +144,15 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
                         }
                         if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CreatePostTableViewCell {
                             let db = Database.database().reference().child("users")
-                            db.child(self.user.id!).child("myPosts").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(cell.textView.text ?? "")", "imgURL" : metadata!.path!, "date" : (Date().timeIntervalSince1970)])
-                            db.child(self.user.id!).child("IPosted").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(cell.textView.text ?? "")", "imgURL" : metadata!.path!, "date" : (Date().timeIntervalSince1970)])
+                            
+                            let cellq = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? DatePickerTableViewCell
+
+                            let date  = cellq?.datePicker.date.timeIntervalSince1970 ?? Date().timeIntervalSince1970
+                            print(date)
+                            db.child(self.user.id!).child("myPosts").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(cell.textView.text ?? "")", "imgURL" : metadata!.path!, "date" : (Date().timeIntervalSince1970), "whoPosted" : App.shared.currentUser.fullName!, "isWatchedByUser" : false, "contentDate" : date])
+                            db.child(self.user.id!).child("IPosted").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(cell.textView.text ?? "")", "imgURL" : metadata!.path!, "date" : (Date().timeIntervalSince1970), "whoPosted" : App.shared.currentUser.fullName!, "isWatchedByUser" : false, "contentDate" : date])
+                            db.child(uid).child("IPosted").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(cell.textView.text ?? "")", "imgURL" : metadata!.path!, "date" : (Date().timeIntervalSince1970), "whoPosted" : App.shared.currentUser.fullName!, "isWatchedByUser" : false, "contentDate" : date])
+                            db.child(uid).child("myPosts").child(key).setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(cell.textView.text ?? "")", "imgURL" : metadata!.path!, "date" : (Date().timeIntervalSince1970), "whoPosted" : App.shared.currentUser.fullName!, "isWatchedByUser" : false, "contentDate" : date])
                             //database.setValue(["postFromUserId" : uid, "postToUserId" : self.user.id!, "text" : "\(cell.textView.text ?? "")", "imgURL" : metadata!.path!, "date" : (Date().timeIntervalSince1970)])
                         }
                         ProgressHUD.dismiss()
@@ -120,14 +166,29 @@ class CreatePostViewController: UIViewController, UINavigationControllerDelegate
 
 extension CreatePostViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if type == .notByographyPost{
+            return 1
+        } else {
+            return 2
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "CreatePostTableViewCell") as? CreatePostTableViewCell {
-            cell.completion = btnClicked
-            cell.selectionStyle = .none
-            return cell
+        if indexPath.row == 0{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "CreatePostTableViewCell") as? CreatePostTableViewCell {
+                cell.completion = btnClicked
+                
+                if type == .byographyPost {
+                    cell.addPhotoFromGaleryButton.isHidden = true
+                }
+                cell.selectionStyle = .none
+                return cell
+            }
+        } else {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "DatePickerTableViewCell") {
+                cell.selectionStyle = .none
+                return cell
+            }
         }
         return UITableViewCell()
     }

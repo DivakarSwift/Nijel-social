@@ -8,13 +8,32 @@
 
 import Foundation
 import UIKit
+import FirebaseDatabase
+import FirebaseStorage
+import FirebaseAuth
 
-class PostViewController: UIViewController {
+class PostViewController: UIViewController, YourCellDelegate {
+    
+    func didPressButton() {
+        let database = Database.database().reference().child("posts").childByAutoId()
+        if let uid = Auth.auth().currentUser?.uid {
+            let db = Database.database().reference().child("users")
+            db.child(uid).child("SavedPosts").child((post?.id)!).setValue(["postFromUserId" : post?.postFromUserId, "postToUserId" : post?.postToUserId, "text" : post?.text, "imgURL" : post?.imgURL, "date" : post?.date, "whoPosted" : post?.whoPosted, "isWatchedByUser" : post?.isWatchedByUser, "contentDate" : post?.contentDate])
+        }
+        
+        let alertController = UIAlertController(title: "Success", message: "Saved", preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var viewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
+    
     var post: Post?
     var commentatorImage: UIImage?
     var postImage: UIImage?
@@ -33,17 +52,14 @@ class PostViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "CommentHeadCell", bundle: nil), forCellReuseIdentifier: "CommentHeadCell")
-        tableView.register(UINib(nibName: "CommentCell", bundle: nil), forCellReuseIdentifier: "CommentCell")
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:  UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         tableView.separatorStyle = .none
-        imageView.image = commentatorImage
         imageView.layer.cornerRadius = 8
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue  {
+        if let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             var contentInsets: UIEdgeInsets
             if UIDevice.current.orientation == .portrait {
                 contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: (keyboardSize.height + 30), right: 0.0);
@@ -82,6 +98,7 @@ extension PostViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentHeadCell") as? CommentHeadCell {
+                cell.cellDelegate = self
                 cell.selectionStyle = .none
                 cell.subscriptionLabel.text = post?.text
                 cell.postImage.image = postImage
@@ -103,5 +120,7 @@ extension PostViewController: UITableViewDataSource {
 }
 
 extension PostViewController: UITableViewDelegate {
-    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 600
+//    }
 }

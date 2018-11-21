@@ -108,6 +108,60 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         present(vc, animated: false, completion: nil)
     }
     
+    
+    @IBAction func loginWithCode(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Log In", message: "Please enter activation code", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Activation code"
+        }
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
+            ProgressHUD.show()
+            self.searchCodeUser(code: textField.text!, completion: { (completion, id, name) in
+                if !completion {
+                    ProgressHUD.dismiss()
+                    let alertController = UIAlertController(title: "Warning", message: "Wrong activation code", preferredStyle: UIAlertController.Style.alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion: nil)
+                } else {
+                    ProgressHUD.dismiss()
+                    let vc = SignUpViewController.instantiate()
+                    vc.activeId = id
+                    vc.activeName = name
+                    self.present(vc, animated: false, completion: nil)
+                }
+            })
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func searchCodeUser(code: String, completion: @escaping(Bool, String, String) ->()) {
+        var founded = false
+        var snapKey = ""
+        var fullName = ""
+        Database.database().reference().child("users").observeSingleEvent(of: .value) { (snapshot) in
+            for child in snapshot.children {
+                let snap = child as? DataSnapshot
+                let dict = snap?.value as! [String: Any]
+                if let activationCode = dict["activationCode"] as? String {
+                    if activationCode == code {
+                        founded = true
+                        snapKey = snap!.key as String
+                        fullName = (dict["fullName"] as? String)!
+                    }
+                }
+            }
+            if founded {
+                completion(true, snapKey, fullName)
+            } else {
+                completion(false, "empty", "empty")
+            }
+            
+        }
+    }
+    
+    
     @IBAction func loginAction(_ sender: AnyObject) {
         
         if self.emailTextField.text == "" || self.Password.text == "" {
@@ -122,14 +176,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         } else {
             
             Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.Password.text!) { (user, error) in
-                
                 if error == nil {
                     print("You have successfully logged in")
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
                     ProgressHUD.show()
+                    
                     Api.User.observeCurrentUser{ (user) in
-                        let user = user
                         let profileVC = UserPostsViewController.instantiate(user: user, type: .myPosts)
                         let navigationVC = UINavigationController(rootViewController: profileVC)
                         navigationVC.view.backgroundColor = UIColor.white

@@ -2,23 +2,53 @@
 //  SavedTableViewCell.swift
 //  TrueApp
 //
-//  Created by Evgeny on 10/21/18.
+//  Created by Stanislau on 10/21/18.
 //  Copyright © 2018 Nijel Hunt. All rights reserved.
 //
 
 import UIKit
+import FirebaseStorage
 
 class SavedTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var userName: UILabel!
+    
+    @IBOutlet weak var descLabel: UILabel!
+    
+    @IBOutlet weak var postImg: UIImageView!
+    @IBOutlet weak var avatarLabel: UIImageView!
+    @IBOutlet weak var timeLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
+        var post: Post?{
+            didSet{
+                updateView()
+            }
+        }
+        
+        func updateView(){
+            let storage = Storage.storage()
+            if let url = post?.imgURL {
+                let spaceRef = storage.reference(forURL: "gs://first-76cc5.appspot.com/\(url)")
+                spaceRef.getData(maxSize: Int64.max) { [weak self] data, error in
+                    if error != nil {
+                        print(error!.localizedDescription)
+                        return
+                    }
+                    guard let data = data else { return }
+                    self?.avatarLabel.image = UIImage(data: data)
+                    self?.post?.image = UIImage(data: data)
+                }
+            }
+        }
+    
     
 }

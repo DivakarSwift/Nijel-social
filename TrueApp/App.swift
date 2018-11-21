@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+class App{
+    static let shared = App()
+    var currentUser: User!
+    private init() {
+    }
+}

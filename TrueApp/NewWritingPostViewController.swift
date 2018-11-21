@@ -75,7 +75,7 @@ class NewWritingPostViewController: UIViewController {
         let ref = Database.database().reference()
         let postsReference = ref.child("posts")
         let newPostId = postsReference.childByAutoId().key
-        let newPostReference = postsReference.child(newPostId ?? "")
+        _ = postsReference.child(newPostId ?? "")
         guard let currentUser = Auth.auth().currentUser else{
             return
         }

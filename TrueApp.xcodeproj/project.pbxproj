@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110B83BB216E757200611383 /* TextCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 110B83BA216E757200611383 /* TextCollectionViewCell.xib */; };
+		110B83BD216E75C400611383 /* TextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110B83BC216E75C400611383 /* TextCollectionViewCell.swift */; };
 		114E1439215B6CDE0063EB73 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 114E1438215B6CDE0063EB73 /* LoginViewController.storyboard */; };
 		114E143D215B70F00063EB73 /* StoryboardControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E143C215B70F00063EB73 /* StoryboardControllerProvider.swift */; };
 		114E143F215BA77C0063EB73 /* LaunchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 114E143E215BA77C0063EB73 /* LaunchViewController.storyboard */; };
@@ -22,6 +24,24 @@
 		114E145B216128690063EB73 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 114E145A216128690063EB73 /* CommentCell.xib */; };
 		114E145D216131760063EB73 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E145C216131760063EB73 /* CommentCell.swift */; };
 		115FC3252161363D004C7DF8 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115FC3242161363D004C7DF8 /* PostViewController.swift */; };
+		119B3D3C2163D74F00AE7C61 /* HomePageBigPostCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 119B3D3B2163D74F00AE7C61 /* HomePageBigPostCollectionViewCell.xib */; };
+		119B3D3E2163DDC100AE7C61 /* HomePageSmallPostCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 119B3D3D2163DDC100AE7C61 /* HomePageSmallPostCollectionViewCell.xib */; };
+		119B3D402163E21200AE7C61 /* HomePageBigPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119B3D3F2163E21200AE7C61 /* HomePageBigPostCollectionViewCell.swift */; };
+		119B3D422163E23F00AE7C61 /* HomePageSmallPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119B3D412163E23F00AE7C61 /* HomePageSmallPostCollectionViewCell.swift */; };
+		119E3803216A3F810045364E /* CreateByographyPostCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 119E3802216A3F810045364E /* CreateByographyPostCollectionViewCell.xib */; };
+		119E3805216A40030045364E /* CreateByographyPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119E3804216A40030045364E /* CreateByographyPostCollectionViewCell.swift */; };
+		119E3807216A43320045364E /* CreateByographyPostViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 119E3806216A43320045364E /* CreateByographyPostViewController.storyboard */; };
+		119E3809216A440B0045364E /* DatePickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 119E3808216A440B0045364E /* DatePickerTableViewCell.xib */; };
+		119E380B216A544A0045364E /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119E380A216A544A0045364E /* DatePickerTableViewCell.swift */; };
+		11ACAA2A2165184A0067EE2C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ACAA292165184A0067EE2C /* App.swift */; };
+		5C263B5221737D87000FD325 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C263B5121737D87000FD325 /* Array.swift */; };
+		5C263B54217CC966000FD325 /* MyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C263B53217CC966000FD325 /* MyDelegate.swift */; };
+		5C3AEED5217FB9D300D13F23 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3AEED4217FB9D300D13F23 /* TabBarVC.swift */; };
+		5C6601B9217CDE5500C25B1D /* SavedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6601B7217CDE5500C25B1D /* SavedTableViewCell.swift */; };
+		5C6601BA217CDE5500C25B1D /* SavedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C6601B8217CDE5500C25B1D /* SavedTableViewCell.xib */; };
+		5CC0188B21925733001AB719 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC0188A21925733001AB719 /* UIViewController.swift */; };
+		5CC0188D21934A95001AB719 /* FooterProfileCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC0188C21934A95001AB719 /* FooterProfileCollectionReusableView.swift */; };
+		5CE84323216FF8820095B41E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE84322216FF8820095B41E /* String.swift */; };
 		8793462B69B6A88022113AFB /* Pods_TrueAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B0C170B66FF4E1DE0EF1F34 /* Pods_TrueAppUITests.framework */; };
 		9202CC42C9C2CA7B006A4EEA /* Pods_TrueAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FFABEDF87F8A1EE98B7EBCF /* Pods_TrueAppTests.framework */; };
 		E48C4BE3CCC1FE904819A767 /* Pods_TrueApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CACBA3FC8114A74C4B06E55 /* Pods_TrueApp.framework */; };
@@ -118,6 +138,8 @@
 /* Begin PBXFileReference section */
 		0B0C170B66FF4E1DE0EF1F34 /* Pods_TrueAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrueAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CACBA3FC8114A74C4B06E55 /* Pods_TrueApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrueApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		110B83BA216E757200611383 /* TextCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCollectionViewCell.xib; sourceTree = "<group>"; };
+		110B83BC216E75C400611383 /* TextCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCollectionViewCell.swift; sourceTree = "<group>"; };
 		114E1438215B6CDE0063EB73 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		114E143C215B70F00063EB73 /* StoryboardControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardControllerProvider.swift; sourceTree = "<group>"; };
 		114E143E215BA77C0063EB73 /* LaunchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchViewController.storyboard; sourceTree = "<group>"; };
@@ -133,7 +155,25 @@
 		114E145A216128690063EB73 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		114E145C216131760063EB73 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		115FC3242161363D004C7DF8 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		119B3D3B2163D74F00AE7C61 /* HomePageBigPostCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePageBigPostCollectionViewCell.xib; sourceTree = "<group>"; };
+		119B3D3D2163DDC100AE7C61 /* HomePageSmallPostCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePageSmallPostCollectionViewCell.xib; sourceTree = "<group>"; };
+		119B3D3F2163E21200AE7C61 /* HomePageBigPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageBigPostCollectionViewCell.swift; sourceTree = "<group>"; };
+		119B3D412163E23F00AE7C61 /* HomePageSmallPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageSmallPostCollectionViewCell.swift; sourceTree = "<group>"; };
+		119E3802216A3F810045364E /* CreateByographyPostCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateByographyPostCollectionViewCell.xib; sourceTree = "<group>"; };
+		119E3804216A40030045364E /* CreateByographyPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateByographyPostCollectionViewCell.swift; sourceTree = "<group>"; };
+		119E3806216A43320045364E /* CreateByographyPostViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateByographyPostViewController.storyboard; sourceTree = "<group>"; };
+		119E3808216A440B0045364E /* DatePickerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerTableViewCell.xib; sourceTree = "<group>"; };
+		119E380A216A544A0045364E /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
+		11ACAA292165184A0067EE2C /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		44CB1E1B4AB0CB81862F6020 /* Pods-TrueAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrueAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrueAppTests/Pods-TrueAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5C263B5121737D87000FD325 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		5C263B53217CC966000FD325 /* MyDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegate.swift; sourceTree = "<group>"; };
+		5C3AEED4217FB9D300D13F23 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
+		5C6601B7217CDE5500C25B1D /* SavedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTableViewCell.swift; sourceTree = "<group>"; };
+		5C6601B8217CDE5500C25B1D /* SavedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedTableViewCell.xib; sourceTree = "<group>"; };
+		5CC0188A21925733001AB719 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		5CC0188C21934A95001AB719 /* FooterProfileCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterProfileCollectionReusableView.swift; sourceTree = "<group>"; };
+		5CE84322216FF8820095B41E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8FFABEDF87F8A1EE98B7EBCF /* Pods_TrueAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrueAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B48E3AE255F3853CE750C57 /* Pods-TrueAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrueAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrueAppUITests/Pods-TrueAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B4BEDBCDAA24A1E4D4C065E3 /* Pods-TrueApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrueApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrueApp/Pods-TrueApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -322,9 +362,13 @@
 		114E144A215CC4420063EB73 /* ProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
+				EA01C7992146EE0F008BE5DE /* CreateAccountViewController.swift */,
+				EA23A5B1213CC615000B1736 /* TrueFeedViewController.swift */,
+				EAAED5352138F38D00968C5B /* SavedPostsViewController.swift */,
 				EA4E8122214040BC005D8EDF /* UserPostsViewController.swift */,
 				114E144B215CDAE70063EB73 /* CreatePostViewController.swift */,
 				115FC3242161363D004C7DF8 /* PostViewController.swift */,
+				5C263B53217CC966000FD325 /* MyDelegate.swift */,
 			);
 			path = ProfileViewController;
 			sourceTree = "<group>";
@@ -334,8 +378,19 @@
 			children = (
 				EAAED53F2138F41000968C5B /* Home.storyboard */,
 				114E144E215CE43E0063EB73 /* CreatePostViewController.storyboard */,
+				119E3806216A43320045364E /* CreateByographyPostViewController.storyboard */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		5CE84321216FF8770095B41E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5CE84322216FF8820095B41E /* String.swift */,
+				5C263B5121737D87000FD325 /* Array.swift */,
+				5CC0188A21925733001AB719 /* UIViewController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		6CFD7D52FE8756E8955A8619 /* Frameworks */ = {
@@ -405,6 +460,18 @@
 				114E1458216128210063EB73 /* CommentHeadCell.swift */,
 				114E145A216128690063EB73 /* CommentCell.xib */,
 				114E145C216131760063EB73 /* CommentCell.swift */,
+				119B3D3B2163D74F00AE7C61 /* HomePageBigPostCollectionViewCell.xib */,
+				119B3D3D2163DDC100AE7C61 /* HomePageSmallPostCollectionViewCell.xib */,
+				119B3D3F2163E21200AE7C61 /* HomePageBigPostCollectionViewCell.swift */,
+				119B3D412163E23F00AE7C61 /* HomePageSmallPostCollectionViewCell.swift */,
+				119E3802216A3F810045364E /* CreateByographyPostCollectionViewCell.xib */,
+				119E3804216A40030045364E /* CreateByographyPostCollectionViewCell.swift */,
+				119E3808216A440B0045364E /* DatePickerTableViewCell.xib */,
+				119E380A216A544A0045364E /* DatePickerTableViewCell.swift */,
+				110B83BA216E757200611383 /* TextCollectionViewCell.xib */,
+				110B83BC216E75C400611383 /* TextCollectionViewCell.swift */,
+				5C6601B7217CDE5500C25B1D /* SavedTableViewCell.swift */,
+				5C6601B8217CDE5500C25B1D /* SavedTableViewCell.xib */,
 			);
 			path = ViewCell;
 			sourceTree = "<group>";
@@ -431,10 +498,10 @@
 				EA01C78B2144152E008BE5DE /* BrowseViewController.swift */,
 				EAA8C663213E12510006A56B /* CommentViewController.swift */,
 				EAAED5252138F1BB00968C5B /* CreateViewController.swift */,
-				EA01C7992146EE0F008BE5DE /* CreateAccountViewController.swift */,
 				EA72D072214EA4D900FEEC77 /* CreateEventViewController.swift */,
 				EA01C79121455A57008BE5DE /* DetailViewController.swift */,
 				EA4E812021403FE2005D8EDF /* HeaderProfileCollectionReusableView.swift */,
+				5CC0188C21934A95001AB719 /* FooterProfileCollectionReusableView.swift */,
 				EAAED52F2138F2EF00968C5B /* HomeViewController.swift */,
 				EA01C7812141FB7E008BE5DE /* PeopleViewController.swift */,
 				EA9422A821487AB00092B834 /* PreviewViewController.swift */,
@@ -445,7 +512,6 @@
 				EAAED5372138F3AD00968C5B /* SearchViewController.swift */,
 				EA01C78F2144A60C008BE5DE /* SettingTableViewController.swift */,
 				EAC61E7D213B46F300342FA3 /* TrueCameraViewController.swift */,
-				EA23A5B1213CC615000B1736 /* TrueFeedViewController.swift */,
 				EAC61E79213B345800342FA3 /* TrueSettingsViewController.swift */,
 			);
 			path = Views;
@@ -454,6 +520,7 @@
 		EAAED4E72138F03B00968C5B = {
 			isa = PBXGroup;
 			children = (
+				5C3AEED4217FB9D300D13F23 /* TabBarVC.swift */,
 				EAAED4F22138F03B00968C5B /* TrueApp */,
 				EAAED5072138F03D00968C5B /* TrueAppTests */,
 				EAAED5122138F03D00968C5B /* TrueAppUITests */,
@@ -476,6 +543,7 @@
 		EAAED4F22138F03B00968C5B /* TrueApp */ = {
 			isa = PBXGroup;
 			children = (
+				5CE84321216FF8770095B41E /* Extensions */,
 				EA01C79821461D69008BE5DE /* ViewCell */,
 				114E143A215B6E940063EB73 /* ViewControllers */,
 				114E1436215B6AB60063EB73 /* Storyboards */,
@@ -484,7 +552,6 @@
 				EAAED5272138F1DF00968C5B /* CreateUsernameViewController.swift */,
 				EAAED5292138F22E00968C5B /* DiscoverViewController.swift */,
 				EA9B142F2139D2C70054A3E2 /* NewWritingPostViewController.swift */,
-				EAAED5352138F38D00968C5B /* SavedPostsViewController.swift */,
 				EAAED5232138F16B00968C5B /* BirthdayViewController.swift */,
 				EA01C79621461D34008BE5DE /* Api */,
 				EA23A5B3213CD4E3000B1736 /* Model */,
@@ -492,6 +559,7 @@
 				EAAED4FA2138F03C00968C5B /* Assets.xcassets */,
 				EA01C778214072CE008BE5DE /* GoogleService-Info.plist */,
 				EAAED4FF2138F03C00968C5B /* Info.plist */,
+				11ACAA292165184A0067EE2C /* App.swift */,
 			);
 			path = TrueApp;
 			sourceTree = "<group>";
@@ -626,11 +694,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				114E143F215BA77C0063EB73 /* LaunchViewController.storyboard in Resources */,
+				119B3D3E2163DDC100AE7C61 /* HomePageSmallPostCollectionViewCell.xib in Resources */,
 				EAAED53E2138F40000968C5B /* Feed.storyboard in Resources */,
 				EA01C779214072CE008BE5DE /* GoogleService-Info.plist in Resources */,
 				114E144F215CE43E0063EB73 /* CreatePostViewController.storyboard in Resources */,
+				119B3D3C2163D74F00AE7C61 /* HomePageBigPostCollectionViewCell.xib in Resources */,
 				EAAED53C2138F3F900968C5B /* Create.storyboard in Resources */,
+				119E3809216A440B0045364E /* DatePickerTableViewCell.xib in Resources */,
 				EAAED4FE2138F03C00968C5B /* LaunchScreen.storyboard in Resources */,
+				119E3803216A3F810045364E /* CreateByographyPostCollectionViewCell.xib in Resources */,
+				119E3807216A43320045364E /* CreateByographyPostViewController.storyboard in Resources */,
 				EAAED5422138F41400968C5B /* Saved.storyboard in Resources */,
 				114E1455216124230063EB73 /* PostViewController.storyboard in Resources */,
 				114E145B216128690063EB73 /* CommentCell.xib in Resources */,
@@ -641,7 +714,9 @@
 				114E1439215B6CDE0063EB73 /* LoginViewController.storyboard in Resources */,
 				EAAED5442138F41800968C5B /* Search.storyboard in Resources */,
 				EAAED4F92138F03B00968C5B /* Main.storyboard in Resources */,
+				5C6601BA217CDE5500C25B1D /* SavedTableViewCell.xib in Resources */,
 				114E1451215DF71E0063EB73 /* CreatePostTableViewCell.xib in Resources */,
+				110B83BB216E757200611383 /* TextCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -727,6 +802,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KILabel/KILabel.framework",
 				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-20/iOS/RevealServer.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -737,6 +813,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KILabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -756,6 +833,7 @@
 				EA4E812121403FE2005D8EDF /* HeaderProfileCollectionReusableView.swift in Sources */,
 				EAC61E7A213B345900342FA3 /* TrueSettingsViewController.swift in Sources */,
 				EA9B14302139D2C70054A3E2 /* NewWritingPostViewController.swift in Sources */,
+				110B83BD216E75C400611383 /* TextCollectionViewCell.swift in Sources */,
 				EAAED5262138F1BB00968C5B /* CreateViewController.swift in Sources */,
 				EAAED5362138F38D00968C5B /* SavedPostsViewController.swift in Sources */,
 				EAAED5222138F0FB00968C5B /* SignUpViewController.swift in Sources */,
@@ -763,28 +841,36 @@
 				EA01C77C2140DACB008BE5DE /* MyPostsApi.swift in Sources */,
 				EAAED52A2138F22E00968C5B /* DiscoverViewController.swift in Sources */,
 				EA9422AB2148863F0092B834 /* RealCameraViewController.swift in Sources */,
+				5CC0188B21925733001AB719 /* UIViewController.swift in Sources */,
 				EA9422AF21497CA50092B834 /* ActivityViewController.swift in Sources */,
 				EAAED5282138F1DF00968C5B /* CreateUsernameViewController.swift in Sources */,
 				EA4E8119213F3227005D8EDF /* UserApi.swift in Sources */,
 				EA4E8117213F2E9F005D8EDF /* PostApi.swift in Sources */,
 				EAAED5242138F16B00968C5B /* BirthdayViewController.swift in Sources */,
+				5C263B54217CC966000FD325 /* MyDelegate.swift in Sources */,
 				EAA8C662213DD7850006A56B /* User.swift in Sources */,
 				114E1459216128210063EB73 /* CommentHeadCell.swift in Sources */,
 				EAAED5302138F2EF00968C5B /* HomeViewController.swift in Sources */,
+				119B3D402163E21200AE7C61 /* HomePageBigPostCollectionViewCell.swift in Sources */,
 				EA01C78C2144152E008BE5DE /* BrowseViewController.swift in Sources */,
+				5C263B5221737D87000FD325 /* Array.swift in Sources */,
 				EA72D06D2149C4DD00FEEC77 /* NotificationApi.swift in Sources */,
 				EAA8C65F213D87C50006A56B /* FeedTableViewCell.swift in Sources */,
 				EAC61E7E213B46F300342FA3 /* TrueCameraViewController.swift in Sources */,
 				EA01C78821433930008BE5DE /* FeedApi.swift in Sources */,
+				119E3805216A40030045364E /* CreateByographyPostCollectionViewCell.swift in Sources */,
 				EAAED4F62138F03B00968C5B /* ViewController.swift in Sources */,
+				5CC0188D21934A95001AB719 /* FooterProfileCollectionReusableView.swift in Sources */,
 				114E1443215BA7F90063EB73 /* LaunchViewController.swift in Sources */,
 				EA9B1434213A11180054A3E2 /* CreateAccountMakerViewController.swift in Sources */,
 				EA01C7842141FCDC008BE5DE /* PeopleTableViewCell.swift in Sources */,
 				EA23A5B2213CC615000B1736 /* TrueFeedViewController.swift in Sources */,
 				EA72D071214C084500FEEC77 /* RecordViewController.swift in Sources */,
+				5C3AEED5217FB9D300D13F23 /* TabBarVC.swift in Sources */,
 				EAAED53A2138F3BF00968C5B /* SettingsViewController.swift in Sources */,
 				EAAED5382138F3AD00968C5B /* SearchViewController.swift in Sources */,
 				EA9B142E21398D690054A3E2 /* TrueHomeViewController.swift in Sources */,
+				11ACAA2A2165184A0067EE2C /* App.swift in Sources */,
 				EAAED52C2138F27200968C5B /* FeedViewController.swift in Sources */,
 				EA01C7822141FB7E008BE5DE /* PeopleViewController.swift in Sources */,
 				114E143D215B70F00063EB73 /* StoryboardControllerProvider.swift in Sources */,
@@ -796,6 +882,7 @@
 				EA9422B121497D3B0092B834 /* ActivityTableViewCell.swift in Sources */,
 				EA01C78021419A25008BE5DE /* HelperService.swift in Sources */,
 				EA4E811D213F34F3005D8EDF /* CommentApi.swift in Sources */,
+				5C6601B9217CDE5500C25B1D /* SavedTableViewCell.swift in Sources */,
 				EAAED52E2138F29200968C5B /* ForgotPWViewController.swift in Sources */,
 				EAAED5322138F31500968C5B /* LaunchScreenViewController.swift in Sources */,
 				114E144C215CDAE70063EB73 /* CreatePostViewController.swift in Sources */,
@@ -807,11 +894,13 @@
 				EAC61E80213B47EE00342FA3 /* ReadyToPostViewController.swift in Sources */,
 				EA9B1436213A11A20054A3E2 /* Config.swift in Sources */,
 				EA4AEAA1213EC6A4009219D9 /* Comment.swift in Sources */,
+				119B3D422163E23F00AE7C61 /* HomePageSmallPostCollectionViewCell.swift in Sources */,
 				EAAED4F42138F03B00968C5B /* AppDelegate.swift in Sources */,
 				EA23A5B5213CD50D000B1736 /* Post.swift in Sources */,
 				114E1453215DF8710063EB73 /* CreatePostTableViewCell.swift in Sources */,
 				EA9B14322139FF320054A3E2 /* AuthServiceViewController.swift in Sources */,
 				EA72D06F2149C89300FEEC77 /* Notification.swift in Sources */,
+				5CE84323216FF8820095B41E /* String.swift in Sources */,
 				EA4E811B213F33FD005D8EDF /* Api.swift in Sources */,
 				EAAED5472138F4C400968C5B /* YourPostsViewController.swift in Sources */,
 				EA01C77E21415942008BE5DE /* UserPostsCollectionViewCell.swift in Sources */,
@@ -820,6 +909,7 @@
 				EA01C79A2146EE0F008BE5DE /* CreateAccountViewController.swift in Sources */,
 				EA01C786214219E7008BE5DE /* FollowApi.swift in Sources */,
 				EA9422A921487AB00092B834 /* PreviewViewController.swift in Sources */,
+				119E380B216A544A0045364E /* DatePickerTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -993,18 +1083,20 @@
 			baseConfigurationReference = C527A4605EF36A0E535F700B /* Pods-TrueApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
-				DEVELOPMENT_TEAM = 6ZTS4C5F38;
+				DEVELOPMENT_TEAM = K8RQ78W9JR;
 				INFOPLIST_FILE = TrueApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp;
+				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp1213123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1015,17 +1107,19 @@
 			baseConfigurationReference = B4BEDBCDAA24A1E4D4C065E3 /* Pods-TrueApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_ACTIVITY_MODE = "";
-				DEVELOPMENT_TEAM = 6ZTS4C5F38;
+				DEVELOPMENT_TEAM = K8RQ78W9JR;
 				INFOPLIST_FILE = TrueApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp;
+				PRODUCT_BUNDLE_IDENTIFIER = Knocknock.TrueApp1213123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

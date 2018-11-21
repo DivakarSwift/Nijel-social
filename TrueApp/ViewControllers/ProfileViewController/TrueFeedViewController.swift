@@ -7,101 +7,132 @@
 //
 
 import UIKit
-import FirebaseDatabase
 import SDWebImage
 import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
-class TrueFeedViewController: UIViewController {
+class TrueFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-    @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var collectionView: UICollectionView!
+
+    var REF_FOLLOWING = Database.database().reference().child("users").child((Auth.auth().currentUser?.uid)!).child("following")
+
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    
-   // let refreshControl = UIRefreshControl()
     
     var posts = [Post]()
     var users = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 521
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.dataSource = self
-        //tableView.delegate = self
-        loadPosts()
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    
+        collectionView.register(UINib(nibName: "HomePageBigPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomePageBigPostCollectionViewCell")
+        posts.removeAll()
+        collectionView.reloadData()
+        getFollowers { (completion) in
+            self.loadFeed(id: completion) { (Post) in
+                print(self.posts.count)
+                self.collectionView.reloadData()
+            }
+        }
+        
     }
     
-    func fetchUser(uid:String, completed: @escaping () -> Void){
-        Api.User.observeUser(withId: uid, completion: {
-            user in
-            self.users.insert(user, at: 0)
-            completed()
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
+    func getFollowers(completed: @escaping (String) -> Void) {
+        
+        REF_FOLLOWING.child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: {
+            snapshot in
+            for child in snapshot.children {
+                let snap = child as? DataSnapshot
+                let snapKey = snap!.key as String
+                completed(snapKey)
+            }
         })
     }
     
-    func loadPosts(){
-        
-        Api.Feed.observeFeed(withId: Auth.auth().currentUser!.uid) { (post) in //switched Api.User.CURRENT_USER! to Auth.auth().currentUser!
-//            guard let postUid = post.uid else{
-//                return
-//            }
-//            self.fetchUser(uid: postUid, completed:{
-//                self.posts.insert(post, at: 0)
-//                self.tableView.reloadData()
-//        })
-        }
-//        Api.Feed.getRecentFeed(withId: Auth.auth().currentUser!.uid, start: posts.first?.timestamp, limit: 5) { (results) in
-//            if results.count > 0{
-//                results.forEach({ (result) in
-//                    self.posts.append(result.0)
-//                    self.users.append(result.1)
-//                })
-//            }
-//            self.tableView.reloadData()
-//        }
-        
-        Api.Feed.observeFeedRemoved(withId: Auth.auth().currentUser!.uid) { (post) in
-//            self.posts = self.posts.filter{ $0.id != post.id }
-//            self.users = self.users.filter{ $0.id != post.uid }
-//            self.tableView.reloadData()
-        }
+    func loadFeed(id: String, completion: @escaping (Post) -> Void) {
+        _ = Database.database().reference().child("users").child(id).child("myPosts").observe(.value, with: { snapshot in
+            //self.posts.removeAll()
+            for child in snapshot.children {
+                let snap = child as? DataSnapshot
+                let snapKey = snap!.key as String
+                let dict = snap?.value as! [String: Any]
+                
+                let post = Post.transformPostPhoto(dict: dict, key: snapKey)
+                _ = Date().timeIntervalSince1970
+                if post.postToUserId == id  {//&& post.date! + 86400.0 > hours
+                    self.posts.insert(post, at: 0)
+                }
+                if post.postFromUserId == id  {//&& post.date! + 86400.0 > hours
+                    self.posts.insert(post, at: 0)
+                }
+                completion(post)
+            }
+        })
     }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomePageBigPostCollectionViewCell", for: indexPath) as!
+        HomePageBigPostCollectionViewCell
         
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "CommentSegue"{
-            let commentVC = segue.destination as! CommentViewController
-            let postId = sender as! String
-            commentVC.postId = postId
-        }
-        if segue.identifier == "Feed_ProfileSegue"{
-            let userPostsVC = segue.destination as! ProfileUserPostsViewController
-            let userId = sender as! String
-            userPostsVC.userId = userId
-    }
-}
-}
-
-extension TrueFeedViewController: UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return posts.count
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! FeedTableViewCell
-        let post = posts[indexPath.row]
-        let user = users[indexPath.row]
-        cell.post = post
-        cell.user = user
-        cell.delegate = self
+        cell.topLabel.text = (posts[indexPath.row].whoPosted! + " | " + time(from: posts[indexPath.row].date!))
+        cell.postImageView.image = posts[indexPath.row].image
+        cell.label.text = posts[indexPath.row].text
+        cell.post = posts[indexPath.row]
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let text = posts[indexPath.row].text ?? ""
+        return CGSize(width: collectionView.frame.size.width - 2, height: 555 + text.height(withConstrainedWidth: collectionView.frame.size.width - 2 - 20, font: UIFont.systemFont(ofSize: 17)))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let post = posts[indexPath.row]
+        var image: UIImage?
+        if let cell = collectionView.cellForItem(at: indexPath) as? HomePageBigPostCollectionViewCell {
+            image = cell.postImageView.image
+        }
+        let vc = PostViewController.instantiate(post: post, commentatorImage: image ?? UIImage(), postImage: image ?? UIImage())
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func time(from timeInterval: Double) -> String {
+        let time = Int(timeInterval)
+        let minutes = (time / 60) % 60
+        let hours = (time / 3600)%24
+        var str = ""
+        if hours > 12 {
+            if minutes < 10 {
+                str = "\(hours - 12):0\(minutes) pm"
+            } else {
+                str = "\(hours - 12):\(minutes) pm"
+            }
+        } else {
+            if minutes < 10 {
+                str = "\(hours):0\(minutes) am"
+            } else {
+                str = "\(hours):\(minutes) am"
+            }
+        }
+        return str
+    }
 }
 
-extension TrueFeedViewController: FeedTableViewCellDelegate{
-    func goToCommentVC(postId: String) {
-        performSegue(withIdentifier: "CommentSegue", sender: postId)
-    }
-    func goToProfileUserVC(userId: String) {
-        performSegue(withIdentifier: "Feed_ProfileSegue", sender: userId)
-    }
-}

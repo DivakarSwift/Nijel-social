@@ -30,7 +30,7 @@ class ProfileUserPostsViewController: UIViewController {
     func fetchUser(){
         Api.User.observeUser(withId: userId) { (user) in
             self.isFollowing(userId: user.id!, completed: { (value) in
-                user.isFollowing = value
+//                user.isFollowing = value
                 self.user = user
                 self.navigationItem.title = user.username
                 self.collectionView.reloadData()
@@ -47,7 +47,7 @@ class ProfileUserPostsViewController: UIViewController {
         Api.MyPosts.fetchMyPosts(userId: userId) { (key) in
             Api.Post.observePost(withId: key, completion: {
                 post in
-                print(post.id)
+                print(post.id as Any)
                 self.posts.append(post)
                 self.collectionView.reloadData()
             })

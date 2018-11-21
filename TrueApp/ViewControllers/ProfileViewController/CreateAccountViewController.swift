@@ -22,6 +22,8 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, MFMail
     
     @IBOutlet weak var createButton: UIButton!
     
+    //@IBOutlet weak var phoneNumber: UITextField!
+    
     var uid: String?
     var selectedImage: UIImage?
     var activationCode = "not_active"
@@ -46,6 +48,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, MFMail
         handleTextField()
         
     }
+    
     @objc func handleSelectProfilePicture() {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
@@ -54,24 +57,23 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, MFMail
     
     func isValidEmail(testStr:String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: testStr)
     }
     
     func showEmailAlert(success:@escaping (Bool)->()) {
-        let alert = UIAlertController(title: "Success", message: "Do you want email this user, to activate account?", preferredStyle: .alert)
-        
+        let alert = UIAlertController(title: "Success", message: "In order to officially create this profile, the user needs to be notified.", preferredStyle: .alert)
+    
         //2. Add the text field. You can configure it however you need.
         alert.addTextField { (textField) in
-            textField.placeholder = "Email"
+            textField.placeholder = "Mobile # or Email"
         }
         
         // 3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: "Send", style: .default, handler: { [weak alert] (_) in
             let textField = alert!.textFields![0]
             if !self.isValidEmail(testStr: textField.text!) {
-                let alert = UIAlertController(title: "Warning", message: "Wrong email", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: "Warning", message: "Email address is badly formatted", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                     self.showEmailAlert(success: { (completion) in
                         success(false)
@@ -82,6 +84,41 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, MFMail
                 let email = textField.text
                 self.sendEmail(email: email!, completion: { (completion) in
                     if completion {
+                        if self.selectedImage == nil || self.fullNameTextField.text?.trimmingCharacters(in: .whitespaces) == "" {
+                            let alertController = UIAlertController(title: "Warning", message: "Set image and name to profile", preferredStyle: UIAlertController.Style.alert)
+                            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                            alertController.addAction(defaultAction)
+                            self.present(alertController, animated: true, completion: nil)
+                            return
+                        }
+                        ProgressHUD.show()
+                        self.uid = randomString(length: 28)
+                        
+                        let storageRef = Storage.storage().reference(forURL: "gs://first-76cc5.appspot.com").child("ppo orofile_image").child(self.uid!)
+                        if let profileImage = self.selectedImage, let imageData = profileImage.jpegData(compressionQuality: 0.1) { //imageData problem
+                            storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
+                                if error != nil {
+                                    ProgressHUD.dismiss()
+                                    return
+                                }
+                                let profileImageUrl = storageRef.child("profile_image") //  metadata?.downloadURL()?.absoluteString
+                                profileImageUrl.downloadURL { url, error in
+                                    if let error = error {
+                                        print(error)
+                                        ProgressHUD.dismiss()
+                                    } else {
+                                        //NEED SOMETHING HERE
+                                    }
+                                }
+                                self.metadata = metadata?.path
+                                let ref = Database.database().reference()
+                                let usersReference = ref.child("users")
+                                let newUserReference = usersReference.child(self.uid!)
+                                let name = self.fullNameTextField.text
+                                let dict = ["fullName": name!, "profileImageUrl": metadata!.path!, "activationCode": self.activationCode] as [String : Any]
+                                newUserReference.setValue(dict)
+                            })
+                        }
                         success(true)
                     }
                 })
@@ -105,22 +142,24 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, MFMail
             var usersArr = [String]()
             usersArr.append(email)
             mail.setToRecipients(usersArr)
-            mail.setSubject("Invited Code")
+            mail.setSubject("Knocknock Invitation Code")
             let code = randomString(length: 8)
-            mail.setMessageBody("<p>You're invited code: <b> \(code) </b> </p>", isHTML: true)
+            mail.setMessageBody("<p>Knocknock, who's there? Well many of our friends are, and I've created your account for you. Download the app Knocknock and use this invitation code to retrieve and verify the profile that was made for you. Your invitation code: <b> \(code) </b> </p>", isHTML: true)
             self.activationCode = code
             present(mail, animated: true)
             completion(true)
+            //ALERT HERE
             // CHECK MSG STATUS - IF SUCCESS - ADD TO BD
         } else {
             // show failure alert
         }
     }
     
+ 
+    
     
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-
         let ref = Database.database().reference()
         let usersReference = ref.child("users")
         let newUserReference = usersReference.child(self.uid!)
@@ -136,58 +175,44 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, MFMail
         self.fullNameTextField.text = nil
     }
     
+//    func textComposeController(_ controller: MFMessageComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+//        let ref = Database.database().reference()
+//        let usersReference = ref.child("users")
+//        let newUserReference = usersReference.child(self.uid!)
+//        if result.rawValue == 0 {
+//            self.activationCode = "not_active"
+//        }
+//        let dict = ["fullName": self.fullNameTextField.text!, "profileImageUrl": metadata!, "activationCode": self.activationCode] as [String : Any]
+//        newUserReference.setValue(dict)
+//        print(dict)
+//        controller.dismiss(animated: true)
+//        self.chosenProfilePicture.image = UIImage(named: "squareprofile")
+//        self.selectedImage = nil
+//        self.fullNameTextField.text = nil
+//    }
+//    
+//    func Messages(_ sender: UIButton) {
+//        if MFMessageComposeViewController.canSendText() == true {
+//            let recipients:[String] = ["1500"]
+//            let messageController = MFMessageComposeViewController()
+//            messageController.messageComposeDelegate  = (self as! MFMessageComposeViewControllerDelegate)
+//            messageController.recipients = recipients
+//            messageController.body = "Your_text"
+//            self.present(messageController, animated: true, completion: nil)
+//        } else {
+//            //handle text messaging not available
+//        }
+//    }
+//    
+//    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+//        controller.dismiss(animated: true, completion: nil)
+//    }
+    
     @IBAction func createUserAction(_ sender: UIButton) {
-        view.endEditing(true)
-        if selectedImage == nil || fullNameTextField.text?.trimmingCharacters(in: .whitespaces) == "" {
-            let alertController = UIAlertController(title: "Warning", message: "Set image and name to profile", preferredStyle: UIAlertController.Style.alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alertController.addAction(defaultAction)
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-
-        uid = randomString(length: 28)
-       
-        let storageRef = Storage.storage().reference(forURL: "gs://first-76cc5.appspot.com").child("ppo orofile_image").child(uid!)
-            if let profileImage = self.selectedImage, let imageData = profileImage.jpegData(compressionQuality: 0.1) { //imageData problem
-                storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
-                    if error != nil {
-                        ProgressHUD.dismiss()
-                        return
-                    }
-                    let profileImageUrl = storageRef.child("profile_image") //  metadata?.downloadURL()?.absoluteString
-                    profileImageUrl.downloadURL { url, error in
-                        if let error = error {
-                            print(error)
-                            ProgressHUD.dismiss()
-                        } else {
-                            //NEED SOMETHING HERE
-                        }
-                    }
-                    self.metadata = metadata?.path
-                    let ref = Database.database().reference()
-                    let usersReference = ref.child("users")
-                    let newUserReference = usersReference.child(self.uid!)
-                    let name = self.fullNameTextField.text
-                    
-                    ProgressHUD.dismiss()
-                    
-                    self.showEmailAlert(success: { (completion) in
-//                        if completion {
-                            let dict = ["fullName": name!, "profileImageUrl": metadata!.path!, "activationCode": self.activationCode] as [String : Any]
-                            newUserReference.setValue(dict)
-                       // } else {
-//                            let dict = ["fullName": name!, "profileImageUrl": metadata!.path!, "activationCode": "not_active"] as [String : Any]
-//                            newUserReference.setValue(dict)
-                       // }
-                    })
-                    
-
-                    
-                    
-
-                })
-        }
+        self.showEmailAlert(success: { (completion) in
+            //                        if completion {
+            ProgressHUD.dismiss()
+        })
     }
 
     
@@ -221,7 +246,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, MFMail
     }
     
     
-    @objc func textFieldDidChange(){
+    @objc func textFieldDidChange() {
         guard let fullName = fullNameTextField.text, !fullName.isEmpty else {
             createButton.isEnabled = false
             return

@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class CommentCell: UITableViewCell {
-    
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var label: UILabel!
 }

@@ -9,19 +9,22 @@
 import Foundation
 import FirebaseDatabase
 import FirebaseAuth
-class FollowApi{
-    var REF_FOLLOWERS = Database.database().reference().child("followers")
-    var REF_FOLLOWING = Database.database().reference().child("following")
+
+class FollowApi {
+    var REF_FOLLOWERS = Database.database().reference().child("users").child((Auth.auth().currentUser?.uid)!).child("followers")
+    var REF_FOLLOWING = Database.database().reference().child("users").child((Auth.auth().currentUser?.uid)!).child("following")
     
-    func followAction(withUser id : String){
+    func followAction(withUser id : String) {
         Api.MyPosts.REF_MYPOSTS.child(id).observeSingleEvent(of: .value, with: {
             snapshot in
             if let dict = snapshot.value as? [String: Any]{
-                for key in dict.keys{
+                for _ in dict.keys{
                     Database.database().reference().child("feed").child(Auth.auth().currentUser!.uid).setValue(true) //ERROR
                 }
             }
         })
+        print(id)
+        print(Auth.auth().currentUser!.uid)
         REF_FOLLOWERS.child(id).child(Auth.auth().currentUser!.uid).setValue(true)
         REF_FOLLOWING.child(Auth.auth().currentUser!.uid).child(id).setValue(true)
     }
@@ -29,7 +32,7 @@ class FollowApi{
         Api.MyPosts.REF_MYPOSTS.child(id).observeSingleEvent(of: .value, with: {
             snapshot in
             if let dict = snapshot.value as? [String: Any]{
-                for key in dict.keys{
+                for _ in dict.keys{
                                         Database.database().reference().child("feed").child(Auth.auth().currentUser!.uid).removeValue() //ERROR
                 }
             }
@@ -41,13 +44,17 @@ class FollowApi{
     func isFollowing(userId:String, completed: @escaping (Bool) -> Void){
         REF_FOLLOWERS.child(userId).child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {
             snapshot in
-            if let _ = snapshot.value as? NSNull{
+            let val = snapshot.value as? NSNull
+            if (val != nil) {
                 completed(false)
             } else{
                 completed(true)
             }
         })
     }
+    
+    
+    
     func fetchCountFollowing(userId:String, completion: @escaping (Int) -> Void){
         REF_FOLLOWING.child(userId).observe(.value, with: {
             snapshot in

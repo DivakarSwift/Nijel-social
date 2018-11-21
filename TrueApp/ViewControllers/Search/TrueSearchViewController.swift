@@ -84,6 +84,8 @@ extension TrueSearchViewController: UITableViewDataSource {
 extension TrueSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = UserPostsViewController.instantiate(user: users[indexPath.row], type: .notMyPosts)
+        vc.user = users[indexPath.row]
+        vc.type = .notMyPosts
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -92,7 +94,7 @@ extension TrueSearchViewController: HeaderProfileCollectionReusableViewDelegate 
     func updateFollowButton(forUser user: User) {
         for u in self.users{
             if u.id == user.id{
-                u.isFollowing = user.isFollowing
+                u.followingSet = user.followingSet
                 self.tableView.reloadData()
             }
         }

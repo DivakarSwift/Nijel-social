@@ -71,7 +71,7 @@ class FeedTableViewCell: UITableViewCell {
 ////        heightPhoto = widthPhoto / ratio
 ////        widthPhoto =
 //        //storyLabel //NEED TIMESTAMP HERE
-//        //Api.User.observeUserByUsername(username: <#T##String#>, completion: <#T##(User) -> Void#>) //ep 85 - mention user by username
+//        //Api.User.observeUserByUsername(username: , completion: ) //ep 85 - mention user by username
 //        if let ratio = post?.ratio{
 //           // print("frame post Image:\(postImageView.frame)")
 //            heightConstraintPhoto.constant = UIScreen.main.bounds.width / ratio
@@ -156,7 +156,7 @@ class FeedTableViewCell: UITableViewCell {
     func setupUserInfo(){
        posterLabel.text = user?.username
         if let photoUrlString = user?.profileImageUrl{
-            let photoUrl = URL(string: photoUrlString)
+            _ = URL(string: photoUrlString)
              //profileImageView.sd_setImage(with: photoUrl, placeholderImage: UIImage(named: "squareprofile")  ) //shouldnt need this because profile image shouldnt be on post
         }
     }

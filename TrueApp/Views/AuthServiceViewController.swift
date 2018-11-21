@@ -22,6 +22,7 @@ class AuthServiceViewController: UIViewController {
             return
         }
         onSuccess()
+            
         }
 }
     
@@ -61,7 +62,7 @@ class AuthServiceViewController: UIViewController {
                 let uid = Auth.auth().currentUser!.uid
                 let storageRef = Storage.storage().reference(forURL: Config.STORAGE_ROOT_REF).child("profile_image").child(uid)
                 storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
-//                    <#code#>
+//
 //                })
 //                put(imageData, metadata: nil, completion: { (metadata, error) in
                     if error != nil {

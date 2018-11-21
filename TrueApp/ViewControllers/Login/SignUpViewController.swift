@@ -31,6 +31,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var signUpButton: UIButton!
     
     var selectedImage: UIImage?
+    var activeId: String?
+    var activeName: String?
     
     class func instantiate() -> SignUpViewController {
         return StoryboardControllerProvider<SignUpViewController>.controller(storyboardName: "LoginViewController")!
@@ -104,6 +106,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        print(activeId)
+        print(activeName)
+        if activeId != nil {
+            profileImage.isHidden = true
+            FullNameTextField.text = activeName
+            signUpButton.setTitle("Activate account", for: .normal)
+        }
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification){
@@ -162,23 +171,30 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func signUpBtn_TouchUpInside(_ sender: Any) {
         view.endEditing(true)
-        if selectedImage == nil {
-            let alertController = UIAlertController(title: "Warning", message: "Set image to your profile", preferredStyle: UIAlertController.Style.alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alertController.addAction(defaultAction)
-            
-            self.present(alertController, animated: true, completion: nil)
-            return
+        if activeId != nil {
+             try! Auth.auth().signOut()
+        } else {
+            if selectedImage == nil {
+                let alertController = UIAlertController(title: "Warning", message: "Set image to your profile", preferredStyle: UIAlertController.Style.alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
         }
-        ProgressHUD.show("Waiting...", interaction: false)
+        ProgressHUD.show()
         Auth.auth().createUser(withEmail: EmailTextField.text!,password: passwordTextField.text!) { (user: AuthDataResult?, error: Error?) in
             if error != nil {
-                print(error!.localizedDescription)
+                print(error!.localizedDescription) //Not showing up
                 ProgressHUD.dismiss()
                 return
             }
+            
             let uid = Auth.auth().currentUser!.uid
+            print(uid)
             let storageRef = Storage.storage().reference(forURL: "gs://first-76cc5.appspot.com").child("ppo orofile_image").child(uid)
+            
             if let profileImage = self.selectedImage, let imageData = profileImage.jpegData(compressionQuality: 0.1) { //imageData problem
                 storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
                     if error != nil {
@@ -199,12 +215,75 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     let ref = Database.database().reference()
                     let usersReference = ref.child("users")
                     let newUserReference = usersReference.child(uid)
-                    newUserReference.setValue(["fullName": self.FullNameTextField.text!, "phoneNumber": self.PhoneNumberTextField.text!, "username": self.usernameTextField.text!, "email": self.EmailTextField.text!, "profileImageUrl": metadata!.path!])
+                    if self.activeId != nil {
+                        getImageUrl(completion: { (completion, imgUrl) in
+                            if completion {
+                                updatePostId()
+                                newUserReference.updateChildValues(["fullName": self.FullNameTextField.text!, "phoneNumber": self.PhoneNumberTextField.text!, "username": self.usernameTextField.text!, "email": self.EmailTextField.text!, "profileImageUrl": imgUrl, "activationCode": "activated"])
+                            }
+                        })
+                    } else {
+                        newUserReference.setValue(["fullName": self.FullNameTextField.text!, "phoneNumber": self.PhoneNumberTextField.text!, "username": self.usernameTextField.text!, "email": self.EmailTextField.text!, "profileImageUrl": metadata!.path!])
+                    }
+
                     ProgressHUD.dismiss()
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
                     self.present(vc!, animated: true, completion: nil)
                     print("description: \(newUserReference.description())")
                 })
+            } else {
+                guard let user = user?.user else { return } //HELP HERE
+                let ref = Database.database().reference()
+                let usersReference = ref.child("users")
+                let newUserReference = usersReference.child(uid)
+                if self.activeId != nil {
+                    getImageUrl(completion: { (completion, imgUrl) in
+                        if completion {
+                            updatePostId()
+                            newUserReference.updateChildValues(["fullName": self.FullNameTextField.text!, "phoneNumber": self.PhoneNumberTextField.text!, "username": self.usernameTextField.text!, "email": self.EmailTextField.text!, "profileImageUrl": imgUrl, "activationCode": "activated"])
+                        }
+                    })
+                }
+                ProgressHUD.dismiss()
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+                self.present(vc!, animated: true, completion: nil)
+                print("description: \(newUserReference.description())")
+            }
+        }
+
+        func updatePostId() {
+            Database.database().reference().child("users").child((Auth.auth().currentUser?.uid)!).child("IPosted").observeSingleEvent(of: .value) { (snapshot) in
+            for child in snapshot.children {
+                let snapChild = child as? DataSnapshot
+                let dict = snapChild?.value as! [String: Any]
+                let snapKey = snapChild!.key as String
+    Database.database().reference().child("users").child((Auth.auth().currentUser?.uid)!).child("IPosted").child(snapKey).child("postToUserId").setValue(Auth.auth().currentUser?.uid)
+            }
+            }
+            
+            Database.database().reference().child("users").child((Auth.auth().currentUser?.uid)!).child("myPosts").observeSingleEvent(of: .value) { (snapshot) in
+                for child in snapshot.children {
+                    let snapChild = child as? DataSnapshot
+                    let dict = snapChild?.value as! [String: Any]
+                    let snapKey = snapChild!.key as String
+                    Database.database().reference().child("users").child((Auth.auth().currentUser?.uid)!).child("myPosts").child(snapKey).child("postToUserId").setValue(Auth.auth().currentUser?.uid)
+                }
+            }
+        }
+        
+        func getImageUrl(completion: @escaping(Bool, String) ->()) {
+            var imgUrl = ""
+            Database.database().reference().child("users").child(activeId!).observeSingleEvent(of: .value) { (snapshot) in
+                let snap = snapshot as DataSnapshot
+                let dict = snap.value as! [String: Any]
+                print(dict)
+                let newRef = Database.database().reference().child("users").child(Auth.auth().currentUser!.uid)
+                newRef.setValue(dict)
+                imgUrl = (dict["profileImageUrl"] as? String)!
+                let ref = Database.database().reference().child("users").child(self.activeId!)
+                ref.removeValue { error, _ in
+                }
+                completion(true, imgUrl)
             }
         }
 }

@@ -83,10 +83,10 @@ class HelperService{
                 let arraySnapshot = snapshot.children.allObjects as! [DataSnapshot]
                 arraySnapshot.forEach({ (child) in
                     print(child.key)
-                    Api.Feed.REF_FEED.child(child.key).updateChildValues(["\(newPostId)" :true])
+                    Api.Feed.REF_FEED.child(child.key).updateChildValues(["\(String(describing: newPostId))" :true])
                     let newNotificationId = Api.Notification.REF_NOTIFICATION.child(child.key).childByAutoId().key
                     let newNotificationReference = Api.Notification.REF_NOTIFICATION.child(child.key).child(newNotificationId ?? "")
-                    newNotificationReference.setValue(["from" : Auth.auth().currentUser!.uid, "type": "feed", "objectId": newPostId, "timestamp": timestamp])
+                    newNotificationReference.setValue(["from" : Auth.auth().currentUser!.uid, "type": "feed", "objectId": newPostId as Any, "timestamp": timestamp])
                 })
             })
             let myPostRef = Api.MyPosts.REF_MYPOSTS.child(currentUserId).child(newPostId ?? "")
