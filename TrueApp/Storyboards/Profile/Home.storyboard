@@ -770,7 +770,7 @@
         <scene sceneID="fwz-fz-h0T">
             <objects>
                 <navigationController storyboardIdentifier="NavigationHome" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" toolbarHidden="NO" id="DHz-wG-4AF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="feed" landscapeImage="feed" id="C1C-qu-IFg"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home_icon" id="C1C-qu-IFg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GOp-Nb-egP">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -1523,7 +1523,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="feed" width="225" height="225"/>
+        <image name="home_icon" width="25" height="25"/>
         <image name="squareprofile" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>

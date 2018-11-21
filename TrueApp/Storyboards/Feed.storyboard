@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y9D-sX-01o">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y9D-sX-01o">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -568,7 +568,7 @@
         <scene sceneID="17c-3g-lPE">
             <objects>
                 <navigationController storyboardIdentifier="NavigationFeed" automaticallyAdjustsScrollViewInsets="NO" id="Y9D-sX-01o" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" id="tmL-9n-yaD"/>
+                    <tabBarItem key="tabBarItem" title="Feed" image="feed_icon" id="tmL-9n-yaD"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QWy-6Z-mcf">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -781,7 +781,7 @@
         <scene sceneID="g7b-cC-nu2">
             <objects>
                 <viewControllerPlaceholder storyboardName="Home" id="pPb-Gx-bqW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="V3j-6m-Evc"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="home_icon" id="V3j-6m-Evc"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGo-Ck-sP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -797,16 +797,18 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Heart" width="1200" height="1200"/>
+        <image name="Heart" width="1600" height="1600"/>
         <image name="Squad" width="534" height="534"/>
         <image name="XC" width="620" height="349"/>
         <image name="bballgang" width="2692" height="1517"/>
         <image name="businessmodeunlocked" width="1138" height="1518"/>
         <image name="comment" width="512" height="512"/>
-        <image name="folz" width="108" height="108"/>
+        <image name="feed_icon" width="25" height="25"/>
+        <image name="folz" width="225" height="225"/>
         <image name="gangstates" width="2292" height="1518"/>
+        <image name="home_icon" width="25" height="25"/>
         <image name="photo" width="512" height="512"/>
-        <image name="save" width="96" height="96"/>
+        <image name="save" width="128" height="128"/>
         <image name="send" width="200" height="200"/>
         <image name="trerahim" width="1440" height="1080"/>
         <image name="tresam" width="750" height="562"/>
