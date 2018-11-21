@@ -12,9 +12,6 @@ import Firebase
 
 protocol HeaderProfileCollectionReusableViewDelegate {
     func updateFollowButton(forUser user: User)
-}
-
-protocol HeaderProfileCollectionReusableViewDelegateSwitchSettingVC {
     func goToSettingVC()
 }
 
@@ -44,7 +41,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
     @IBOutlet weak var dateFilterButton: UIButton!
     
     var delegate: HeaderProfileCollectionReusableViewDelegate?
-    var delegate2: HeaderProfileCollectionReusableViewDelegateSwitchSettingVC?
+
     var selectedImage: UIImage?
     var editProfile = false
 
@@ -91,7 +88,6 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
             Database.database().reference().child("users").child(user!.id!).updateChildValues(["born" : bornTextView.text])
             Database.database().reference().child("users").child(user!.id!).updateChildValues(["relatives" : relativesTextView.text])
             Database.database().reference().child("users").child(user!.id!).updateChildValues(["school" : schoolTextView.text])
-            //Database.database().reference().child("users").child(user!.id!).updateChildValues(["bio" : textViewBio.text])
             editProfile = false
         } else {
             bornTextView.isUserInteractionEnabled = true
@@ -109,6 +105,11 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
     @IBAction func editDateAction(_ sender: UITextField) {
         Database.database().reference().child("users").child(user!.id!).updateChildValues(["userDate" : userDateField.text as Any])
     }
+    
+    @IBAction func filterByDateButtonTouched(_ sender: Any) {
+        
+    }
+    
 
     func viewDidLoad() {
         profileImage.layer.cornerRadius = 10
@@ -338,17 +339,29 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
         self.followersCountLabel.text = ""
     }
     
-    @objc func goToSettingVC(){
-        delegate2?.goToSettingVC()
+    @objc func goToSettingVC() {
+        delegate?.goToSettingVC()
     }
     
     func updateStateFollowButton(){
-        if user?.followerSet == true {
-            configureUnFollowButton()
-        }else{
-            configureFollowButton()
-            
+        if user?.id == Auth.auth().currentUser!.uid{
+            followButton.setTitle("Edit Profile", for: UIControl.State.normal)
+            followButton.addTarget(self, action: #selector(self.goToSettingVC), for: UIControl.Event.touchUpInside)
+            return
         }
+        Api.Follow.isFollowing(userId: user!.id!) { isFollowing in
+            if isFollowing == true {
+                self.configureUnFollowButton()
+            } else {
+                self.configureFollowButton()
+            }
+        }
+
+//        if user?.followerSet == true {
+//            configureUnFollowButton()
+//        }else{
+//            configureFollowButton()
+//        }
     }
     
     func configureFollowButton(){
@@ -374,20 +387,14 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
         followButton.addTarget(self, action: #selector(self.unFollowAction), for: UIControl.Event.touchUpInside)
     }
     
-    @objc func followAction() {
-        if user?.followerSet == false {
-            Api.Follow.followAction(withUser: user!.id!)
-            configureUnFollowButton()
-            delegate?.updateFollowButton(forUser: user!)
-        }
+    @objc func followAction() {        
+        Api.Follow.followAction(withUser: user!.id!)
+        configureUnFollowButton()
     }
     
     @objc func unFollowAction() {
-        if user?.followerSet == true {
-            Api.Follow.unFollowAction(withUser: user!.id!)
-            configureFollowButton()
-            delegate?.updateFollowButton(forUser: user!)
-        }
+        Api.Follow.unFollowAction(withUser: user!.id!)
+        configureFollowButton()
     }
     
     func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){

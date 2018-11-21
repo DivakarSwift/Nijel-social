@@ -19,6 +19,7 @@ enum UserPostsViewControllerType {
 class UserPostsViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     // MARK: - Outles
+    
     @IBOutlet weak var lifeStoryButton: UIButton!
     @IBOutlet weak var lifeStoryTextView: UITextView!
     @IBOutlet weak var activationButton: UIButton!
@@ -133,22 +134,9 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     
 
     override func viewWillAppear(_ animated: Bool) {
-        
-        
-        
-//        Api.User.observeCurrentUser{ (user) in
-//            //self.user = user
-//            self.fetchUser()
-//            self.fetchPosts()
-//        }
-        //print(user.id)
-//        Api.User.observeUser(withId: user.id!, completion: { (user) in
-//            self.user = user
-//            self.fetchPosts()
-//            self.fetchUser()
-//            })
+        super.viewWillAppear(animated)
     }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         //fetchPosts()
@@ -412,6 +400,7 @@ extension UserPostsViewController: UICollectionViewDataSource {
                     }
                 }
                 headerViewCell.myPostsCountLabel.text = "\(postCount)"
+                headerViewCell.delegate = self
             }
             
             if type == .notMyPosts {
@@ -444,6 +433,8 @@ extension UserPostsViewController: UICollectionViewDataSource {
         
     }
 }
+
+// MARK: CollectionViewFlowLayout
 
 extension UserPostsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -481,6 +472,9 @@ extension UserPostsViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
+// MARK: - CollectionViewDelegate
+
 extension UserPostsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var post: Post
@@ -518,21 +512,18 @@ extension UserPostsViewController: UICollectionViewDelegate {
     }
 }
 
-extension String {
-    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        
-        return ceil(boundingBox.height)
+extension UserPostsViewController: HeaderProfileCollectionReusableViewDelegate {
+    // TODO: remove this
+    
+    func updateFollowButton(forUser user: User) {
+
     }
     
-    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        
-        return ceil(boundingBox.width)
+    func goToSettingVC() {
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingTableViewController")
+        navigationController?.pushViewController(settingsVC, animated: true)
     }
 }
-
 
 

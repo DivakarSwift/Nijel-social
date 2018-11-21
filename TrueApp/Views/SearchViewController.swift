@@ -85,6 +85,10 @@ extension SearchViewController: UITableViewDataSource{
 }
 
 extension SearchViewController: HeaderProfileCollectionReusableViewDelegate{
+    func goToSettingVC() {
+        
+    }
+    // TODO: check is it works
     func updateFollowButton(forUser user: User) {
         for u in self.users{
             if u.id == user.id{
