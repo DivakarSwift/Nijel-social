@@ -19,7 +19,7 @@ class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         let nib = UINib(nibName: "SavedTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "kSavedTableViewCell")
         tableView.delegate = self

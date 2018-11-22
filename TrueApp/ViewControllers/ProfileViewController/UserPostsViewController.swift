@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 import MessageUI
+import ProgressHUD
 
 enum UserPostsViewControllerType {
     case myPosts, notMyPosts
@@ -39,6 +40,8 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     var byographyPosts = [Post]()
     var filteredPosts = [Post]()
     var isFilteredByDate = false
+    let expandableTitles = ["Early life", "Education", "Career", "Personal life"]
+    var expandedCellIndexes: [Int] = []
     lazy var datePicker = DatePickerView.fromNib(name: "DatePickerView") as! DatePickerView
     
     let date = Date().timeIntervalSince1970 - 24*60*60.0
@@ -129,13 +132,6 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         print("EDIT STORY")
     }
-    
-    @IBAction func logoutAction(_ sender: Any) {
-        try! Auth.auth().signOut()
-        let vc = LaunchScreenViewController.instantiate()
-        self.present(vc, animated: false, completion: nil)
-    }
-    
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -143,29 +139,31 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //fetchPosts()
         collectionView.dataSource = self
         collectionView.delegate = self
-        //super.viewWillAppear(animated)
-       // posts.removeAll()
-        collectionView.reloadData()
         UserDefaults.standard.set(false, forKey: "isEditStory")
+        
+        ProgressHUD.show()
         Api.User.observeUser(withId: user.id!, completion: { (user) in
+            ProgressHUD.dismiss()
             self.user = user
             self.fetchPosts()
             self.fetchUser()
+            self.collectionView.reloadData()
         })
         if type == .notMyPosts {
             let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
             navigationItem.setLeftBarButton(backButton, animated: true)
         }
+        
+        collectionView.register(UINib(nibName: "HeaderProfileCollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderProfileCollectionReusableView")
+        collectionView.register(UINib(nibName: "ExpandableTextCell", bundle: nil), forCellWithReuseIdentifier: "ExpandableTextCell")
         collectionView.register(UINib(nibName: "HomePageSmallPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomePageSmallPostCollectionViewCell")
         collectionView.register(UINib(nibName: "HomePageBigPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomePageBigPostCollectionViewCell")
         collectionView.register(UINib(nibName: "CreateByographyPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CreateByographyPostCollectionViewCell")
         collectionView.register(UINib(nibName: "TextCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TextCollectionViewCell")
+        collectionView.reloadData()
 
-
-        
     }
     
 
@@ -331,6 +329,9 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
 
 extension UserPostsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 1 {
+            return expandableTitles.count
+        }
         if segmentControll?.selectedSegmentIndex == 0 {
             if Auth.auth().currentUser?.uid == user.id {
                 return last24hoursPosts.count + byographyPosts.count
@@ -346,6 +347,14 @@ extension UserPostsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print(indexPath)
+        if indexPath.section == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExpandableTextCell", for: indexPath) as! ExpandableTextCell
+            cell.titleLabel.text = expandableTitles[indexPath.row]
+            cell.isExpanded = !expandedCellIndexes.contains(indexPath.row)
+            return cell
+        }
+        
         if segmentControll?.selectedSegmentIndex == 0 {
             if indexPath.row > last24hoursPosts.count || (indexPath.row >= last24hoursPosts.count && Auth.auth().currentUser?.uid == user.id) {
                 if Auth.auth().currentUser?.uid == user.id {
@@ -429,8 +438,12 @@ extension UserPostsViewController: UICollectionViewDataSource {
         }
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView,  viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
+
         switch kind {
             
         case UICollectionView.elementKindSectionHeader:
@@ -447,6 +460,7 @@ extension UserPostsViewController: UICollectionViewDataSource {
                         print(postCount)
                     }
                 }
+                headerViewCell.viewDidLoad()
                 headerViewCell.isFilteredByDate = isFilteredByDate
                 headerViewCell.myPostsCountLabel.text = "\(postCount)"
                 headerViewCell.dateFilterButton.setTitle(isFilteredByDate ?  "Clear" : "Filter by Date", for: .normal)
@@ -454,30 +468,13 @@ extension UserPostsViewController: UICollectionViewDataSource {
                 headerViewCell.delegate = self
             }
             
-            if type == .notMyPosts {
-                //headerViewCell.segmentControll.isHidden = true
-                // headerViewCell.createPost.isHidden = false
-            }
-            headerViewCell.createPost.layer.cornerRadius = 8
-//            if Auth.auth().currentUser?.uid == user.id {
-//                headerViewCell.createPost.isHidden = true
-//            }
             segmentControll = headerViewCell.segmentControll
             activityIndicator.frame = CGRect(x: headerViewCell.profileImage.frame.width/2, y: headerViewCell.profileImage.frame.height/2, width: 36, height: 36)
             activityIndicator.hidesWhenStopped = true
             headerViewCell.profileImage.addSubview(activityIndicator)
+            
             return headerViewCell
-            
-        case UICollectionView.elementKindSectionFooter:
-            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "Footer", for: indexPath) as! FooterProfileCollectionReusableView
-            lifeStoryText = footerView.lifeStoryTextView.text
-            if let user = self.user {
-                footerView.user = user
-            }
-            return footerView
-            
         default:
-            
             assert(false, "Unexpected element kind")
         }
         
@@ -488,20 +485,29 @@ extension UserPostsViewController: UICollectionViewDataSource {
 // MARK: CollectionViewFlowLayout
 
 extension UserPostsViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 1 {
+            return CGSize.zero
+        }
+        
+        return CGSize(width: collectionView.frame.width, height: 567)
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
-    }
-   
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        let textHeight = lifeStoryText.height(withConstrainedWidth: collectionView.frame.size.width - 2 - 20, font: UIFont.systemFont(ofSize: 14))
-        print(textHeight)
-        return CGSize(width: collectionView.frame.size.width, height: textHeight + 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 1 {
+            if expandedCellIndexes.contains(indexPath.row) {
+                return CGSize(width: collectionView.frame.width, height: 150)
+            } else {
+                return CGSize(width: collectionView.frame.width, height: 40)
+            }
+        }
+        
         if segmentControll?.selectedSegmentIndex == 0 {
             if indexPath.row > last24hoursPosts.count {
                 return CGSize(width: collectionView.frame.size.width - 2, height: 65)
@@ -528,9 +534,22 @@ extension UserPostsViewController: UICollectionViewDelegateFlowLayout {
 
 extension UserPostsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.section == 1 {
+            let cell = collectionView.cellForItem(at: indexPath) as! ExpandableTextCell
+            
+            if expandedCellIndexes.contains(indexPath.row) {
+                expandedCellIndexes = expandedCellIndexes.filter { return $0 != indexPath.row }
+            } else {
+                expandedCellIndexes.append(indexPath.row)
+            }
+            collectionView.reloadSections([indexPath.section])
+            return
+        }
+        
         var post: Post
          var image: UIImage?
-        if segmentControll?.selectedSegmentIndex == 0{
+        if segmentControll?.selectedSegmentIndex == 0 {
             if indexPath.row > last24hoursPosts.count{
                 post = byographyPosts[indexPath.row - last24hoursPosts.count - 1]
                 if Auth.auth().currentUser?.uid == user.id {
