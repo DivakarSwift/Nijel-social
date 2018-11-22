@@ -186,6 +186,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         let profileVC = UserPostsViewController.instantiate(user: user, type: .myPosts)
                         let navigationVC = UINavigationController(rootViewController: profileVC)
                         navigationVC.view.backgroundColor = UIColor.white
+                        navigationVC.tabBarItem.image = #imageLiteral(resourceName: "home_icon.png")
                         vc.viewControllers?[0] = navigationVC
                         ProgressHUD.dismiss()
                         self.present(vc, animated: false, completion: nil)
