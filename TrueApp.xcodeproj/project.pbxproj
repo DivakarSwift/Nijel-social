@@ -42,6 +42,9 @@
 		5CC0188B21925733001AB719 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC0188A21925733001AB719 /* UIViewController.swift */; };
 		5CC0188D21934A95001AB719 /* FooterProfileCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC0188C21934A95001AB719 /* FooterProfileCollectionReusableView.swift */; };
 		5CE84323216FF8820095B41E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE84322216FF8820095B41E /* String.swift */; };
+		6996932A21A7540E00259734 /* HeaderProfileCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6996932921A7540E00259734 /* HeaderProfileCollectionReusableView.xib */; };
+		69C8DF0421A7289A002597C0 /* ExpandableTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C8DF0221A7289A002597C0 /* ExpandableTextCell.swift */; };
+		69C8DF0521A7289A002597C0 /* ExpandableTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69C8DF0321A7289A002597C0 /* ExpandableTextCell.xib */; };
 		69F19B3921A5FFD100F6B7EC /* DatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F19B3821A5FFD100F6B7EC /* DatePickerView.xib */; };
 		69F19B3B21A600B300F6B7EC /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F19B3A21A600B300F6B7EC /* DatePickerView.swift */; };
 		69F19B3D21A601A800F6B7EC /* UIView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F19B3C21A601A800F6B7EC /* UIView+Nib.swift */; };
@@ -177,6 +180,9 @@
 		5CC0188A21925733001AB719 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		5CC0188C21934A95001AB719 /* FooterProfileCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterProfileCollectionReusableView.swift; sourceTree = "<group>"; };
 		5CE84322216FF8820095B41E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		6996932921A7540E00259734 /* HeaderProfileCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderProfileCollectionReusableView.xib; sourceTree = "<group>"; };
+		69C8DF0221A7289A002597C0 /* ExpandableTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTextCell.swift; sourceTree = "<group>"; };
+		69C8DF0321A7289A002597C0 /* ExpandableTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpandableTextCell.xib; sourceTree = "<group>"; };
 		69F19B3821A5FFD100F6B7EC /* DatePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerView.xib; sourceTree = "<group>"; };
 		69F19B3A21A600B300F6B7EC /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		69F19B3C21A601A800F6B7EC /* UIView+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Nib.swift"; sourceTree = "<group>"; };
@@ -479,6 +485,9 @@
 				110B83BC216E75C400611383 /* TextCollectionViewCell.swift */,
 				5C6601B7217CDE5500C25B1D /* SavedTableViewCell.swift */,
 				5C6601B8217CDE5500C25B1D /* SavedTableViewCell.xib */,
+				69C8DF0221A7289A002597C0 /* ExpandableTextCell.swift */,
+				69C8DF0321A7289A002597C0 /* ExpandableTextCell.xib */,
+				6996932921A7540E00259734 /* HeaderProfileCollectionReusableView.xib */,
 			);
 			path = ViewCell;
 			sourceTree = "<group>";
@@ -710,6 +719,7 @@
 				119B3D3C2163D74F00AE7C61 /* HomePageBigPostCollectionViewCell.xib in Resources */,
 				EAAED53C2138F3F900968C5B /* Create.storyboard in Resources */,
 				119E3809216A440B0045364E /* DatePickerTableViewCell.xib in Resources */,
+				6996932A21A7540E00259734 /* HeaderProfileCollectionReusableView.xib in Resources */,
 				EAAED4FE2138F03C00968C5B /* LaunchScreen.storyboard in Resources */,
 				119E3803216A3F810045364E /* CreateByographyPostCollectionViewCell.xib in Resources */,
 				119E3807216A43320045364E /* CreateByographyPostViewController.storyboard in Resources */,
@@ -720,6 +730,7 @@
 				EAAED5402138F41000968C5B /* Home.storyboard in Resources */,
 				114E1457216126C50063EB73 /* CommentHeadCell.xib in Resources */,
 				EAAED4FB2138F03C00968C5B /* Assets.xcassets in Resources */,
+				69C8DF0521A7289A002597C0 /* ExpandableTextCell.xib in Resources */,
 				114E1447215CAF5C0063EB73 /* PeopleTableViewCell.xib in Resources */,
 				114E1439215B6CDE0063EB73 /* LoginViewController.storyboard in Resources */,
 				EAAED5442138F41800968C5B /* Search.storyboard in Resources */,
@@ -898,6 +909,7 @@
 				EAAED52E2138F29200968C5B /* ForgotPWViewController.swift in Sources */,
 				EAAED5322138F31500968C5B /* LaunchScreenViewController.swift in Sources */,
 				114E144C215CDAE70063EB73 /* CreatePostViewController.swift in Sources */,
+				69C8DF0421A7289A002597C0 /* ExpandableTextCell.swift in Sources */,
 				EA72D073214EA4D900FEEC77 /* CreateEventViewController.swift in Sources */,
 				EA4E811F213F62D9005D8EDF /* Post_CommentApi.swift in Sources */,
 				114E145D216131760063EB73 /* CommentCell.swift in Sources */,

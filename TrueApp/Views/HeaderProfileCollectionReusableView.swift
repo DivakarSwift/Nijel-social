@@ -33,7 +33,6 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var userDateField: UITextField!
     @IBOutlet weak var textViewBio: UITextView!
-    @IBOutlet weak var createPost: UIButton!
     @IBOutlet weak var activateButton: UIButton!
     @IBOutlet weak var segmentControll: UISegmentedControl!
     @IBOutlet weak var postsCountLabel: UILabel!
