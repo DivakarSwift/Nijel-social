@@ -40,7 +40,10 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     var byographyPosts = [Post]()
     var filteredPosts = [Post]()
     var isFilteredByDate = false
-    let expandableTitles = ["Early life", "Education", "Career", "Personal life"]
+    let expandableTitles: [(ExpandableTextCell.ExpandableCellType, String)] = [(ExpandableTextCell.ExpandableCellType.earlyLife, "Early life"),
+                                                                            (.education, "Education"),
+                                                                            (.career, "Career"),
+                                                                            (.personalLife, "Personal life")]
     var expandedCellIndexes: [Int] = []
     lazy var datePicker = DatePickerView.fromNib(name: "DatePickerView") as! DatePickerView
     
@@ -85,6 +88,37 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
         }))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func getAdditionalInfo(by type: ExpandableTextCell.ExpandableCellType) -> String? {
+        switch type {
+        case .career:
+            return user.career
+        case .earlyLife:
+            return user.earlyLife
+        case .education:
+            return user.education
+        case .personalLife:
+            return user.personalLife
+        }
+    }
+    
+    func updateAdditionalUserInfo(by type: ExpandableTextCell.ExpandableCellType, with text: String) {
+        let ref = Database.database().reference()
+        let usersReference = ref.child("users")
+        let newUserReference = usersReference.child(user.id!)
+        Database.database().reference().child("users").child(user!.id!).updateChildValues([type.rawValue : text])
+        
+        switch type {
+        case .career:
+            user.career = text
+        case .earlyLife:
+            user.earlyLife = text
+        case .education:
+            user.education = text
+        case .personalLife:
+            user.personalLife = text
+        }
     }
     
     func sendEmail(email: String) {
@@ -350,8 +384,13 @@ extension UserPostsViewController: UICollectionViewDataSource {
         print(indexPath)
         if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExpandableTextCell", for: indexPath) as! ExpandableTextCell
-            cell.titleLabel.text = expandableTitles[indexPath.row]
+            cell.titleLabel.text = expandableTitles[indexPath.row].1
+            cell.cellType = expandableTitles[indexPath.row].0
             cell.isExpanded = !expandedCellIndexes.contains(indexPath.row)
+            cell.delegate = self
+            cell.textEdit.text = getAdditionalInfo(by: cell.cellType)
+            cell.textEdit.delegate = cell
+            
             return cell
         }
         
@@ -502,9 +541,9 @@ extension UserPostsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 1 {
             if expandedCellIndexes.contains(indexPath.row) {
-                return CGSize(width: collectionView.frame.width, height: 150)
+                return CGSize(width: collectionView.frame.width, height: 265)
             } else {
-                return CGSize(width: collectionView.frame.width, height: 40)
+                return CGSize(width: collectionView.frame.width, height: 60)
             }
         }
         
@@ -604,4 +643,9 @@ extension UserPostsViewController: HeaderProfileCollectionReusableViewDelegate {
     }
 }
 
+extension UserPostsViewController: ExpandableTextCellDelegate {
+    func textDidEndEditing(_ text: String, type: ExpandableTextCell.ExpandableCellType) {
+        updateAdditionalUserInfo(by: type, with: text)
+    }
+}
 
