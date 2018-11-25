@@ -24,6 +24,11 @@ class User{
     var relatives: String?
     var school: String?
     var userDate: String?
+    var earlyLife: String?
+    var education: String?
+    var career: String?
+    var personalLife: String?
+
 }
 
 
@@ -46,6 +51,11 @@ extension User{
         user.userDate = dict["userDate"] as? String
         user.followingSet = dict["followingSet"] as? Bool // [String:[String: Any]]//listToHashSet(list: dict["Following"] as? [String: Any])
         user.followerSet = dict["followerSet"] as? Bool //[String:[String: Any]]//listToHashSet(list: dict["Followers"] as? [String: Any])
+        user.earlyLife = dict["earlyLife"] as? String
+        user.education = dict["education"] as? String
+        user.career = dict["career"] as? String
+        user.personalLife = dict["personalLife"] as? String
+        
         return user
     }
     
