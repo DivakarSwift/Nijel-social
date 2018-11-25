@@ -25,6 +25,8 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     @IBOutlet weak var lifeStoryTextView: UITextView!
     @IBOutlet weak var activationButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UserPostsCollectionViewCell!
+    
     weak var segmentControll: UISegmentedControl?
     
     var activationCode = "not_active"
@@ -275,6 +277,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
                 }
             }
             byographyPosts.sort(by: {$0.contentDate ?? $0.date ?? 0 < $1.contentDate ?? $1.date ?? 0 })
+            collectionView.reloadData()
         }
     }
     
@@ -381,7 +384,7 @@ extension UserPostsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(indexPath)
+
         if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExpandableTextCell", for: indexPath) as! ExpandableTextCell
             cell.titleLabel.text = expandableTitles[indexPath.row].1
@@ -508,6 +511,7 @@ extension UserPostsViewController: UICollectionViewDataSource {
             }
             
             segmentControll = headerViewCell.segmentControll
+            segmentControll?.addTarget(self, action: #selector(segmentControllValueChanged(_:)), for: .valueChanged)
             activityIndicator.frame = CGRect(x: headerViewCell.profileImage.frame.width/2, y: headerViewCell.profileImage.frame.height/2, width: 36, height: 36)
             activityIndicator.hidesWhenStopped = true
             headerViewCell.profileImage.addSubview(activityIndicator)
@@ -575,7 +579,6 @@ extension UserPostsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if indexPath.section == 1 {
-            let cell = collectionView.cellForItem(at: indexPath) as! ExpandableTextCell
             
             if expandedCellIndexes.contains(indexPath.row) {
                 expandedCellIndexes = expandedCellIndexes.filter { return $0 != indexPath.row }
