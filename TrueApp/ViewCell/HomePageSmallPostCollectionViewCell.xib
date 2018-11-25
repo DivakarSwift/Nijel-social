@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -45,7 +45,14 @@
                                 <rect key="frame" x="161.5" y="12" width="187" height="41"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="| 12:54" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tk3-Tf-IUH">
-                                        <rect key="frame" x="94.5" y="10" width="53" height="21"/>
+                                        <rect key="frame" x="95" y="10" width="53" height="21"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XaeWan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQ3-60-smu">
+                                        <rect key="frame" x="23.5" y="10" width="63" height="21"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -54,8 +61,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="wQ3-60-smu" firstAttribute="centerY" secondItem="fqe-XQ-lkZ" secondAttribute="centerY" id="Bkp-UO-zmb"/>
+                                    <constraint firstItem="Tk3-Tf-IUH" firstAttribute="baseline" secondItem="wQ3-60-smu" secondAttribute="baseline" id="UwD-e5-VRm"/>
+                                    <constraint firstItem="Tk3-Tf-IUH" firstAttribute="leading" secondItem="wQ3-60-smu" secondAttribute="trailing" constant="8.5" id="aTa-V6-zM6"/>
+                                    <constraint firstItem="wQ3-60-smu" firstAttribute="leading" secondItem="fqe-XQ-lkZ" secondAttribute="leading" constant="23.5" id="mfp-Wn-jXd"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tk3-Tf-IUH" secondAttribute="trailing" constant="39" id="n06-wO-3dZ"/>
                                     <constraint firstAttribute="height" constant="41" id="q44-HR-II1"/>
-                                    <constraint firstAttribute="width" constant="187" id="tLh-HA-QzQ"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ME6-OJ-fc6">
@@ -65,29 +76,18 @@
                                     <constraint firstAttribute="height" constant="1" id="wCT-X4-AxI"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XaeWan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQ3-60-smu">
-                                <rect key="frame" x="188.5" y="22" width="63" height="21"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Tk3-Tf-IUH" firstAttribute="firstBaseline" secondItem="wQ3-60-smu" secondAttribute="firstBaseline" id="4dd-uc-FHI"/>
-                            <constraint firstItem="Tk3-Tf-IUH" firstAttribute="leading" secondItem="wQ3-60-smu" secondAttribute="trailing" constant="4.5" id="7Ct-d6-ULM"/>
                             <constraint firstItem="ME6-OJ-fc6" firstAttribute="width" secondItem="hYS-G2-2S1" secondAttribute="width" id="7Dj-xi-1Kg"/>
                             <constraint firstItem="8lk-eX-X18" firstAttribute="centerY" secondItem="hYS-G2-2S1" secondAttribute="centerY" id="7Nb-If-eSi"/>
                             <constraint firstItem="fqe-XQ-lkZ" firstAttribute="centerY" secondItem="hYS-G2-2S1" secondAttribute="centerY" id="8hT-px-Wok"/>
-                            <constraint firstItem="fqe-XQ-lkZ" firstAttribute="leading" secondItem="wQ3-60-smu" secondAttribute="trailing" constant="-90" id="BoR-Gh-YJq"/>
                             <constraint firstItem="nWK-8P-bs3" firstAttribute="centerY" secondItem="hYS-G2-2S1" secondAttribute="centerY" id="FtV-oF-Jp8"/>
                             <constraint firstItem="fqe-XQ-lkZ" firstAttribute="centerX" secondItem="hYS-G2-2S1" secondAttribute="centerX" id="Jgp-jF-4Sg"/>
                             <constraint firstAttribute="trailing" secondItem="nWK-8P-bs3" secondAttribute="trailing" constant="10" id="MVf-Cw-dAg"/>
                             <constraint firstAttribute="bottom" secondItem="ME6-OJ-fc6" secondAttribute="bottom" constant="1" id="QLb-aL-L3S"/>
                             <constraint firstItem="ME6-OJ-fc6" firstAttribute="centerX" secondItem="hYS-G2-2S1" secondAttribute="centerX" id="R6c-Am-I3q"/>
                             <constraint firstItem="8lk-eX-X18" firstAttribute="leading" secondItem="hYS-G2-2S1" secondAttribute="leading" constant="10" id="eR4-np-jI2"/>
-                            <constraint firstItem="wQ3-60-smu" firstAttribute="centerY" secondItem="fqe-XQ-lkZ" secondAttribute="centerY" id="ylM-EJ-f3I"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -106,7 +106,7 @@
                 <outlet property="rightImageView" destination="nWK-8P-bs3" id="8pv-kX-398"/>
                 <outlet property="usernameLabel" destination="wQ3-60-smu" id="j9K-gu-WOp"/>
             </connections>
-            <point key="canvasLocation" x="-313.60000000000002" y="-167.76611694152925"/>
+            <point key="canvasLocation" x="-318" y="-213"/>
         </collectionViewCell>
     </objects>
     <resources>
