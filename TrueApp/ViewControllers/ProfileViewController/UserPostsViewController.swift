@@ -39,7 +39,6 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     var posts = [Post]()
     var lifeStoryText = ""
     var last24hoursPosts = [Post]()
-    var byographyPosts = [Post]()
     var filteredPosts = [Post]()
     var isFilteredByDate = false
     let expandableTitles: [(ExpandableTextCell.ExpandableCellType, String)] = [(ExpandableTextCell.ExpandableCellType.earlyLife, "Early life"),
@@ -266,17 +265,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
                     }
                 }
             }
-            byographyPosts.removeAll()
-            for post in posts where post.date! < date { //where post.isWatchedByUser != false
-                if showSelfPosts {
-                    byographyPosts.append(post)
-                } else {
-                    if post.postFromUserId != user.id {
-                        byographyPosts.append(post)
-                    }
-                }
-            }
-            byographyPosts.sort(by: {$0.contentDate ?? $0.date ?? 0 < $1.contentDate ?? $1.date ?? 0 })
+
             collectionView.reloadData()
         }
     }
@@ -371,9 +360,9 @@ extension UserPostsViewController: UICollectionViewDataSource {
         }
         if segmentControll?.selectedSegmentIndex == 0 {
             if Auth.auth().currentUser?.uid == user.id {
-                return last24hoursPosts.count + byographyPosts.count
+                return last24hoursPosts.count
             } else {
-                return last24hoursPosts.count + 1 + byographyPosts.count
+                return last24hoursPosts.count + 1
             }
         } else {
             if isFilteredByDate {
@@ -398,40 +387,6 @@ extension UserPostsViewController: UICollectionViewDataSource {
         }
         
         if segmentControll?.selectedSegmentIndex == 0 {
-            if indexPath.row > last24hoursPosts.count || (indexPath.row >= last24hoursPosts.count && Auth.auth().currentUser?.uid == user.id) {
-                if Auth.auth().currentUser?.uid == user.id {
-                    if byographyPosts[indexPath.row - last24hoursPosts.count].imgURL == nil {
-                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCollectionViewCell", for: indexPath) as!
-                        TextCollectionViewCell
-                        cell.label.text = byographyPosts[indexPath.row - last24hoursPosts.count].text ?? ""
-                        return cell
-                    }
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomePageSmallPostCollectionViewCell", for: indexPath) as!
-                    HomePageSmallPostCollectionViewCell
-                    cell.usernameLabel.text = (byographyPosts[indexPath.row - last24hoursPosts.count].whoPosted ?? "") + " |"
-                    var text = time(from: byographyPosts[indexPath.row - last24hoursPosts.count].contentDate ?? byographyPosts[indexPath.row - last24hoursPosts.count].date!)
-                    text.removeLast(3)
-                    cell.label.text = text
-                    cell.leftImageView.image = byographyPosts[indexPath.row - last24hoursPosts.count].image
-                    cell.post = byographyPosts[indexPath.row - last24hoursPosts.count]
-                    return cell
-                }
-                if byographyPosts[indexPath.row - last24hoursPosts.count - 1].imgURL == nil {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCollectionViewCell", for: indexPath) as!
-                    TextCollectionViewCell
-                    cell.label.text = byographyPosts[indexPath.row - last24hoursPosts.count - 1].text ?? ""
-                    return cell
-                }
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomePageSmallPostCollectionViewCell", for: indexPath) as!
-                HomePageSmallPostCollectionViewCell
-                cell.usernameLabel.text = (byographyPosts[indexPath.row - last24hoursPosts.count - 1].whoPosted ?? "")
-                var text = time(from: byographyPosts[indexPath.row - last24hoursPosts.count - 1].contentDate ?? byographyPosts[indexPath.row - last24hoursPosts.count - 1].date!)
-                text.removeLast(3)
-                cell.label.text = text
-                cell.leftImageView.image = byographyPosts[indexPath.row - last24hoursPosts.count - 1].image
-                cell.post = byographyPosts[indexPath.row - last24hoursPosts.count - 1]
-                return cell
-            }
             
             if indexPath.row == last24hoursPosts.count {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CreateByographyPostCollectionViewCell", for: indexPath) as! CreateByographyPostCollectionViewCell
@@ -509,7 +464,7 @@ extension UserPostsViewController: UICollectionViewDataSource {
 
                 headerViewCell.delegate = self
             }
-            
+            headerViewCell.filterSwitch.addTarget(self, action: #selector(switchPosts(_:)), for: .valueChanged)
             segmentControll = headerViewCell.segmentControll
             segmentControll?.addTarget(self, action: #selector(segmentControllValueChanged(_:)), for: .valueChanged)
             activityIndicator.frame = CGRect(x: headerViewCell.profileImage.frame.width/2, y: headerViewCell.profileImage.frame.height/2, width: 36, height: 36)
@@ -592,15 +547,7 @@ extension UserPostsViewController: UICollectionViewDelegate {
         var post: Post
          var image: UIImage?
         if segmentControll?.selectedSegmentIndex == 0 {
-            if indexPath.row > last24hoursPosts.count{
-                post = byographyPosts[indexPath.row - last24hoursPosts.count - 1]
-                if Auth.auth().currentUser?.uid == user.id {
-                    post = byographyPosts[indexPath.row - last24hoursPosts.count]
-                    
-                }
-            }else if indexPath.row == last24hoursPosts.count && Auth.auth().currentUser?.uid == user.id {
-                post = byographyPosts[indexPath.row - last24hoursPosts.count]
-            }else if last24hoursPosts[indexPath.row].isWatchedByUser == false && indexPath.row != last24hoursPosts.count {
+          if last24hoursPosts[indexPath.row].isWatchedByUser == false && indexPath.row != last24hoursPosts.count {
                 post = last24hoursPosts[indexPath.row]
                 
             } else {
