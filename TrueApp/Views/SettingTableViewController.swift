@@ -9,6 +9,7 @@
 import UIKit
 import ProgressHUD
 import FirebaseAuth
+import FirebaseStorage
 
 protocol SettingTableViewControllerDelegate {
     func updateUserInfo()
@@ -16,14 +17,12 @@ protocol SettingTableViewControllerDelegate {
 
 class SettingTableViewController: UITableViewController {
 
+    // MARK: - Outlets
+    
     @IBOutlet weak var usernameTextField: UITextField!
-    
     @IBOutlet weak var fullNameTextField: UITextField!
-    
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var phoneNumberTextField: UITextField!
-    
     @IBOutlet weak var profileImageView: UIImageView!
     
     var delegate: SettingTableViewControllerDelegate?
@@ -37,15 +36,27 @@ class SettingTableViewController: UITableViewController {
         phoneNumberTextField.delegate = self
         fetchCurrentUser()
     }
+    
     func fetchCurrentUser(){
-        Api.User.observeCurrentUser { (user) in
+        ProgressHUD.show()
+        Api.User.observeCurrentUser { [weak self] (user) in
+            guard let `self` = self else { return }
             self.fullNameTextField.text = user.fullName //ERROR
             self.usernameTextField.text = user.username
             self.emailTextField.text = user.email
             self.phoneNumberTextField.text = user.phoneNumber
-//            if let profileUrl = URL(string: user.profileImageUrl!){
-//                self.profileImageView.sd_setImage(with: profileUrl)
-//            }
+            let storage = Storage.storage()
+            let spaceRef = storage.reference(forURL: "\(Config.STORAGE_ROOT_REF)\(user.profileImageUrl!)")
+            spaceRef.getData(maxSize: Int64.max) { [weak self] data, error in
+                guard let `self` = self else { return }
+                ProgressHUD.dismiss()
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                guard let data = data else { return }
+                self.profileImageView.image = UIImage(data: data)
+            }
         }
     }
     @IBAction func saveButton_TouchUpInside(_ sender: Any) {

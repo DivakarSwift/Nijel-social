@@ -201,10 +201,15 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
 
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        fetchUser()
+    }
+    
     @objc func keyboardWillShow(sender: NSNotification) {
         //self.view.frame.origin.y -= 250
     }
+    
     @objc func keyboardWillHide(sender: NSNotification) {
         //self.view.frame.origin.y += 250
     }
@@ -475,8 +480,6 @@ extension UserPostsViewController: UICollectionViewDataSource {
         default:
             assert(false, "Unexpected element kind")
         }
-        
-        
     }
 }
 
