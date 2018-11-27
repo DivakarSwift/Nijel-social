@@ -393,7 +393,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="176"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="squareprofile" translatesAutoresizingMaskIntoConstraints="NO" id="NQr-MF-1UF">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="squareprofile" translatesAutoresizingMaskIntoConstraints="NO" id="NQr-MF-1UF">
                                     <rect key="frame" x="147.66666666666666" y="46" width="80" height="80"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="80" id="oEx-jd-tvX"/>
@@ -832,7 +832,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jhw-rE-lei">
-                                                    <rect key="frame" x="170.66666666666666" y="7" width="34" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                                     <state key="normal" title="Save">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -842,6 +842,10 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Jhw-rE-lei" secondAttribute="trailing" id="4Gw-bW-qy1"/>
+                                                <constraint firstItem="Jhw-rE-lei" firstAttribute="leading" secondItem="FEk-6O-2SX" secondAttribute="leading" id="6o0-4I-F41"/>
+                                                <constraint firstItem="Jhw-rE-lei" firstAttribute="top" secondItem="FEk-6O-2SX" secondAttribute="top" id="H1T-Si-Bvd"/>
+                                                <constraint firstAttribute="bottom" secondItem="Jhw-rE-lei" secondAttribute="bottom" id="aHT-UN-8Fj"/>
                                                 <constraint firstItem="Jhw-rE-lei" firstAttribute="centerY" secondItem="FEk-6O-2SX" secondAttribute="centerY" id="dXd-tu-jjx"/>
                                                 <constraint firstItem="Jhw-rE-lei" firstAttribute="centerX" secondItem="FEk-6O-2SX" secondAttribute="centerX" id="e6T-Ar-B8K"/>
                                             </constraints>

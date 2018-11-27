@@ -62,18 +62,31 @@ class AuthServiceViewController: UIViewController {
                 let uid = Auth.auth().currentUser!.uid
                 let storageRef = Storage.storage().reference(forURL: Config.STORAGE_ROOT_REF).child("profile_image").child(uid)
                 storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
-//
-//                })
-//                put(imageData, metadata: nil, completion: { (metadata, error) in
+
                     if error != nil {
+                        onError(error?.localizedDescription)
                         return
                     }
-                    //let profileImageUrl = metadata?.downloadURL()?.absoluteString
-                   // self.updateDatabase(profileImageUrl: profileImageUrl!, username: username, email: email, phoneNumber:phoneNumber, fullName:fullName, onSuccess: onSuccess, onError: onError)
+                    if let avatarURLString = metadata?.path {
+                        AuthServiceViewController.updateUserImage(url: avatarURLString, onSuccess: onSuccess, onError: onError)
+                    } else {
+                        onError("Could not get avatar url")
+                    }
+
                 })
             }
         })
         
+    }
+    
+    static func updateUserImage(url: String, onSuccess: @escaping()->Void, onError: @escaping (_ errorMessage: String?) -> Void) {
+        Api.User.REF_CURRENT_USER?.updateChildValues(["profileImageUrl": url], withCompletionBlock: { error, _ in
+            if let error = error {
+                onError(error.localizedDescription)
+                return
+            }
+            onSuccess()
+        })
     }
     
     static func updateDatabase(profileImageUrl: String, username: String, email: String, fullName: String, phoneNumber: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorMessage: String?) -> Void){
@@ -98,7 +111,7 @@ class AuthServiceViewController: UIViewController {
         }
         
     }
-    }
+}
 
 
 

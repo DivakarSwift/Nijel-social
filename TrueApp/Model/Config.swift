@@ -8,6 +8,6 @@
 
 import Foundation
 struct Config {
-    static var STORAGE_ROOT_REF = "gs://trueknocknock.appspot.com"
+    static var STORAGE_ROOT_REF = "gs://first-76cc5.appspot.com/"
 }
 
