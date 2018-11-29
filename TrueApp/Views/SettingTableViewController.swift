@@ -24,6 +24,8 @@ class SettingTableViewController: UITableViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var isExclusiveSwitch: UISwitch!
+    
     
     var delegate: SettingTableViewControllerDelegate?
     var isImageChanged = false
@@ -46,6 +48,7 @@ class SettingTableViewController: UITableViewController {
             self.usernameTextField.text = user.username
             self.emailTextField.text = user.email
             self.phoneNumberTextField.text = user.phoneNumber
+            self.isExclusiveSwitch.isOn = user.isExclusive ?? false
             let storage = Storage.storage()
             let spaceRef = storage.reference(forURL: "\(Config.STORAGE_ROOT_REF)\(user.profileImageUrl!)")
             spaceRef.getData(maxSize: Int64.max) { [weak self] data, error in
@@ -66,10 +69,16 @@ class SettingTableViewController: UITableViewController {
            imageData = profileImg.jpegData(compressionQuality: 0.1)
         }
         ProgressHUD.show("Waiting...")
-        AuthServiceViewController.updateUserInfo(username: usernameTextField.text!, email: emailTextField.text!, imageData: imageData, phoneNumber: phoneNumberTextField.text!, fullName: fullNameTextField.text!, onSuccess: {
-            ProgressHUD.showSuccess("Success")
-            self.delegate?.updateUserInfo()
-        }) { (errorMessage) in
+        AuthServiceViewController.updateUserInfo(username: usernameTextField.text!,
+                                                 email: emailTextField.text!,
+                                                 imageData: imageData,
+                                                 phoneNumber: phoneNumberTextField.text!,
+                                                 fullName: fullNameTextField.text!,
+                                                 isExclusive: isExclusiveSwitch.isOn,
+                                                 onSuccess: {
+                                                    ProgressHUD.showSuccess("Success")
+                                                    self.delegate?.updateUserInfo()
+                                                }) { (errorMessage) in
             ProgressHUD.showError(errorMessage)
         }
         

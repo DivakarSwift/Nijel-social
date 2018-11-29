@@ -54,8 +54,14 @@ class AuthServiceViewController: UIViewController {
         onSuccess()
         
     }
-    static func updateUserInfo(username: String, email: String, imageData: Data?, phoneNumber: String, fullName: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorMessage: String?) -> Void){ //ADD PHONE# AND FULL NAME
-        AuthServiceViewController.updateDatabase(username: username, email: email, fullName: fullName, phoneNumber: phoneNumber, onSuccess: onSuccess, onError: onError)
+    static func updateUserInfo(username: String, email: String, imageData: Data?, phoneNumber: String, fullName: String, isExclusive: Bool, onSuccess: @escaping () -> Void, onError: @escaping (_ errorMessage: String?) -> Void){ //ADD
+        let dict = ["username": username,
+                    "username_lowercase": username.lowercased(),
+                    "email": email,
+                    "phoneNumber" : phoneNumber,
+                    "fullName" : fullName,
+                    "isExclusive": isExclusive] as [String : Any]
+        AuthServiceViewController.updateDatabase(dict: dict, onSuccess: onSuccess, onError: onError)
         
 
         let uid = Auth.auth().currentUser!.uid
@@ -86,12 +92,7 @@ class AuthServiceViewController: UIViewController {
         })
     }
     
-    static func updateDatabase(username: String, email: String, fullName: String, phoneNumber: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorMessage: String?) -> Void){
-        let dict = ["username": username,
-                    "username_lowercase": username.lowercased(),
-                    "email": email,
-                    "phoneNumber" : phoneNumber,
-                    "fullName" : fullName] as [String : Any]
+    static func updateDatabase(dict: [String: Any], onSuccess: @escaping () -> Void, onError: @escaping (_ errorMessage: String?) -> Void){
         
         Api.User.REF_CURRENT_USER?.updateChildValues(dict, withCompletionBlock: { (error, ref) in
             if let error = error {
