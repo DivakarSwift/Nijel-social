@@ -301,7 +301,16 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
         } else {
             userDateField.isUserInteractionEnabled = false
             updateStateFollowButton()
+            editProfileButton.isHidden = true
+            editBioButton.isHidden = true
+            Api.Follow.isFollower(userId: user?.id ?? "") { [weak self] isFollower in
+                guard let `self` = self, let user = self.user else { return }
+                self.editBioButton.isHidden = !isFollower && (user.isExclusive ?? false)
+                self.editProfileButton.isHidden = !isFollower && (user.isExclusive ?? false)
+            }
         }
+        
+        
 
         if user?.IPosted == nil{
             filterSwitch.isHidden = true
@@ -343,13 +352,14 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
     }
     
     func updateStateFollowButton(){
-        if user?.id == Auth.auth().currentUser!.uid{
+        if user?.id == Auth.auth().currentUser!.uid {
             followButton.setTitle("Edit Profile", for: UIControl.State.normal)
             followButton.addTarget(self, action: #selector(self.goToSettingVC), for: UIControl.Event.touchUpInside)
             return
         }
         Api.Follow.isFollowing(userId: user!.id!) { isFollowing in
             if isFollowing == true {
+                
                 self.configureUnFollowButton()
             } else {
                 self.configureFollowButton()
@@ -363,7 +373,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
 //        }
     }
     
-    func configureFollowButton(){
+    func configureFollowButton() {
         followButton.layer.borderWidth = 1
         followButton.layer.borderColor = UIColor(red: 226/255, green: 228/255, blue: 232/255, alpha: 1).cgColor
         followButton.layer.cornerRadius = 5

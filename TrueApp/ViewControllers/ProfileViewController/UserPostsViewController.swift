@@ -170,14 +170,6 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        UserDefaults.standard.set(false, forKey: "isEditStory")
-        
         ProgressHUD.show()
         Api.User.observeUser(withId: user.id!, completion: { (user) in
             ProgressHUD.dismiss()
@@ -186,6 +178,15 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
             self.fetchUser()
             self.collectionView.reloadData()
         })
+
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        UserDefaults.standard.set(false, forKey: "isEditStory")
+        
         if type == .notMyPosts {
             let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
             navigationItem.setLeftBarButton(backButton, animated: true)
@@ -199,11 +200,6 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
         collectionView.register(UINib(nibName: "TextCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TextCollectionViewCell")
         collectionView.reloadData()
 
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        fetchUser()
     }
     
     @objc func keyboardWillShow(sender: NSNotification) {

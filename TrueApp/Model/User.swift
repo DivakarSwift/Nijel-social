@@ -28,7 +28,7 @@ class User{
     var education: String?
     var career: String?
     var personalLife: String?
-
+    var isExclusive: Bool?
 }
 
 
@@ -55,6 +55,7 @@ extension User{
         user.education = dict["education"] as? String
         user.career = dict["career"] as? String
         user.personalLife = dict["personalLife"] as? String
+        user.isExclusive = dict["isExclusive"] as? Bool
         
         return user
     }

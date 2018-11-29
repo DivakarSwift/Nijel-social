@@ -38,9 +38,9 @@ class FollowApi {
             }
         })
         
-    REF_FOLLOWERS.child(id).child(Auth.auth().currentUser!.uid).setValue(NSNull())
-    REF_FOLLOWING.child(Auth.auth().currentUser!.uid).child(id).setValue(NSNull())
-}
+        REF_FOLLOWERS.child(id).child(Auth.auth().currentUser!.uid).setValue(NSNull())
+        REF_FOLLOWING.child(Auth.auth().currentUser!.uid).child(id).setValue(NSNull())
+    }
     func isFollowing(userId:String, completed: @escaping (Bool) -> Void){
         REF_FOLLOWERS.child(userId).child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {
             snapshot in
@@ -53,7 +53,17 @@ class FollowApi {
         })
     }
     
-    
+    func isFollower(userId: String, completed: @escaping (Bool) -> Void) {
+        REF_FOLLOWING.child(userId).child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {
+            snapshot in
+            let val = snapshot.value as? NSNull
+            if (val != nil) {
+                completed(false)
+            } else{
+                completed(true)
+            }
+        })
+    }
     
     func fetchCountFollowing(userId:String, completion: @escaping (Int) -> Void){
         REF_FOLLOWING.child(userId).observe(.value, with: {

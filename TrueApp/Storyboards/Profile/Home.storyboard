@@ -889,6 +889,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="HZf-a3-N95" id="k77-6S-6XZ"/>
                         <outlet property="fullNameTextField" destination="hk6-tg-gIT" id="Stg-VF-pQq"/>
+                        <outlet property="isExclusiveSwitch" destination="cly-sU-YNQ" id="vCl-3v-MbE"/>
                         <outlet property="phoneNumberTextField" destination="40V-ar-wyJ" id="mMB-JB-Ml6"/>
                         <outlet property="profileImageView" destination="NQr-MF-1UF" id="jWY-LY-Z7k"/>
                         <outlet property="usernameTextField" destination="PLB-hN-NWL" id="jRp-lc-JYf"/>
