@@ -54,29 +54,26 @@ class AuthServiceViewController: UIViewController {
         onSuccess()
         
     }
-    static func updateUserInfo(username: String, email: String, imageData: Data, phoneNumber: String, fullName: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorMessage: String?) -> Void){ //ADD PHONE# AND FULL NAME
-        Auth.auth().currentUser!.updateEmail(to: email, completion: {(error) in //ERROR
-            if error != nil {
-                onError(error!.localizedDescription)
-            } else{
-                let uid = Auth.auth().currentUser!.uid
-                let storageRef = Storage.storage().reference(forURL: Config.STORAGE_ROOT_REF).child("profile_image").child(uid)
-                storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
-
-                    if error != nil {
-                        onError(error?.localizedDescription)
-                        return
-                    }
-                    if let avatarURLString = metadata?.path {
-                        AuthServiceViewController.updateUserImage(url: avatarURLString, onSuccess: onSuccess, onError: onError)
-                    } else {
-                        onError("Could not get avatar url")
-                    }
-
-                })
-            }
-        })
+    static func updateUserInfo(username: String, email: String, imageData: Data?, phoneNumber: String, fullName: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorMessage: String?) -> Void){ //ADD PHONE# AND FULL NAME
+        AuthServiceViewController.updateDatabase(username: username, email: email, fullName: fullName, phoneNumber: phoneNumber, onSuccess: onSuccess, onError: onError)
         
+
+        let uid = Auth.auth().currentUser!.uid
+        let storageRef = Storage.storage().reference(forURL: Config.STORAGE_ROOT_REF).child("profile_image").child(uid)
+        
+        if let imageData = imageData {
+            storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
+                if let error = error {
+                    onError(error.localizedDescription)
+                    return
+                }
+                if let avatarURLString = metadata?.path {
+                    AuthServiceViewController.updateUserImage(url: avatarURLString, onSuccess: onSuccess, onError: onError)
+                } else {
+                    onError("Could not get avatar url")
+                }
+            })
+        }
     }
     
     static func updateUserImage(url: String, onSuccess: @escaping()->Void, onError: @escaping (_ errorMessage: String?) -> Void) {
@@ -89,11 +86,16 @@ class AuthServiceViewController: UIViewController {
         })
     }
     
-    static func updateDatabase(profileImageUrl: String, username: String, email: String, fullName: String, phoneNumber: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorMessage: String?) -> Void){
-        let dict = ["username": username, "username_lowercase": username.lowercased(), "email": email, "profileImageUrl": profileImageUrl, "phoneNumber" : phoneNumber, "fullName" : fullName] //ADD FULLNAME AND PHONENUMBER
+    static func updateDatabase(username: String, email: String, fullName: String, phoneNumber: String, onSuccess: @escaping () -> Void, onError: @escaping (_ errorMessage: String?) -> Void){
+        let dict = ["username": username,
+                    "username_lowercase": username.lowercased(),
+                    "email": email,
+                    "phoneNumber" : phoneNumber,
+                    "fullName" : fullName] as [String : Any]
+        
         Api.User.REF_CURRENT_USER?.updateChildValues(dict, withCompletionBlock: { (error, ref) in
-            if error != nil {
-                onError(error!.localizedDescription)
+            if let error = error {
+                onError(error.localizedDescription)
             } else{
                 onSuccess()
             }

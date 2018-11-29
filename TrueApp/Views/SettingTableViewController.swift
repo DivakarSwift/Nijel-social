@@ -26,6 +26,7 @@ class SettingTableViewController: UITableViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     
     var delegate: SettingTableViewControllerDelegate?
+    var isImageChanged = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,15 +61,18 @@ class SettingTableViewController: UITableViewController {
         }
     }
     @IBAction func saveButton_TouchUpInside(_ sender: Any) {
-        if let profileImg = self.profileImageView.image, let imageData = profileImg.jpegData(compressionQuality: 0.1) {
-            ProgressHUD.show("Waiting...")
-            AuthServiceViewController.updateUserInfo(username: usernameTextField.text!, email: emailTextField.text!, imageData: imageData, phoneNumber: phoneNumberTextField.text!, fullName: fullNameTextField.text!, onSuccess: {
-                ProgressHUD.showSuccess("Success")
-                self.delegate?.updateUserInfo()
-            }) { (errorMessage) in
-                ProgressHUD.showError(errorMessage)
-            }
+        var imageData: Data? = nil
+        if isImageChanged, let profileImg = self.profileImageView.image {
+           imageData = profileImg.jpegData(compressionQuality: 0.1)
         }
+        ProgressHUD.show("Waiting...")
+        AuthServiceViewController.updateUserInfo(username: usernameTextField.text!, email: emailTextField.text!, imageData: imageData, phoneNumber: phoneNumberTextField.text!, fullName: fullNameTextField.text!, onSuccess: {
+            ProgressHUD.showSuccess("Success")
+            self.delegate?.updateUserInfo()
+        }) { (errorMessage) in
+            ProgressHUD.showError(errorMessage)
+        }
+        
     }
     
 
@@ -90,11 +94,12 @@ class SettingTableViewController: UITableViewController {
 extension SettingTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 // Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
         print("did Finish Picking Media")
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage{
             profileImageView.image = image
+            isImageChanged = true
         }
         dismiss(animated: true, completion: nil)
     }
