@@ -21,6 +21,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
 
     // MARK: - Outles
     
+    @IBOutlet weak var infoButton: UIBarButtonItem!
     @IBOutlet weak var lifeStoryButton: UIButton!
     @IBOutlet weak var lifeStoryTextView: UITextView!
     @IBOutlet weak var activationButton: UIButton!
@@ -30,7 +31,13 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     weak var segmentControll: UISegmentedControl?
     
     var activationCode = "not_active"
-    var user : User!
+    var user : User! {
+        didSet {
+            if user.id == Auth.auth().currentUser?.uid {
+                infoButton.isEnabled = false
+            }
+        }
+    }
     var image: UIImage?
     
     var showSelfPosts = true
@@ -141,6 +148,32 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     }
 
     
+    @IBAction func infoButtonTouched(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: "Choosed option", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Block user", style: .destructive, handler: {_ in
+            ProgressHUD.show()
+            Api.User.blockUser(userID: self.user.id!, completion: { error in
+                if let error = error {
+                    ProgressHUD.showError(error.localizedDescription)
+                } else {
+                    ProgressHUD.dismiss()
+                }
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Flag user", style: .destructive, handler: {_ in
+            ProgressHUD.show()
+            Api.User.flagUser(userID: self.user.id!) { error in
+                if let error = error {
+                    ProgressHUD.showError(error.localizedDescription)
+                } else {
+                    ProgressHUD.dismiss()
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in alert.dismiss(animated: true)}))
+        self.present(alert, animated: true)
+    }
+    
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         let ref = Database.database().reference()
@@ -241,33 +274,38 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     }
     
     func fetchPosts() {
-        if let dict = user?.myPosts {
-            posts.removeAll()
-            for i in dict {
-                let post = Post.transformPostPhoto(dict: i.value, key: i.key)
-                if showSelfPosts {
-                    posts.append(post)
-                } else {
-                    if post.postFromUserId != Auth.auth().currentUser?.uid {
-                        posts.append(post)
+        Api.User.isUserBlockedMe(userID: user.id!) { [weak self] isBlockedMe in
+            if isBlockedMe { return }
+            guard let `self` = self else { return }
+            defer {
+                self.collectionView.reloadData()
+            }
+            self.posts.removeAll()
+            self.last24hoursPosts.removeAll()
+            if let dict = self.user?.myPosts {
+                for i in dict {
+                    let post = Post.transformPostPhoto(dict: i.value, key: i.key)
+                    if self.showSelfPosts {
+                        self.posts.append(post)
+                    } else {
+                        if post.postFromUserId != Auth.auth().currentUser?.uid {
+                            self.posts.append(post)
+                        }
+                    }
+                }
+                
+                self.posts.sort(by: { $0.date ?? 0 > $1.date ?? 0 })
+                for post in self.posts where post.date! >= self.date {//where post.isWatchedByUser == false
+                    
+                    if self.showSelfPosts {
+                        self.last24hoursPosts.append(post)
+                    } else {
+                        if post.postFromUserId != self.user.id {
+                            self.last24hoursPosts.append(post)
+                        }
                     }
                 }
             }
-
-            posts.sort(by: { $0.date ?? 0 > $1.date ?? 0 })
-            last24hoursPosts.removeAll()
-            for post in posts where post.date! >= date {//where post.isWatchedByUser == false
-
-                if showSelfPosts {
-                    last24hoursPosts.append(post)
-                } else {
-                    if post.postFromUserId != user.id {
-                        last24hoursPosts.append(post)
-                    }
-                }
-            }
-
-            collectionView.reloadData()
         }
     }
     

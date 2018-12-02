@@ -11,16 +11,22 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class PostApi{
+    
+    let userAPI = UserApi()
+    
     var REF_POSTS = Database.database().reference().child("posts")
     func observePosts(completion: @escaping (Post) -> Void){
         REF_POSTS.observe(.childAdded){
             (snapshot:DataSnapshot) in
             if let dict = snapshot.value as? [String: Any]{
-                let newPost = Post.transformPostPhoto(dict: dict, key: snapshot.key)
+                let newPost = Post.transformPostPhoto(dict: dict, key: snapshot.key)                
                 completion(newPost)
             }
         }
     }
+    
+
+    
     func observePost(withId id : String, completion: @escaping (Post) -> Void){
         REF_POSTS.child(id).observeSingleEvent(of: DataEventType.value, with: {
             snapshot in
@@ -88,5 +94,20 @@ class PostApi{
                 onSuccess(post)
             }
         }
+    }
+    
+    func flagPost(by id: String, completion: @escaping(Error?)->Void) {
+        Database.database().reference().child("flagged_posts").childByAutoId().updateChildValues(["post_id": id]) { error, _ in
+                completion(error)
+            }
+    }
+    
+    func deletePost(post: Post) {
+        Database.database().reference().child("users").child(post.postToUserId ?? "").child("IPosted").child(post.id ?? "").removeValue()
+        Database.database().reference().child("users").child(post.postToUserId ?? "").child("myPosts").child(post.id ?? "").removeValue()
+        Database.database().reference().child("users").child(post.postToUserId ?? "").child("SavedPosts").child(post.id ?? "").removeValue()
+        Database.database().reference().child("users").child(post.postFromUserId ?? "").child("IPosted").child(post.id ?? "").removeValue()
+        Database.database().reference().child("users").child(post.postFromUserId ?? "").child("myPosts").child(post.id ?? "").removeValue()
+        Database.database().reference().child("users").child(post.postFromUserId ?? "").child("SavedPosts").child(post.id ?? "").removeValue()
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 import ProgressHUD
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseDatabase
 
 protocol SettingTableViewControllerDelegate {
     func updateUserInfo()
@@ -26,9 +27,17 @@ class SettingTableViewController: UITableViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var isExclusiveSwitch: UISwitch!
     
+    struct Constants {
+        enum Rows: Int {
+            case deleteAccount = 14
+            case deactivateAccount = 13
+        }
+    }
+    
     
     var delegate: SettingTableViewControllerDelegate?
     var isImageChanged = false
+    var user: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +53,7 @@ class SettingTableViewController: UITableViewController {
         ProgressHUD.show()
         Api.User.observeCurrentUser { [weak self] (user) in
             guard let `self` = self else { return }
+            self.user = user
             self.fullNameTextField.text = user.fullName //ERROR
             self.usernameTextField.text = user.username
             self.emailTextField.text = user.email
@@ -89,14 +99,64 @@ class SettingTableViewController: UITableViewController {
     
     @IBAction func LogOutButton_TouchUpInside(_ sender: Any) {
         try! Auth.auth().signOut()
-        let vc = LaunchScreenViewController.instantiate()
-        self.present(vc, animated: false, completion: nil)
+        showLaunchScreen()
     }
     
     @IBAction func changeProfileButton_TouchUpInside(_ sender: Any) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         present(pickerController, animated: true, completion: nil)
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case Constants.Rows.deleteAccount.rawValue:
+            deleteAccount()
+        case Constants.Rows.deactivateAccount.rawValue:
+            deactivateAccount()
+        default:
+            break
+        }
+    }
+    
+    func deleteAccount() {
+        ProgressHUD.show()
+        
+        Api.User.REF_CURRENT_USER?.removeValue () { error, _ in
+            if let error = error {
+                ProgressHUD.showError(error.localizedDescription)
+                return
+            }
+
+            Auth.auth().currentUser?.delete() { error in
+                if let error = error {
+                    ProgressHUD.showError(error.localizedDescription)
+                    return
+                }
+                ProgressHUD.dismiss()
+                self.showLaunchScreen()
+            }
+        }
+    }
+    
+    func deactivateAccount() {
+        ProgressHUD.show()
+        let dict = ["deactivated": true]
+        Api.User.REF_CURRENT_USER?.updateChildValues(dict, withCompletionBlock: { (error, ref) in
+            if let error = error {
+                ProgressHUD.showError(error.localizedDescription)
+            } else {
+                ProgressHUD.dismiss()
+                try! Auth.auth().signOut()
+                self.showLaunchScreen()
+            }
+        })
+    }
+    
+
+    func showLaunchScreen() {
+        let vc = LaunchScreenViewController.instantiate()
+        self.present(vc, animated: false, completion: nil)
     }
 }
 

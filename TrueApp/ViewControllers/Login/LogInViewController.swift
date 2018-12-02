@@ -9,6 +9,8 @@
 import UIKit
 import Firebase //SHouldnt need these
 import ProgressHUD
+import FirebaseDatabase
+
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
@@ -183,13 +185,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     ProgressHUD.show()
                     
                     Api.User.observeCurrentUser{ (user) in
-                        let profileVC = UserPostsViewController.instantiate(user: user, type: .myPosts)
-                        let navigationVC = UINavigationController(rootViewController: profileVC)
-                        navigationVC.view.backgroundColor = UIColor.white
-                        navigationVC.tabBarItem.image = #imageLiteral(resourceName: "home_icon.png")
-                        vc.viewControllers?[0] = navigationVC
-                        ProgressHUD.dismiss()
-                        self.present(vc, animated: false, completion: nil)
+                        let dict = ["deactivated": false]
+                        Api.User.REF_CURRENT_USER?.updateChildValues(dict, withCompletionBlock: { (error, ref) in
+                            let profileVC = UserPostsViewController.instantiate(user: user, type: .myPosts)
+                            let navigationVC = UINavigationController(rootViewController: profileVC)
+                            navigationVC.view.backgroundColor = UIColor.white
+                            navigationVC.tabBarItem.image = #imageLiteral(resourceName: "home_icon.png")
+                            vc.viewControllers?[0] = navigationVC
+                            ProgressHUD.dismiss()
+                            self.present(vc, animated: false, completion: nil)
+                        })
                     }
                     
                 } else {

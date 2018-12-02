@@ -11,6 +11,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseStorage
 import FirebaseAuth
+import ProgressHUD
 
 class PostViewController: UIViewController, YourCellDelegate {
     
@@ -56,6 +57,42 @@ class PostViewController: UIViewController, YourCellDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         tableView.separatorStyle = .none
         imageView.layer.cornerRadius = 8
+        
+        let infoButton = UIBarButtonItem(image: #imageLiteral(resourceName: "information.png"), style: .plain, target: self, action: #selector(showMenu))
+        navigationItem.rightBarButtonItem = infoButton
+    }
+    
+    @objc func showMenu() {
+        let actionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionMenu.addAction(UIAlertAction(title: "Save", style: .default, handler: { _ in
+            self.didPressButton()
+        }))
+        actionMenu.addAction(UIAlertAction(title: "Flag", style: .default, handler: { _ in
+            ProgressHUD.show()
+            Api.Post.flagPost(by: self.post!.id!) { error in
+                if let error = error {
+                    ProgressHUD.showError(error.localizedDescription)
+                } else {
+                    ProgressHUD.dismiss()
+                }
+            }
+        }))
+        
+        if post?.postFromUserId == Auth.auth().currentUser?.uid || post?.postToUserId == Auth.auth().currentUser?.uid {
+            actionMenu.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _
+                in
+                Api.Post.deletePost(post: self.post!)
+                self.navigationController?.popViewController(animated: true)
+            }))
+
+        }
+        
+        actionMenu.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            actionMenu.dismiss(animated: true)
+        }))
+
+        
+        present(actionMenu, animated: true)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
