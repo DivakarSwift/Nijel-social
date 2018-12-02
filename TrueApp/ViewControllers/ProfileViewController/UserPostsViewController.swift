@@ -295,7 +295,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
                 }
                 
                 self.posts.sort(by: { $0.date ?? 0 > $1.date ?? 0 })
-                for post in self.posts where post.date! >= self.date {//where post.isWatchedByUser == false
+                for post in self.posts where post.date != nil && post.date! >= self.date {//where post.isWatchedByUser == false
                     
                     if self.showSelfPosts {
                         self.last24hoursPosts.append(post)
