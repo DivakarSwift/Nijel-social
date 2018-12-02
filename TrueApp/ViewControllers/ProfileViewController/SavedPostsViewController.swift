@@ -124,7 +124,7 @@ class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableVi
         let post = posts[indexPath.row]
         var image = UIImage()
         if let cell = tableView.cellForRow(at: indexPath) as? SavedTableViewCell {
-            image = cell.postImg.image!
+            image = cell.postImg.image ?? UIImage()
         }
         let vc = PostViewController.instantiate(post: post, commentatorImage: image , postImage: image )
         navigationController?.pushViewController(vc, animated: true)

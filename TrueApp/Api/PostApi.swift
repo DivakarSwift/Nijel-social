@@ -95,4 +95,19 @@ class PostApi{
             }
         }
     }
+    
+    func flagPost(by id: String, completion: @escaping(Error?)->Void) {
+        Database.database().reference().child("flagged_posts").childByAutoId().updateChildValues(["post_id": id]) { error, _ in
+                completion(error)
+            }
+    }
+    
+    func deletePost(post: Post) {
+        Database.database().reference().child("users").child(post.postToUserId ?? "").child("IPosted").child(post.id ?? "").removeValue()
+        Database.database().reference().child("users").child(post.postToUserId ?? "").child("myPosts").child(post.id ?? "").removeValue()
+        Database.database().reference().child("users").child(post.postToUserId ?? "").child("SavedPosts").child(post.id ?? "").removeValue()
+        Database.database().reference().child("users").child(post.postFromUserId ?? "").child("IPosted").child(post.id ?? "").removeValue()
+        Database.database().reference().child("users").child(post.postFromUserId ?? "").child("myPosts").child(post.id ?? "").removeValue()
+        Database.database().reference().child("users").child(post.postFromUserId ?? "").child("SavedPosts").child(post.id ?? "").removeValue()
+    }
 }

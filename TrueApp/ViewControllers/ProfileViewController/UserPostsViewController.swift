@@ -277,8 +277,12 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
         Api.User.isUserBlockedMe(userID: user.id!) { [weak self] isBlockedMe in
             if isBlockedMe { return }
             guard let `self` = self else { return }
+            defer {
+                self.collectionView.reloadData()
+            }
+            self.posts.removeAll()
+            self.last24hoursPosts.removeAll()
             if let dict = self.user?.myPosts {
-                self.posts.removeAll()
                 for i in dict {
                     let post = Post.transformPostPhoto(dict: i.value, key: i.key)
                     if self.showSelfPosts {
@@ -291,7 +295,6 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
                 }
                 
                 self.posts.sort(by: { $0.date ?? 0 > $1.date ?? 0 })
-                self.last24hoursPosts.removeAll()
                 for post in self.posts where post.date! >= self.date {//where post.isWatchedByUser == false
                     
                     if self.showSelfPosts {
@@ -302,8 +305,6 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
                         }
                     }
                 }
-                
-                self.collectionView.reloadData()
             }
         }
     }
