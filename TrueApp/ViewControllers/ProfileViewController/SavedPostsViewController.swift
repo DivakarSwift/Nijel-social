@@ -95,12 +95,13 @@ class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.userName.text = posts[indexPath.row].whoPosted! + "     | "
 //        cell.descLabel.text = posts[indexPath.row].text!
         cell.timeLabel.text = String(describing: month) + "/" + String(describing: day) + "/" + String(describing: year)
-        self.downloadImages(folderPath: posts[indexPath.row].imgURL!, success: { (img) in
-            cell.postImg.image = img
-        }, failure: { (err) in
-            
-        })
-        
+        if let url = posts[indexPath.row].imgURL {
+            self.downloadImages(folderPath: url, success: { (img) in
+                cell.postImg.image = img
+            }, failure: { (err) in
+                
+            })
+        }
         let id = posts[indexPath.row].postFromUserId
         observeAvatar(withId: id!) { (avatar) in
             self.downloadImages(folderPath: avatar, success: { (img) in

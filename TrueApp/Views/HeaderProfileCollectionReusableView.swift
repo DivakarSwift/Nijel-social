@@ -307,7 +307,14 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView, UITextField
                 guard let `self` = self, let user = self.user else { return }
                 self.editBioButton.isHidden = !isFollower && (user.isExclusive ?? false)
                 self.editProfileButton.isHidden = !isFollower && (user.isExclusive ?? false)
+                if !(user.isExclusive ?? false) {
+                    Api.User.isUserBlockedMe(userID: user.id!) { isBlocked in
+                        self.editBioButton.isHidden = isBlocked
+                        self.editProfileButton.isHidden = isBlocked
+                    }
+                }
             }
+            
         }
         
         

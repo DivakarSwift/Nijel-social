@@ -83,23 +83,31 @@
                     </view>
                     <navigationItem key="navigationItem" id="A89-xw-ImF">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title=" Followers" id="zne-1j-XAc"/>
-                        <barButtonItem key="rightBarButtonItem" id="PSm-7A-Rt4">
-                            <button key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" id="X8l-2d-Tjs">
-                                <rect key="frame" x="337" y="11" width="22" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
+                        <rightBarButtonItems>
+                            <barButtonItem id="PSm-7A-Rt4">
+                                <button key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" id="X8l-2d-Tjs">
+                                    <rect key="frame" x="337" y="11" width="22" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal">
+                                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="createButtonPressed:" destination="UmO-FT-XWv" eventType="touchUpInside" id="aEp-Tm-jZo"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem image="information" id="zne-1j-XAc">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="createButtonPressed:" destination="UmO-FT-XWv" eventType="touchUpInside" id="aEp-Tm-jZo"/>
+                                    <action selector="infoButtonTouched:" destination="UmO-FT-XWv" id="gXQ-bp-z2d"/>
                                 </connections>
-                            </button>
-                        </barButtonItem>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="3hD-vm-Yw1" id="mv6-ua-tBA"/>
+                        <outlet property="infoButton" destination="zne-1j-XAc" id="NLy-A9-TFd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBH-3S-6c3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -925,6 +933,7 @@
     </scenes>
     <resources>
         <image name="home_icon" width="25" height="25"/>
+        <image name="information" width="12" height="12"/>
         <image name="squareprofile" width="225" height="225"/>
     </resources>
 </document>
