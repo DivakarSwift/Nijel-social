@@ -503,6 +503,7 @@ extension UserPostsViewController: UICollectionViewDataSource {
 
                 headerViewCell.delegate = self
             }
+            headerViewCell.activateButton.addTarget(self, action: #selector(activateUser), for: .touchUpInside)
             headerViewCell.filterSwitch.addTarget(self, action: #selector(switchPosts(_:)), for: .valueChanged)
             segmentControll = headerViewCell.segmentControll
             segmentControll?.addTarget(self, action: #selector(segmentControllValueChanged(_:)), for: .valueChanged)
