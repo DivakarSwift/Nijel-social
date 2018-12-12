@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="She-Nj-9ha">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Create New -->
+        <scene sceneID="SEc-MQ-GOr">
+            <objects>
+                <viewController title="Create New " id="xz3-82-2Av" customClass="CreateViewController" customModule="TrueApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0H2-Ri-Saz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJ8-qf-b4Q">
+                                <rect key="frame" x="24" y="20" width="30" height="30"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rkE-pi-w2t">
+                                <rect key="frame" x="0.0" y="93" width="375" height="480"/>
+                                <color key="backgroundColor" red="0.78533470809999995" green="0.78533470809999995" blue="0.78533470809999995" alpha="0.14798266269999999" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Account">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="Page:" destination="Nrm-Sq-6eU" eventType="touchUpInside" id="ano-VS-zM3"/>
+                                    <action selector="newPageButton:" destination="xz3-82-2Av" eventType="touchUpInside" id="hcn-nf-MVK"/>
+                                    <segue destination="WnI-zW-Kmi" kind="show" id="BOc-Hj-xTQ"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="userprofile" translatesAutoresizingMaskIntoConstraints="NO" id="yAG-kF-kq2">
+                                <rect key="frame" x="294" y="309" width="65" height="48"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rkE-pi-w2t" firstAttribute="leading" secondItem="0H2-Ri-Saz" secondAttribute="leading" id="A3I-7m-Dmj"/>
+                            <constraint firstItem="yAG-kF-kq2" firstAttribute="trailing" secondItem="0H2-Ri-Saz" secondAttribute="trailingMargin" id="RoT-HQ-p2W"/>
+                            <constraint firstItem="yAG-kF-kq2" firstAttribute="top" secondItem="03O-0m-PZq" secondAttribute="top" constant="245" id="W1I-1W-It3"/>
+                            <constraint firstItem="rkE-pi-w2t" firstAttribute="centerY" secondItem="0H2-Ri-Saz" secondAttribute="centerY" id="Who-BL-RlL"/>
+                            <constraint firstItem="oJ8-qf-b4Q" firstAttribute="top" secondItem="03O-0m-PZq" secondAttribute="top" id="cIa-7M-aKU"/>
+                            <constraint firstAttribute="trailing" secondItem="rkE-pi-w2t" secondAttribute="trailing" id="cZK-nM-Osy"/>
+                            <constraint firstItem="rkE-pi-w2t" firstAttribute="centerY" secondItem="yAG-kF-kq2" secondAttribute="centerY" id="eUU-x3-cCN"/>
+                            <constraint firstItem="rkE-pi-w2t" firstAttribute="top" secondItem="03O-0m-PZq" secondAttribute="top" constant="73" id="kwr-Ic-dLP"/>
+                            <constraint firstItem="oJ8-qf-b4Q" firstAttribute="leading" secondItem="03O-0m-PZq" secondAttribute="leading" constant="24" id="nkl-vf-Frz"/>
+                            <constraint firstItem="yAG-kF-kq2" firstAttribute="leading" secondItem="03O-0m-PZq" secondAttribute="leading" constant="294" id="tAB-Bk-dGQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="03O-0m-PZq"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Create" id="wYZ-tt-JMv">
+                        <barButtonItem key="leftBarButtonItem" title="Video" id="0lc-xq-G0A"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="qUB-fC-67n">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="cameraButton_TouchUpInside:" destination="xz3-82-2Av" id="elI-S1-bS4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="profileImageView" destination="yAG-kF-kq2" id="ysa-cw-Mo3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q7j-Ma-uqW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Nrm-Sq-6eU" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2358" y="-5889"/>
+        </scene>
+        <!--Create-->
+        <scene sceneID="CNZ-bF-Tf7">
+            <objects>
+                <navigationController storyboardIdentifier="NavigationCreate" automaticallyAdjustsScrollViewInsets="NO" id="She-Nj-9ha" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Create" image="create_icon" id="uTW-5x-f58"/>
+                    <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kwa-Nc-HFO">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WnI-zW-Kmi" kind="relationship" relationship="rootViewController" id="gk1-BF-AV6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8n3-MX-h8N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="183" y="-5942"/>
+        </scene>
+        <!--UIViewController-ENh-1R-vi5-->
+        <scene sceneID="nqB-c6-5Vl">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UIViewController-ENh-1R-vi5" id="WnI-zW-Kmi" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Oci-Zt-Jyv"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gGx-pD-6qz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="715" y="-5503"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="create_icon" width="25" height="25"/>
+        <image name="userprofile" width="512" height="512"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="gk1-BF-AV6"/>
+    </inferredMetricsTieBreakers>
+</document>

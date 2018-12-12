@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Post View Controller-->
+        <scene sceneID="fHh-pt-vyZ">
+            <objects>
+                <viewController storyboardIdentifier="PostViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yeR-2c-gTo" customClass="PostViewController" customModule="TrueApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jKf-iA-DmO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rhl-PM-24K">
+                                <rect key="frame" x="0.0" y="597" width="375" height="70"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X9q-GV-wjT">
+                                        <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="GsS-cP-hbc"/>
+                                            <constraint firstAttribute="width" constant="30" id="gUD-dV-bCU"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REv-Ai-eh0">
+                                        <rect key="frame" x="50" y="10" width="315" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Pam-53-gyr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="X9q-GV-wjT" firstAttribute="leading" secondItem="Rhl-PM-24K" secondAttribute="leading" constant="10" id="ATq-Bk-h8m"/>
+                                    <constraint firstItem="REv-Ai-eh0" firstAttribute="leading" secondItem="X9q-GV-wjT" secondAttribute="trailing" constant="10" id="Ebn-0X-m0z"/>
+                                    <constraint firstItem="X9q-GV-wjT" firstAttribute="top" secondItem="Rhl-PM-24K" secondAttribute="top" constant="10" id="R91-w0-n5Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="REv-Ai-eh0" secondAttribute="trailing" constant="10" id="Thc-sd-r15"/>
+                                    <constraint firstAttribute="bottom" secondItem="REv-Ai-eh0" secondAttribute="bottom" constant="10" id="XjQ-M6-JXN"/>
+                                    <constraint firstItem="REv-Ai-eh0" firstAttribute="top" secondItem="Rhl-PM-24K" secondAttribute="top" constant="10" id="cJG-U3-HNV"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QaE-gu-Lvh">
+                                <rect key="frame" x="0.0" y="20" width="375" height="577"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Rhl-PM-24K" firstAttribute="top" secondItem="QaE-gu-Lvh" secondAttribute="bottom" id="6uo-yU-mq1"/>
+                            <constraint firstItem="hpT-Cf-SaO" firstAttribute="bottom" secondItem="Rhl-PM-24K" secondAttribute="bottom" id="DX4-Od-Ulq"/>
+                            <constraint firstItem="QaE-gu-Lvh" firstAttribute="top" secondItem="hpT-Cf-SaO" secondAttribute="top" id="F5U-TQ-pAk"/>
+                            <constraint firstItem="QaE-gu-Lvh" firstAttribute="leading" secondItem="hpT-Cf-SaO" secondAttribute="leading" id="JUo-qV-fNF"/>
+                            <constraint firstItem="hpT-Cf-SaO" firstAttribute="trailing" secondItem="QaE-gu-Lvh" secondAttribute="trailing" id="a5h-1F-wyQ"/>
+                            <constraint firstItem="Rhl-PM-24K" firstAttribute="trailing" secondItem="hpT-Cf-SaO" secondAttribute="trailing" id="bnI-Bd-Qsl"/>
+                            <constraint firstItem="Rhl-PM-24K" firstAttribute="leading" secondItem="hpT-Cf-SaO" secondAttribute="leading" id="qL5-Xj-yGT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hpT-Cf-SaO"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="X9q-GV-wjT" id="SOm-WU-fga"/>
+                        <outlet property="tableView" destination="QaE-gu-Lvh" id="vO7-jp-4KM"/>
+                        <outlet property="textView" destination="REv-Ai-eh0" id="zy8-FT-uri"/>
+                        <outlet property="textViewHeightConstraint" destination="Pam-53-gyr" id="bMN-GX-fjg"/>
+                        <outlet property="viewBottomConstraint" destination="DX4-Od-Ulq" id="s1d-Kr-xy1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7ej-B8-eEQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="160.80000000000001" y="109.29535232383809"/>
+        </scene>
+    </scenes>
+</document>
