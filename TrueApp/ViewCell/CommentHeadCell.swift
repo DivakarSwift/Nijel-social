@@ -13,16 +13,15 @@ import UIKit
 class CommentHeadCell: UITableViewCell {
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var subscriptionLabel: UILabel!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var postedToAccountLabel: UILabel!
+    @IBOutlet weak var contentTextView: UITextView!
+    
     
     func viewDidLayoutSubviews() {
         super.layoutSubviews()
-        subscriptionLabel.sizeToFit()
-        subscriptionLabel.numberOfLines = 0
         //topLabel.text = user?.fullName
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.commentButton_TouchUp_Inside))
         commentButton.addGestureRecognizer(tapGesture)

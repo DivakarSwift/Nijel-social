@@ -27,14 +27,6 @@
                             <constraint firstAttribute="width" constant="375" id="ctj-uT-rrN"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zdw-65-ire">
-                        <rect key="frame" x="2" y="506" width="370" height="170.5"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="16"/>
-                        <nil key="textColor"/>
-                        <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </label>
                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kX3-6Z-ZAR">
                         <rect key="frame" x="14" y="465" width="26" height="26"/>
                         <constraints>
@@ -73,32 +65,39 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Story of: Exampless" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjA-kH-Wf1">
-                        <rect key="frame" x="74" y="468" width="152" height="21"/>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Story of: Exampless" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjA-kH-Wf1">
+                        <rect key="frame" x="74" y="468" width="152" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="x66-4l-avA">
+                        <rect key="frame" x="0.0" y="506" width="375" height="93.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Uws-Lo-3wY" firstAttribute="leading" secondItem="fhQ-mi-5CF" secondAttribute="leading" constant="321" id="0qr-DO-Mll"/>
                     <constraint firstItem="Pgf-DT-Ytb" firstAttribute="leading" secondItem="0xU-nb-nLJ" secondAttribute="trailing" constant="100.5" id="4Mv-7E-NKP"/>
+                    <constraint firstAttribute="trailing" secondItem="x66-4l-avA" secondAttribute="trailing" id="GuT-0c-9VM"/>
                     <constraint firstItem="kX3-6Z-ZAR" firstAttribute="leading" secondItem="fhQ-mi-5CF" secondAttribute="leadingMargin" constant="-2" id="JgE-Kb-Xwy"/>
                     <constraint firstItem="Uws-Lo-3wY" firstAttribute="top" secondItem="Mqx-tD-kq5" secondAttribute="bottom" constant="-1" id="KtY-S6-tgT"/>
                     <constraint firstItem="Pgf-DT-Ytb" firstAttribute="centerY" secondItem="0xU-nb-nLJ" secondAttribute="centerY" constant="10.25" id="Ku7-kl-HbH"/>
-                    <constraint firstAttribute="trailing" secondItem="Zdw-65-ire" secondAttribute="trailing" constant="3" id="LTX-LB-mdR"/>
                     <constraint firstItem="pjA-kH-Wf1" firstAttribute="top" secondItem="Mqx-tD-kq5" secondAttribute="bottom" constant="16" id="N5h-IU-Ldz"/>
                     <constraint firstItem="Mqx-tD-kq5" firstAttribute="top" secondItem="fhQ-mi-5CF" secondAttribute="top" constant="52" id="QHE-j6-Aeo"/>
                     <constraint firstItem="Pgf-DT-Ytb" firstAttribute="trailing" secondItem="fhQ-mi-5CF" secondAttribute="trailingMargin" constant="8" id="QXI-eA-D8z"/>
                     <constraint firstItem="Mqx-tD-kq5" firstAttribute="leading" secondItem="fhQ-mi-5CF" secondAttribute="leading" id="VN0-3T-BhB"/>
                     <constraint firstItem="Mqx-tD-kq5" firstAttribute="top" secondItem="fhQ-mi-5CF" secondAttribute="top" constant="52" id="XOH-yt-KWv"/>
+                    <constraint firstItem="x66-4l-avA" firstAttribute="top" secondItem="kX3-6Z-ZAR" secondAttribute="bottom" constant="15" id="Yms-6t-8T6"/>
                     <constraint firstItem="kX3-6Z-ZAR" firstAttribute="top" secondItem="Mqx-tD-kq5" secondAttribute="bottom" constant="13" id="aDr-aV-9WX"/>
                     <constraint firstAttribute="trailing" secondItem="Mqx-tD-kq5" secondAttribute="trailing" id="c32-eW-FdF"/>
                     <constraint firstItem="kX3-6Z-ZAR" firstAttribute="top" secondItem="Mqx-tD-kq5" secondAttribute="bottom" constant="13" id="c66-Fx-gAa"/>
-                    <constraint firstAttribute="bottom" secondItem="Zdw-65-ire" secondAttribute="bottom" constant="-77" id="cuN-6l-AUQ"/>
                     <constraint firstItem="pjA-kH-Wf1" firstAttribute="centerY" secondItem="kX3-6Z-ZAR" secondAttribute="centerY" id="dX8-qP-lKc"/>
-                    <constraint firstItem="Zdw-65-ire" firstAttribute="leading" secondItem="fhQ-mi-5CF" secondAttribute="leading" constant="2" id="e2H-gV-8lh"/>
-                    <constraint firstItem="Zdw-65-ire" firstAttribute="top" secondItem="kX3-6Z-ZAR" secondAttribute="bottom" constant="15" id="oSC-zQ-fSP"/>
+                    <constraint firstAttribute="bottom" secondItem="x66-4l-avA" secondAttribute="bottom" id="jWW-Pv-acO"/>
+                    <constraint firstItem="x66-4l-avA" firstAttribute="leading" secondItem="fhQ-mi-5CF" secondAttribute="leading" id="lmC-0Q-FEU"/>
                     <constraint firstItem="Mqx-tD-kq5" firstAttribute="top" secondItem="0xU-nb-nLJ" secondAttribute="bottom" constant="5.5" id="q4U-DV-od2"/>
                     <constraint firstItem="pjA-kH-Wf1" firstAttribute="leading" secondItem="kX3-6Z-ZAR" secondAttribute="trailing" constant="34" id="qTE-rq-G2W"/>
                     <constraint firstItem="Mqx-tD-kq5" firstAttribute="leading" secondItem="fhQ-mi-5CF" secondAttribute="leading" id="rZf-2v-C2G"/>
@@ -109,14 +108,14 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="commentButton" destination="kX3-6Z-ZAR" id="2bh-LY-ZQ6"/>
+                <outlet property="contentTextView" destination="x66-4l-avA" id="QJG-y9-OP7"/>
                 <outlet property="likeButton" destination="Uws-Lo-3wY" id="r8p-Wj-5xz"/>
                 <outlet property="postImage" destination="Mqx-tD-kq5" id="Gou-LJ-MdN"/>
                 <outlet property="postedToAccountLabel" destination="pjA-kH-Wf1" id="onp-Th-l9o"/>
-                <outlet property="subscriptionLabel" destination="Zdw-65-ire" id="Men-Zo-2T1"/>
                 <outlet property="timeLabel" destination="Pgf-DT-Ytb" id="xvU-4g-Kkq"/>
                 <outlet property="topLabel" destination="0xU-nb-nLJ" id="oVd-4s-nMF"/>
             </connections>
-            <point key="canvasLocation" x="468" y="-147"/>
+            <point key="canvasLocation" x="468" y="-147.52623688155924"/>
         </tableViewCell>
     </objects>
     <resources>

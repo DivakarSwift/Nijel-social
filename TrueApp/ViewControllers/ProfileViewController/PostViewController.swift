@@ -120,22 +120,12 @@ class PostViewController: UIViewController, YourCellDelegate {
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//            var contentInsets: UIEdgeInsets
-//            if UIDevice.current.orientation == .portrait {
-//                contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: (keyboardSize.height + 30), right: 0.0);
-//            } else {
-//                contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: (keyboardSize.width), right: 0.0);
-//            }
-//            self.tableView.contentInset = contentInsets
-//            self.tableView.scrollIndicatorInsets = contentInsets
             viewBottomConstraint.constant = keyboardSize.height - 70
             view.layoutIfNeeded()
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-//        self.tableView.contentInset = UIEdgeInsets.zero
-//        self.tableView.scrollIndicatorInsets = UIEdgeInsets.zero
         viewBottomConstraint.constant = 0
     }
     
@@ -160,7 +150,7 @@ extension PostViewController: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentHeadCell") as? CommentHeadCell {
                 cell.cellDelegate = self
                 cell.selectionStyle = .none
-                cell.subscriptionLabel.text = post?.text
+                cell.contentTextView.text = post?.text
                 cell.postImage.image = postImage
                 return cell
             }
@@ -176,6 +166,16 @@ extension PostViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return ((tableView.cellForRow(at: indexPath) as? CommentHeadCell)?.contentTextView.contentSize.height ?? 93) + 507
+        }
+    
+        return  UITableView.automaticDimension
+
+    
     }
 }
 
