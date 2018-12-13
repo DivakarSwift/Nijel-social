@@ -150,8 +150,11 @@ extension PostViewController: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentHeadCell") as? CommentHeadCell {
                 cell.cellDelegate = self
                 cell.selectionStyle = .none
+                cell.topLabel.text = post?.whoPosted
+                cell.timeLabel.text = getTime(from: post?.date ?? 0)
                 cell.contentTextView.text = post?.text
                 cell.postImage.image = postImage
+                
                 return cell
             }
             print("kek")
@@ -176,6 +179,31 @@ extension PostViewController: UITableViewDataSource {
         return  UITableView.automaticDimension
 
     
+    }
+    
+    private func getTime(from timeInterval: Double) -> String {
+        let time = Int(timeInterval)
+        let minutes = (time / 60) % 60
+        let hours = (time / 3600)%24 //makes 12:30 am == 0:30 am
+        var str = ""
+        if hours > 12 {
+            if minutes < 10 {
+                str = "\(hours - 12):0\(minutes) pm"
+            } else {
+                str = "\(hours - 12):\(minutes) pm"
+            }
+        } else {
+            if minutes < 10 {
+                str = "\(hours):0\(minutes) am"
+            } else {
+                str = "\(hours):\(minutes) am"
+            }
+        }
+        
+        if hours == 0{
+            str = "12: 0\(minutes) pm"
+        }
+        return str
     }
 }
 
