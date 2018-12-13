@@ -11,13 +11,14 @@ import SDWebImage
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import ProgressHUD
 
 class TrueFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     var REF_FOLLOWING = Database.database().reference().child("users").child((Auth.auth().currentUser?.uid)!).child("following")
-    
+    lazy var userApi = UserApi()
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     //let refreshControl = UIRefreshControl()
     
@@ -105,7 +106,7 @@ class TrueFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomePageBigPostCollectionViewCell", for: indexPath) as!
         HomePageBigPostCollectionViewCell
-        
+        cell.delegate = self
         cell.topLabel.text = (posts[indexPath.row].whoPosted! )
             //+ " | " + time(from: posts[indexPath.row].date!)) //make the | centered
         cell.timeLabel.text = time(from: posts[indexPath.row].date!)
@@ -167,3 +168,20 @@ class TrueFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
 }
 
+extension TrueFeedViewController: HomePageBigPostCollectionViewCellDelegate {
+    func goToCommentVC(postId: String) {
+        
+    }
+    
+    func goToProfileUserVC(userId: String) {
+        ProgressHUD.show()
+        userApi.observeUser(withId: userId) { [weak self] user in
+            ProgressHUD.dismiss()
+            guard let `self` = self else { return }
+            let vc = UserPostsViewController.instantiate(user: user, type: .notMyPosts)
+            vc.user = user
+            vc.type = .notMyPosts
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}

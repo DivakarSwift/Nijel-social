@@ -18,7 +18,7 @@ class CommentHeadCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var postedToAccountLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
-    
+    var userID: String!
     
     func viewDidLayoutSubviews() {
         super.layoutSubviews()
@@ -46,6 +46,11 @@ class CommentHeadCell: UITableViewCell {
         //        navigationController?.pushViewController(commentVC, animated: true)
         //send to comment view
     }
+    
+    @IBAction func didPressTopLabelButton(_ sender: Any) {
+        cellDelegate?.didPresetTopLabel(with: userID)
+    }
+    
     //    func updateView(){
     //        self.subscriptionLabel.sizeToFit()
     //    }

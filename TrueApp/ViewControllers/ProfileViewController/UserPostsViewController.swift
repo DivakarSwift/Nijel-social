@@ -72,7 +72,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
                                                                                (.personalLife, "Personal Life"), (.hobbies, "Hobbies")]
     var expandedCellIndexes: [Int] = []
     lazy var datePicker = DatePickerView.fromNib(name: "DatePickerView") as! DatePickerView
-    
+    lazy var userApi = UserApi()
     let date = Date().timeIntervalSince1970 - 24*60*60.0
     
     class func instantiate(user: User,type: UserPostsViewControllerType) -> UserPostsViewController {
@@ -520,6 +520,7 @@ extension UserPostsViewController: UICollectionViewDataSource {
                 cell.timeLabel.text = time(from: posts[indexPath.row].date!)
                 cell.postImageView.image = last24hoursPosts[indexPath.row].image
                 cell.storyLabel.text = last24hoursPosts[indexPath.row].text
+                cell.delegate = self
                 if type == .myPosts {
                     let database = Database.database().reference().child("users")
                     let post = last24hoursPosts[indexPath.row]
@@ -724,3 +725,21 @@ extension UserPostsViewController: ExpandableTextCellDelegate {
     }
 }
 
+extension UserPostsViewController: HomePageBigPostCollectionViewCellDelegate {
+    
+    func goToCommentVC(postId: String) {
+        
+    }
+    
+    func goToProfileUserVC(userId: String) {
+        ProgressHUD.show()
+        userApi.observeUser(withId: userId) { [weak self] user in
+            ProgressHUD.dismiss()
+            guard let `self` = self else { return }
+            let vc = UserPostsViewController.instantiate(user: user, type: .notMyPosts)
+            vc.user = user
+            vc.type = .notMyPosts
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}

@@ -14,7 +14,7 @@ import FirebaseAuth
 import ProgressHUD
 
 class PostViewController: UIViewController, YourCellDelegate {
-    
+
     func didPressButton() {
         _ = Database.database().reference().child("posts").childByAutoId()
         print("savedButton pressed")
@@ -53,6 +53,7 @@ class PostViewController: UIViewController, YourCellDelegate {
     var post: Post?
     var commentatorImage: UIImage?
     var postImage: UIImage?
+    lazy var userApi = UserApi()
     
     class func instantiate(post: Post, commentatorImage: UIImage, postImage: UIImage) -> PostViewController {
         let vc = StoryboardControllerProvider<PostViewController>.controller(storyboardName: "PostViewController")!
@@ -129,6 +130,17 @@ class PostViewController: UIViewController, YourCellDelegate {
         viewBottomConstraint.constant = 0
     }
     
+    func didPresetTopLabel(with user: String) {
+        ProgressHUD.show()
+        userApi.observeUser(withId: user) { [weak self] user in
+            ProgressHUD.dismiss()
+            guard let `self` = self else { return }
+            let vc = UserPostsViewController.instantiate(user: user, type: .notMyPosts)
+            vc.user = user
+            vc.type = .notMyPosts
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 extension PostViewController: UITextViewDelegate {
@@ -147,14 +159,14 @@ extension PostViewController: UITextViewDelegate {
 extension PostViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentHeadCell") as? CommentHeadCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentHeadCell") as? CommentHeadCell, let post = post {
                 cell.cellDelegate = self
                 cell.selectionStyle = .none
-                cell.topLabel.text = post?.whoPosted
-                cell.timeLabel.text = getTime(from: post?.date ?? 0)
-                cell.contentTextView.text = post?.text
+                cell.topLabel.text = post.whoPosted
+                cell.timeLabel.text = getTime(from: post.date ?? 0)
+                cell.contentTextView.text = post.text
                 cell.postImage.image = postImage
-                
+                cell.userID = post.postFromUserId
                 return cell
             }
             print("kek")

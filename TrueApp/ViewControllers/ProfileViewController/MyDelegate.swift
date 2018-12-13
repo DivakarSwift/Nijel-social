@@ -10,4 +10,5 @@ import Foundation
 
 protocol YourCellDelegate : class {
     func didPressButton()
+    func didPresetTopLabel(with user: String)
 }
