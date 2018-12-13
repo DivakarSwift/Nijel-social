@@ -23,6 +23,9 @@ class TrueFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     var posts = [Post]()
     var users = [User]()
+    let followersEnd = "followers_end"
+    
+    lazy var refreshControl =  UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,42 +33,51 @@ class TrueFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.delegate = self
         
         collectionView.register(UINib(nibName: "HomePageBigPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomePageBigPostCollectionViewCell")
-        posts.removeAll()
-        collectionView.reloadData()
-        //        refreshControl.addTarget(self, action:#selector(refresh),for: .valueChanged)
-        //        tableView.addSubview(refreshControl)
+
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        collectionView.refreshControl = refreshControl
+        refreshControl.beginRefreshing()
+        refresh()
+    }
+    
+
+    @objc func refresh() {
+        self.posts.removeAll()
         getFollowers { (completion) in
-            self.loadFeed(id: completion) { (Post) in
-                print(self.posts.count)
+            self.loadFeed(id: completion) { post in
+                guard let post = post else {
+                    self.collectionView.reloadData()
+                    self.refreshControl.endRefreshing()
+                    return
+                }
+            }
+            if completion == self.followersEnd {
                 self.collectionView.reloadData()
+                self.refreshControl.endRefreshing()
             }
         }
-        
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    
-    //    @objc func refresh() {
-    //        self.posts.removeAll()
-    //        self.users.removeAll()
-    //        loadFeed(id: String, completion: (Post) -> Void)
-    //    }
     
     func getFollowers(completed: @escaping (String) -> Void) {
         
         REF_FOLLOWING.child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: {
             snapshot in
+            var isOnceLoaded = false
             for child in snapshot.children {
                 let snap = child as? DataSnapshot
                 let snapKey = snap!.key as String
+                isOnceLoaded = true
                 completed(snapKey)
+            }
+            if !isOnceLoaded {
+                completed("followers_end")
             }
         })
     }
     
-    func loadFeed(id: String, completion: @escaping (Post) -> Void) {
+    func loadFeed(id: String, completion: @escaping (Post?) -> Void) {
         _ = Database.database().reference().child("users").child(id).child("myPosts").observe(.value, with: { snapshot in
             //self.posts.removeAll()
             for child in snapshot.children {
@@ -85,6 +97,7 @@ class TrueFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
                 } //for some reason doesnt get posts to profiles (no users)
                 completion(post)
             }
+            completion(nil)
             //need to correct this
         })
     }

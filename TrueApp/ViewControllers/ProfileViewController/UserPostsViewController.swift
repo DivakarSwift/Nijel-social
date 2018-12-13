@@ -43,9 +43,9 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UserPostsCollectionViewCell!
     @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var createPostButton: UIButton!
     weak var segmentControll: UISegmentedControl?
+    lazy var refreshControl = UIRefreshControl()
     
     var activationCode = "not_active"
     var user : User! {
@@ -74,7 +74,6 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     lazy var datePicker = DatePickerView.fromNib(name: "DatePickerView") as! DatePickerView
     
     let date = Date().timeIntervalSince1970 - 24*60*60.0
-    
     
     class func instantiate(user: User,type: UserPostsViewControllerType) -> UserPostsViewController {
         let vc = StoryboardControllerProvider<UserPostsViewController>.controller(storyboardName: "Home")!
@@ -172,13 +171,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
 
     
     @IBAction func infoButtonTouched(_ sender: Any) {
-//        if (Auth.auth().currentUser?.uid) != nil {
-//            let db = Database.database().reference().child("users").child((Auth.auth().currentUser?.uid)!).child("blocked_users")
-//            db.child(user.id!).observeSingleEvent(of: .value, with: {
-//                snapshot in
-//                print("snapshot.exists()")
-//                if snapshot.exists(){
-        // if user is already blocked,
+
         let alert = UIAlertController(title: nil, message: "Choose option", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Block user", style: .destructive, handler: {_ in
             ProgressHUD.show()
@@ -245,7 +238,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         if isSettingsVCOpened {
-            refreshData()
+            loadData()
         }
     }
     
@@ -256,24 +249,24 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshData()
-    }
-    
-    func refreshData() {
-        let refreshControl = UIRefreshControl()
         loadData()
-        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
-        print("should refresh")
-    }
-    
-    @objc func didPullToRefresh() {
-        
-    }
-    
-    
-    func loadData(){
+        collectionView.register(UINib(nibName: "HeaderProfileCollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderProfileCollectionReusableView")
+        collectionView.register(UINib(nibName: "ExpandableTextCell", bundle: nil), forCellWithReuseIdentifier: "ExpandableTextCell")
+        collectionView.register(UINib(nibName: "HomePageSmallPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomePageSmallPostCollectionViewCell")
+        collectionView.register(UINib(nibName: "HomePageBigPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomePageBigPostCollectionViewCell")
+        collectionView.register(UINib(nibName: "CreateByographyPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CreateByographyPostCollectionViewCell")
+        collectionView.register(UINib(nibName: "TextCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TextCollectionViewCell")
+        collectionView.reloadData()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
+        collectionView.refreshControl = refreshControl
         collectionView.dataSource = self
         collectionView.delegate = self
+
+    }
+    
+    @objc func loadData() {
+
         UserDefaults.standard.set(false, forKey: "isEditStory")
         
         ProgressHUD.show()
@@ -289,15 +282,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
             let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
             navigationItem.setLeftBarButton(backButton, animated: true)
         }
-        
-        collectionView.register(UINib(nibName: "HeaderProfileCollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderProfileCollectionReusableView")
-        collectionView.register(UINib(nibName: "ExpandableTextCell", bundle: nil), forCellWithReuseIdentifier: "ExpandableTextCell")
-        collectionView.register(UINib(nibName: "HomePageSmallPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomePageSmallPostCollectionViewCell")
-        collectionView.register(UINib(nibName: "HomePageBigPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomePageBigPostCollectionViewCell")
-        collectionView.register(UINib(nibName: "CreateByographyPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CreateByographyPostCollectionViewCell")
-        collectionView.register(UINib(nibName: "TextCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TextCollectionViewCell")
-        collectionView.reloadData()
-        
+        refreshControl.endRefreshing()        
     }
     
     @objc func keyboardWillShow(sender: NSNotification) {
