@@ -1,4 +1,5 @@
 PODS:
+  - EasyTipView (2.0.1)
   - Firebase/Auth (5.9.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.4)
@@ -78,8 +79,10 @@ PODS:
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
+  - "UITextView+Placeholder (1.2.1)"
 
 DEPENDENCIES:
+  - EasyTipView (~> 2.0.0)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -88,9 +91,11 @@ DEPENDENCIES:
   - ProgressHUD
   - Reveal-SDK (~> 20)
   - SDWebImage
+  - "UITextView+Placeholder"
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - EasyTipView
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -108,8 +113,10 @@ SPEC REPOS:
     - ProgressHUD
     - Reveal-SDK
     - SDWebImage
+    - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
+  EasyTipView: 1515544456d6e943240012e9be5d25d1bb766603
   Firebase: 383fa29aca93e371cab776b48a5c66544d3c2003
   FirebaseAnalytics: 831f1f127f4a75698e9875a87bf7e2668730d953
   FirebaseAuth: 504b198ceb3472dca5c65bb95544ea44cfc9439e
@@ -127,7 +134,8 @@ SPEC CHECKSUMS:
   ProgressHUD: 4e4efbaf4f5de8bd32e0c4c3b6644a90ea1a8c3e
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
-PODFILE CHECKSUM: b4060e630b908f4ec64a24e6c56d4ac62ea4346f
+PODFILE CHECKSUM: 517b569d405585621d0711f4ebe90a501f566556
 
 COCOAPODS: 1.5.3

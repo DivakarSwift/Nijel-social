@@ -14,7 +14,9 @@ target 'TrueApp' do
   pod 'SDWebImage'
   pod 'KILabel'
   pod 'Reveal-SDK', '~> 20'
-  
+  pod 'EasyTipView', '~> 2.0.0'
+  pod 'UITextView+Placeholder'
+
   target 'TrueAppTests' do
     inherit! :search_paths
     # Pods for testing

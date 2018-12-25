@@ -54,15 +54,14 @@ class PeopleTableViewCell: UITableViewCell {
             nameLabel.text = user?.fullName
         }
         //print(login)
-        lifeStoryLabel.text = user?.bio// "    " + (user?.bio)! to add indent
+        lifeStoryLabel.attributedText = user?.bio?.unarchiveWithUserIds()// "    " + (user?.bio)! to add indent
+        lifeStoryLabel.isUserInteractionEnabled = false
         if lifeStoryLabel.text == "Introduction"{
             lifeStoryLabel.isHidden = true
         }else{
             lifeStoryLabel.isHidden = false
         }
-        if user?.bio != nil{
-            lifeStoryLabel.text = "    " + (user?.bio)!
-        }
+
         activityIndicator.style = .gray
         activityIndicator.hidesWhenStopped = true
         profileImage.layer.cornerRadius = 8

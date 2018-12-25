@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UINavigationBar.appearance().barTintColor = UIColor(red: 255/255, green: 252/255, blue: 214/255, alpha: 1)
         UINavigationBar.appearance().tintColor = UIColor.black
         UITabBar.appearance().tintColor = .black
+        UITextView.appearance().tintColor = .black
         let notificationTypes : UIUserNotificationType = [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound]
         let notificationSettings = UIUserNotificationSettings(types: notificationTypes, categories: nil)
         application.registerForRemoteNotifications()

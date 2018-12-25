@@ -262,7 +262,6 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
         collectionView.refreshControl = refreshControl
         collectionView.dataSource = self
         collectionView.delegate = self
-
     }
     
     @objc func loadData() {
@@ -282,7 +281,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
             let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
             navigationItem.setLeftBarButton(backButton, animated: true)
         }
-        refreshControl.endRefreshing()        
+        refreshControl.endRefreshing()
     }
     
     @objc func keyboardWillShow(sender: NSNotification) {
@@ -496,9 +495,15 @@ extension UserPostsViewController: UICollectionViewDataSource {
             cell.cellType = expandableTitles[indexPath.row].0
             cell.isExpanded = !expandedCellIndexes.contains(indexPath.row)
             cell.delegate = self
-            cell.textEdit.text = getAdditionalInfo(by: cell.cellType)
+            cell.setupWithModel()
+            if let attributedString = getAdditionalInfo(by: cell.cellType)?.unarchiveWithUserIds() {
+                cell.textEdit.attributedText = attributedString
+            }
             cell.textEdit.delegate = cell
-            
+            if cell.textEdit.attributedText.string.count > 0 && getAdditionalInfo(by: cell.cellType)?.unarchiveWithUserIds().string.count ?? 0 > 0 {
+                print("☝️ --- text edit attributes \(cell.textEdit.attributedText?.attributes(at: 0, effectiveRange: nil))")
+                print("☝️ --- original attributes \(getAdditionalInfo(by: cell.cellType)?.unarchiveWithUserIds().attributes(at: 0, effectiveRange: nil))")
+            }
             return cell
         }
         
