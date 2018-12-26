@@ -167,6 +167,8 @@ extension PostViewController: UITableViewDataSource {
                 cell.contentTextView.text = post.text
                 cell.postImage.image = postImage
                 cell.userID = post.postFromUserId
+                cell.postID = post.id
+                cell.delegate = self
                 return cell
             }
             print("kek")
@@ -216,6 +218,15 @@ extension PostViewController: UITableViewDataSource {
             str = "12: 0\(minutes) pm"
         }
         return str
+    }
+}
+
+extension PostViewController: CommentHeadeCellDelegate {
+    func commentButtonTouched(with postID: String) {
+        let storyboard = UIStoryboard(name: "Feed", bundle: nil)
+        let commentVC = storyboard.instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
+        commentVC.postId = postID
+        navigationController?.pushViewController(commentVC, animated: true)
     }
 }
 

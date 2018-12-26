@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+protocol CommentHeadeCellDelegate: class {
+    func commentButtonTouched(with postID: String)
+}
 
 class CommentHeadCell: UITableViewCell {
     @IBOutlet weak var postImage: UIImageView!
@@ -18,6 +21,8 @@ class CommentHeadCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var postedToAccountLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
+    weak var delegate: CommentHeadeCellDelegate?
+    var postID: String!
     var userID: String!
     
     func viewDidLayoutSubviews() {
@@ -41,9 +46,10 @@ class CommentHeadCell: UITableViewCell {
     }
     @IBAction func commentButton_TouchUp_Inside(_ sender: Any) {
         print("commentButton pressed")
-                let storyboard = UIStoryboard(name: "Feed", bundle: nil)
-                let commentVC = storyboard.instantiateViewController(withIdentifier: "CommentViewController")
-        //        navigationController?.pushViewController(commentVC, animated: true)
+        delegate?.commentButtonTouched(with: postID)
+//        let storyboard = UIStoryboard(name: "Feed", bundle: nil)
+//        let commentVC = storyboard.instantiateViewController(withIdentifier: "CommentViewController")
+//        navigationController?.pushViewController(commentVC, animated: true)
         //send to comment view
     }
     

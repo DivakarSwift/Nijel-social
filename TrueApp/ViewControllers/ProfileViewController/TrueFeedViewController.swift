@@ -170,7 +170,10 @@ class TrueFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
 
 extension TrueFeedViewController: HomePageBigPostCollectionViewCellDelegate {
     func goToCommentVC(postId: String) {
-        
+        let storyboard = UIStoryboard(name: "Feed", bundle: nil)
+        let commentVC = storyboard.instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
+        commentVC.postId = postId
+        navigationController?.pushViewController(commentVC, animated: true)
     }
     
     func goToProfileUserVC(userId: String) {
