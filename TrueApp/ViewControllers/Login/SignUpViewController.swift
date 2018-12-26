@@ -290,6 +290,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             //if errors, show
         }
         ProgressHUD.show()
+        
         Auth.auth().createUser(withEmail: EmailTextField.text!,password: passwordTextField.text!) { (user: AuthDataResult?, error: Error?) in
             if error != nil {
                 let alertController = UIAlertController(title: "Warning", message: error!.localizedDescription, preferredStyle: UIAlertController.Style.alert)
@@ -334,8 +335,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         newUserReference.setValue(["fullName": self.FullNameTextField.text!, "phoneNumber": self.PhoneNumberTextField.text!, "username": self.usernameTextField.text!, "email": self.EmailTextField.text!, "profileImageUrl": metadata!.path!])
                     }
 
-                    ProgressHUD.dismiss()
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+                    ProgressHUD.dismiss()                
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "VerifyPhoneViewController")
                     self.present(vc!, animated: true, completion: nil)
                     print("description: \(newUserReference.description())")
                 })
@@ -353,7 +354,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     })
                 }
                 ProgressHUD.dismiss()
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "VerifyPhoneViewController")
                 self.present(vc!, animated: true, completion: nil)
                 print("description: \(newUserReference.description())")
             }

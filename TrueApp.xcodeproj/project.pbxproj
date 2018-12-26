@@ -43,6 +43,7 @@
 		5CC0188D21934A95001AB719 /* FooterProfileCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC0188C21934A95001AB719 /* FooterProfileCollectionReusableView.swift */; };
 		5CE84323216FF8820095B41E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE84322216FF8820095B41E /* String.swift */; };
 		6996932A21A7540E00259734 /* HeaderProfileCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6996932921A7540E00259734 /* HeaderProfileCollectionReusableView.xib */; };
+		69ADCDB421D3939C00F6AF43 /* VerifyPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ADCDB321D3939C00F6AF43 /* VerifyPhoneViewController.swift */; };
 		69C8DF0421A7289A002597C0 /* ExpandableTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C8DF0221A7289A002597C0 /* ExpandableTextCell.swift */; };
 		69C8DF0521A7289A002597C0 /* ExpandableTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69C8DF0321A7289A002597C0 /* ExpandableTextCell.xib */; };
 		69F19B3921A5FFD100F6B7EC /* DatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F19B3821A5FFD100F6B7EC /* DatePickerView.xib */; };
@@ -184,6 +185,7 @@
 		5CC0188C21934A95001AB719 /* FooterProfileCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterProfileCollectionReusableView.swift; sourceTree = "<group>"; };
 		5CE84322216FF8820095B41E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		6996932921A7540E00259734 /* HeaderProfileCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderProfileCollectionReusableView.xib; sourceTree = "<group>"; };
+		69ADCDB321D3939C00F6AF43 /* VerifyPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneViewController.swift; sourceTree = "<group>"; };
 		69C8DF0221A7289A002597C0 /* ExpandableTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTextCell.swift; sourceTree = "<group>"; };
 		69C8DF0321A7289A002597C0 /* ExpandableTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpandableTextCell.xib; sourceTree = "<group>"; };
 		69F19B3821A5FFD100F6B7EC /* DatePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerView.xib; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				EAAED5212138F0FB00968C5B /* SignUpViewController.swift */,
 				EAAED5312138F31500968C5B /* LaunchScreenViewController.swift */,
 				EAAED52D2138F29200968C5B /* ForgotPWViewController.swift */,
+				69ADCDB321D3939C00F6AF43 /* VerifyPhoneViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -949,6 +952,7 @@
 				EAC61E80213B47EE00342FA3 /* ReadyToPostViewController.swift in Sources */,
 				EA9B1436213A11A20054A3E2 /* Config.swift in Sources */,
 				EA4AEAA1213EC6A4009219D9 /* Comment.swift in Sources */,
+				69ADCDB421D3939C00F6AF43 /* VerifyPhoneViewController.swift in Sources */,
 				119B3D422163E23F00AE7C61 /* HomePageSmallPostCollectionViewCell.swift in Sources */,
 				EAA076D121BAADF100ED758C /* TermsAndConditionsViewController.swift in Sources */,
 				EAAED4F42138F03B00968C5B /* AppDelegate.swift in Sources */,

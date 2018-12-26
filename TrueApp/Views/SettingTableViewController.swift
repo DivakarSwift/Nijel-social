@@ -29,6 +29,7 @@ class SettingTableViewController: UITableViewController {
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var isExclusiveSwitch: UISwitch!
+    @IBOutlet weak var attachButton: UIButton!
     
     struct Constants {
         enum Rows: Int {
@@ -50,8 +51,11 @@ class SettingTableViewController: UITableViewController {
         emailTextField.delegate = self
         fullNameTextField.delegate = self
         phoneNumberTextField.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         fetchCurrentUser()
-        
     }
     
     func fetchCurrentUser(){
@@ -64,6 +68,7 @@ class SettingTableViewController: UITableViewController {
             self.emailTextField.text = user.email
             self.phoneNumberTextField.text = user.phoneNumber
             self.isExclusiveSwitch.isOn = user.isExclusive ?? false
+            self.attachButton.isHidden = user.phoneNumber == Auth.auth().currentUser?.phoneNumber
             let storage = Storage.storage()
             let spaceRef = storage.reference(forURL: "\(Config.STORAGE_ROOT_REF)\(user.profileImageUrl!)")
             spaceRef.getData(maxSize: Int64.max) { [weak self] data, error in
@@ -202,6 +207,12 @@ class SettingTableViewController: UITableViewController {
                 return
             }
         })
+    }
+    
+    @IBAction func attachButtonTouched(_ sender: Any) {
+        let vc = VerifyPhoneViewController.instantiate()
+        vc.nextViewController = .settings
+        present(vc, animated: true)
     }
     
 

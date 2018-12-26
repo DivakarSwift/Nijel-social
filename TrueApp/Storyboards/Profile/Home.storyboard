@@ -547,17 +547,26 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Current" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40V-ar-wyJ">
-                                                    <rect key="frame" x="122" y="13.333333333333336" width="238" height="17"/>
+                                                    <rect key="frame" x="137" y="13.333333333333336" width="223" height="17"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWh-xi-i4s">
+                                                    <rect key="frame" x="82" y="7" width="45" height="30"/>
+                                                    <state key="normal" title="Attach"/>
+                                                    <connections>
+                                                        <action selector="attachButtonTouched:" destination="avf-lz-Wyp" eventType="touchUpInside" id="C97-yJ-gM4"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="wqT-Pm-ibn" firstAttribute="leading" secondItem="nRD-5g-Geb" secondAttribute="leading" constant="15" id="DMb-h2-OYM"/>
-                                                <constraint firstItem="40V-ar-wyJ" firstAttribute="leading" secondItem="wqT-Pm-ibn" secondAttribute="trailing" constant="50" id="UPM-fJ-Lx3"/>
+                                                <constraint firstItem="fWh-xi-i4s" firstAttribute="centerY" secondItem="nRD-5g-Geb" secondAttribute="centerY" id="KxV-wC-3Bf"/>
                                                 <constraint firstItem="wqT-Pm-ibn" firstAttribute="centerY" secondItem="nRD-5g-Geb" secondAttribute="centerY" id="YWh-5x-Yhs"/>
+                                                <constraint firstItem="40V-ar-wyJ" firstAttribute="leading" secondItem="fWh-xi-i4s" secondAttribute="trailing" constant="10" id="aFv-qa-R8s"/>
                                                 <constraint firstItem="40V-ar-wyJ" firstAttribute="centerY" secondItem="nRD-5g-Geb" secondAttribute="centerY" id="mBw-H4-vkT"/>
+                                                <constraint firstItem="fWh-xi-i4s" firstAttribute="leading" secondItem="wqT-Pm-ibn" secondAttribute="trailing" constant="10" id="rOA-el-Tz1"/>
                                                 <constraint firstAttribute="trailing" secondItem="40V-ar-wyJ" secondAttribute="trailing" constant="15" id="w6v-XS-Tg6"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -844,6 +853,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="attachButton" destination="fWh-xi-i4s" id="z5W-bF-YWH"/>
                         <outlet property="emailTextField" destination="HZf-a3-N95" id="k77-6S-6XZ"/>
                         <outlet property="fullNameTextField" destination="hk6-tg-gIT" id="Stg-VF-pQq"/>
                         <outlet property="isExclusiveSwitch" destination="cly-sU-YNQ" id="vCl-3v-MbE"/>

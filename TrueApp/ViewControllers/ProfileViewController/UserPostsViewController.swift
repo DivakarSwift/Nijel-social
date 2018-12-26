@@ -51,7 +51,7 @@ class UserPostsViewController: UIViewController, MFMailComposeViewControllerDele
     var user : User! {
         didSet {
             if user.id == Auth.auth().currentUser?.uid {
-                infoButton.isEnabled = false
+                infoButton.isEnabled = false                
             }
         }
     }
